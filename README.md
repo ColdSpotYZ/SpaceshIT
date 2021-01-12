@@ -3,5 +3,6 @@
 ## Concept
 
 ## Checklist
-[ ] Setting up environment
-[ ] Selecting an idea
+[ ] Setting up environment  
+[ ] Selecting an idea  
+[ ]  
