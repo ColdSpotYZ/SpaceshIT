@@ -1,2 +1,7 @@
 # DSA_Assignment
-Code base for DSA Assignment.
+---
+## Concept
+
+## Checklist
+[ ] Setting up environment
+[ ] Selecting an idea
