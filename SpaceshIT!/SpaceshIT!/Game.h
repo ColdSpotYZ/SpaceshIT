@@ -61,6 +61,7 @@ private:
 
 	// Flags
 	bool gameStart;
+	bool isFocus = true;
 
 public:
 	// Constructor & Destructor

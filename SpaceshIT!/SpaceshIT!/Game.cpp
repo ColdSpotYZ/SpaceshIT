@@ -115,8 +115,13 @@ void Game::pollEvents()
 			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			break;
+		case sf::Event::EventType::GainedFocus:
+			this->isFocus = true;
+			break;
+		case sf::Event::EventType::LostFocus:
+			this->isFocus = false;
+			break;
 		}
-		
 	}
 }
 
@@ -185,7 +190,7 @@ void Game::update()
 	this->pollEvents();
 	
 	// Update inputs
-	if (this->gameStart)
+	if (this->gameStart && this->isFocus)
 		this->updateInput();
 
 	
