@@ -6,7 +6,7 @@ int main()
 	// Init game object
 	Game game;
 
-	// Initialize music
+	// Initialize music (should be moved into game class)
 	sf::Music music;
 	if (!music.openFromFile("Assets/Audio/theme.wav"))
 		std::cout << "Unable to load music" << std::endl;
@@ -18,7 +18,7 @@ int main()
 	}
 		
 	
-	// Game loop
+	// Game loop (should be moved into game class)
 	while (game.getWindowIsOpen())
 	{
 		//Update
