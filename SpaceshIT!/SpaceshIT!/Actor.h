@@ -13,16 +13,17 @@
 
 class Actor
 {
-private:
+protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 
 	// Functions
-	void initTexture();
-	void initSprite();
+	void initTexture(char*);
+	void initSprite(sf::Vector2f);
 	void initVariables();
 public:
 	Actor();
+	Actor(char*);
 	virtual ~Actor();
 
 	// Accessors
@@ -38,7 +39,7 @@ public:
 	void setTexture(sf::Texture*);
 
 	// Functions
-	void move(const float x, const float y);
+	void move(const float x, const float y, float speed);
 	virtual void update();
 	virtual void render(sf::RenderTarget* target);
 };

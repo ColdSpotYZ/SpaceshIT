@@ -33,6 +33,13 @@ private:
 	Menu* playButton;
 
 	// GUI
+	sf::Text playerWin;
+	sf::RectangleShape player1HpBar;
+	sf::RectangleShape player1HpBarBack;
+	sf::RectangleShape player2HpBar;
+	sf::RectangleShape player2HpBarBack;
+
+
 
 	// World
 	sf::Texture worldBackgroundTexture;
@@ -44,10 +51,10 @@ private:
 	void initMenu();
 	void initFonts();
 	void initWorld();
+	void initGUI();
 
 	// Player
-	Vector<Player>* playerVec;
-	std::vector<Player>* temp;
+	Vector<Player*>* playerVec;
 	Player* player1;
 	Player* player2;
 	void initPlayer();

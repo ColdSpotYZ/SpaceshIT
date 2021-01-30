@@ -1,12 +1,22 @@
 #include "Actor.h"
 
-void Actor::initTexture()
+void Actor::initTexture(char* filename)
 {
+	std::stringstream s;
+	s << "Assets/Textures/" << filename << ".png";
+	if (!this->texture.loadFromFile(s.str()))
+	{
+		std::cout << "ERROR::ACTOR::INITTEXTURE::Could not load texture file." << std::endl;
+	}
 }
 
-void Actor::initSprite()
+void Actor::initSprite(sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
 {
+	// Set texture for sprite object
 	this->sprite.setTexture(this->texture);
+
+	//Resize sprite
+	this->sprite.scale(scale);
 }
 
 void Actor::initVariables()
@@ -15,7 +25,11 @@ void Actor::initVariables()
 
 Actor::Actor()
 {
-	this->initTexture();
+}
+
+Actor::Actor(char* filename)
+{
+	this->initTexture(filename);
 	this->initSprite();
 }
 
@@ -63,8 +77,9 @@ void Actor::setTexture(sf::Texture* texture)
 	this->texture = *texture;
 }
 
-void Actor::move(const float x, const float y)
+void Actor::move(const float x, const float y, float speed)
 {
+	this->sprite.move(speed * x, speed * y);
 }
 
 void Actor::update()

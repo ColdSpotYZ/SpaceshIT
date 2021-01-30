@@ -4,33 +4,30 @@ class Player :
     public Actor
 {
 private:
-    sf::Sprite sprite;
-    sf::Texture texture;
+    int max_health = 100;
     int health;
+    int max_ammo = 20;
     int ammo;
+    float max_speed = 10.f;
     float speed;
 
     // Functions
-    void initTexture(char*);
-    void initSprite();
     void initVariables();
 public:
     Player();
-    Player(char*);
+    Player(char* filename);
     virtual ~Player();
 
     // Accessors
-    const sf::Vector2f& getPos() const;
-    const sf::FloatRect getBounds() const;
+    const int getHp() const;
+    const int getHpMax() const;
+
 
     // Functions
-    void setPos(const sf::Vector2f);
-    void setPos(const float x, const float y);
     void move(const float x, const float y);
     void takeDamage();
     void shoot();
 
     void update(bool wasd);
-    void render(sf::RenderTarget* target);
 };
 
