@@ -2,23 +2,21 @@
 #pragma once
 #include<string>
 #include<iostream>
+#include "Vector.h"
+
 using namespace std;
 
-typedef char ItemType;
+typedef string ItemType;
+
+const int MAX_SIZE = 5;
 
 class Queue
 {
 private:
-	struct Node
-	{
-		ItemType location;	// location
-		ItemType hash;	// location
-		Node* next;	// pointer pointing to next item
-	};
-
-	Node* frontNode;	// point to the first item
-	Node* backNode;	// point to the first item
-
+	ItemType location[MAX_SIZE];
+	string hash[MAX_SIZE];
+	int size;
+	int current;
 
 public:
 	// constructor
@@ -27,7 +25,7 @@ public:
 	~Queue();
 
 	// enqueue (add) item at the back of queue
-	bool enqueue(ItemType item);
+	bool enqueue(string item);
 
 	// dequeue (remove) item from front of queue
 	bool dequeue();

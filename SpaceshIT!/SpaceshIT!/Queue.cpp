@@ -1,9 +1,10 @@
 #include "Queue.h"
 #include <string>
+#include "sha256.h"
 
 using namespace std;
 
-Queue::Queue() { frontNode = NULL; backNode = NULL; }
+Queue::Queue() { size = 0; }
 
 Queue::~Queue()
 {
@@ -15,44 +16,29 @@ Queue::~Queue()
 
 bool Queue::enqueue(ItemType item)
 {
-	Node* temp = new Node;
-	temp->location = item;
-	temp->next = NULL;
-	if (!isEmpty())
+	
+	if (size = 5)
 	{
-		backNode->next = temp;
-		backNode = temp;
+		dequeue();
+	}
+	string hashoflocation = sha256(item);
+	if (isEmpty())
+	{
+		location[0] = item;
+		hash[0] = hashoflocation;
 	}
 	else
 	{
-		frontNode = temp;
-		backNode = temp;
+		location[current] = item;
+		hash[current] = hashoflocation;
 	}
-	temp = NULL;
-	return true;
+	size++;
+
 }
 
 bool Queue::dequeue()
 {
-	bool success = !isEmpty();
-	if (success)
-	{
-		if (frontNode->next == NULL)
-		{
-			delete frontNode;
-			frontNode = NULL;
-			backNode = NULL;
-		}
-		else
-		{
-			Node* temp = new Node;
-			temp = frontNode;
-			frontNode = temp->next;
-			delete temp;
-			temp = NULL;
-		}
-	}
-	return success;
+	
 }
 
 bool Queue::dequeue(ItemType &item)
