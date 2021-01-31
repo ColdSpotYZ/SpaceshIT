@@ -8,13 +8,13 @@ using namespace std;
 
 typedef string ItemType;
 
-const int MAX_SIZE = 5;
+const int MAX_SIZE = 4;
 
 class Queue
 {
 private:
-	ItemType location[MAX_SIZE];
-	string hash[MAX_SIZE];
+	ItemType locations[MAX_SIZE];
+	string hashes[MAX_SIZE];
 	int size;
 	int current;
 
@@ -31,18 +31,16 @@ public:
 	bool dequeue();
 
 	// dequeue (remove) and retrieve item from front of queue
-	bool dequeue(ItemType& item);
+	bool dequeue(ItemType& location, ItemType hash);
 
 	// retrieve (get) item from front of queue
-	void getFront(ItemType& item);
+	void getFront(ItemType& location, ItemType hash);
 
 	// check if the queue is empty
 	bool isEmpty();
 
 	// display items in queue from front to back
-	void displayItems();
-
-	bool getLastElement(Queue& q, ItemType& item);
+	// void displayItems();
 
 	int getNoOfElements();
 };
