@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 typedef int size_type;
 #define interval_rate 20
@@ -17,6 +18,8 @@ private:
 public:
 
 	// Member functions
+
+	Vector();
 
 	/*
 	Description: Initialize a vector
@@ -53,8 +56,8 @@ public:
 
 
 	// Accessors
-	T& operator[] (size_type index);
-	T& at(size_type index);
+	T operator[] (size_type index);
+	T at(size_type index);
 	T front();
 	T back();
 
@@ -107,6 +110,14 @@ inline void Vector<T>::reserve(size_type new_capacity)
 }
 
 template<class T>
+inline Vector<T>::Vector()
+{
+	this->size = 0;
+	this->capacity = interval_rate;
+	this->internal_array = new T[this->capacity];
+}
+
+template<class T>
 inline Vector<T>::Vector(size_type n, T& value)
 {
 	this->size = n;
@@ -124,7 +135,7 @@ inline Vector<T>::Vector(Vector& copier)
 {
 	this->size = copier.size;
 	this->capacity = copier.capacity;
-	this->internal_array = new T[this->size];
+	this->internal_array = new T*[this->size];
 
 	for (size_type i = 0; size_type < copier.size(); i++)
 	{
@@ -189,13 +200,15 @@ inline bool Vector<T>::empty()
 }
 
 template<class T>
-inline T& Vector<T>::operator[](size_type index)
+inline T Vector<T>::operator[](size_type index)
 {
+	if (index > this->size)
+		throw "Index out of bounds";
 	return this->internal_array[index];
 }
 
 template<class T>
-inline T& Vector<T>::at(size_type index)
+inline T Vector<T>::at(size_type index)
 {
 	return this->internal_array[index];
 }

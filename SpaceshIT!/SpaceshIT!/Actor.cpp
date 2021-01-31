@@ -1,0 +1,92 @@
+#include "Actor.h"
+
+void Actor::initTexture(char* filename)
+{
+	std::stringstream s;
+	s << "Assets/Textures/" << filename << ".png";
+	if (!this->texture.loadFromFile(s.str()))
+	{
+		std::cout << "ERROR::ACTOR::INITTEXTURE::Could not load texture file." << std::endl;
+	}
+}
+
+void Actor::initSprite(sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
+{
+	// Set texture for sprite object
+	this->sprite.setTexture(this->texture);
+
+	//Resize sprite
+	this->sprite.scale(scale);
+}
+
+void Actor::initVariables()
+{
+}
+
+Actor::Actor()
+{
+}
+
+Actor::Actor(char* filename)
+{
+	this->initTexture(filename);
+	this->initSprite();
+}
+
+Actor::~Actor()
+{
+}
+
+const sf::Vector2f& Actor::getPos() const
+{
+	return this->sprite.getPosition();
+}
+
+const sf::FloatRect Actor::getBounds() const
+{
+	return this->sprite.getGlobalBounds();
+}
+
+sf::Sprite* Actor::getSprite()
+{
+	return &this->sprite;
+}
+
+sf::Texture* Actor::getTexture()
+{
+	return &this->texture;
+}
+
+void Actor::setPos(const sf::Vector2f pos)
+{
+	this->sprite.setPosition(pos);
+}
+
+void Actor::setPos(const float x, const float y)
+{
+	this->sprite.setPosition(x, y);
+}
+
+void Actor::setSprite(sf::Sprite* sprite)
+{
+	this->sprite = *sprite;
+}
+
+void Actor::setTexture(sf::Texture* texture)
+{
+	this->texture = *texture;
+}
+
+void Actor::move(const float x, const float y, float speed)
+{
+	this->sprite.move(speed * x, speed * y);
+}
+
+void Actor::update()
+{
+}
+
+void Actor::render(sf::RenderTarget* target)
+{
+	target->draw(this->sprite);
+}
