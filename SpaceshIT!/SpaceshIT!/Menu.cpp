@@ -3,7 +3,7 @@
 
 void Menu::initFont()
 {
-	if (!this->font.loadFromFile("Fonts/Dosis-Light.ttf"))
+	if (!this->font.loadFromFile("Fonts/game.ttf"))
 		std::cout << "Failed to load menu font." << std::endl;
 }
 

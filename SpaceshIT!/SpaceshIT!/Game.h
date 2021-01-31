@@ -8,6 +8,7 @@
 // User-defined
 #include "Menu.h"
 #include "GameState.h"
+#include "MainMenuState.h"
 #include "Player.h"
 
 
@@ -26,7 +27,7 @@ private:
 	float dt;
 
 	// States
-	//Stack<State*> states;
+	Stack<State*> states;
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;

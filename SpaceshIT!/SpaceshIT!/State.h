@@ -16,16 +16,22 @@
 
 class State
 {
-private:
+protected:
 	sf::RenderWindow* window;
 	Vector<sf::Texture> textures;
 	bool quit;
+
+	// Mouse position
+	sf::Vector2i mousePosScreen;
+	sf::Vector2i mousePosWindow;
+	sf::Vector2f mousePosView;
 
 public:
 	State(sf::RenderWindow* window);
 	virtual ~State();
 
 	const bool& getQuit() const;
+	virtual void updateMousePosition();
 	virtual void updateInput(const float& dt) = 0;
 	virtual void checkForQuit();
 	virtual void endState() = 0;

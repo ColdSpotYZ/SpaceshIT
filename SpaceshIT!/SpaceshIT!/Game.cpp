@@ -36,12 +36,13 @@ void Game::initWindow()
 
 void Game::initStates()
 {
-	/*this->states.push(new GameState(this->window));*/
+	this->states.push(new MainMenuState(this->window));
+	this->states.push(new GameState(this->window));
 }
 
 void Game::initFonts()
 {
-	if (!this->mainFont.loadFromFile("Fonts/Dosis-Light.ttf"))
+	if (!this->mainFont.loadFromFile("Fonts/game.ttf"))
 		std::cout << "Failed to load font." << std::endl;
 }
 
@@ -114,11 +115,11 @@ Game::~Game()
 	delete this->playButton;
 	delete this->player1;
 	delete this->player2;
-	/*while (!this->states.empty())
+	while (!this->states.isEmpty())
 	{
-		delete this->states.top();
+		delete this->states.getTop();
 		this->states.pop();
-	}*/
+	}
 }
 
 /*###############
@@ -230,17 +231,17 @@ void Game::update()
 	this->pollEvents();
 	
 	// Update inputs
-	if (this->gameStart && this->isFocus)
-		this->updateInput();
+	//if (this->gameStart && this->isFocus)
+	//	this->updateInput();
 
 	// Update from states
-	/*if (!this->states.empty())
+	if (!this->states.isEmpty())
 	{
-		this->states.top()->update(this->dt);
-		if (this->initStates.top()->getQuit())
+		this->states.getTop()->update(this->dt);
+		if (this->states.getTop()->getQuit())
 		{
-			this->states.top()->endState();
-			delete this->states.top();
+			this->states.getTop()->endState();
+			delete this->states.getTop();
 			this->states.pop();
 		}
 	}
@@ -248,7 +249,7 @@ void Game::update()
 	{
 		this->endApp();
 	}
-		*/
+		
 	
 	this->updateCollision();
 	this->updateGUI();
@@ -274,8 +275,8 @@ void Game::render()
 	//Draw	
 
 	// Render from states
-	//if (!this->states.empty())
-	//	this->states.top()->render();
+	if (!this->states.isEmpty())
+		this->states.getTop()->render();
 	if (!this->gameStart)
 		this->playButton->render(this->window, this->mousePosView, this->gameStart);
 	else

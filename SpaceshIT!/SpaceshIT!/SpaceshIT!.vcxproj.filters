@@ -30,9 +30,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -45,18 +42,24 @@
     <ClCompile Include="Player.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
     <ClCompile Include="Queue.cpp">
       <Filter>ADT</Filter>
+    </ClCompile>
+    <ClCompile Include="sha256.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
@@ -79,6 +82,18 @@
     </ClInclude>
     <ClInclude Include="Queue.h">
       <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="sha256.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

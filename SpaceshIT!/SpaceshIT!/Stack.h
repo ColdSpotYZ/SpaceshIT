@@ -3,8 +3,7 @@
 #include <iostream>
 using namespace std;
 
-// typedef int ItemType;
-typedef string ItemType;
+// typedef int T;
 
 template <class T>
 class Stack
@@ -28,16 +27,19 @@ public:
 	bool isEmpty();
 
 	//push item on top of the stack
-	bool push(ItemType& item);
+	bool push(T& item);
 
 	//pop item from top of stack
 	bool pop();
 
 	//retrieve and pop item from top of stack
-	bool pop(ItemType& item);
+	bool pop(T& item);
 
 	//retrieve item from top of stack
-	void getTop(ItemType& item);
+	T& getTop();
+
+	//retrieve item from top of stack
+	void getTop(T& item);
 
 	//display items in stack in order
 	void displayInOrder();
@@ -75,7 +77,7 @@ bool Stack<T>::isEmpty()
 }
 
 template<class T>
-bool Stack<T>::push(ItemType& item)
+bool Stack<T>::push(T& item)
 {
 	if (!isEmpty())
 	{
@@ -112,7 +114,7 @@ bool Stack<T>::pop()
 }
 
 template<class T>
-bool Stack<T>::pop(ItemType& item)
+bool Stack<T>::pop(T& item)
 {
 	bool success = !isEmpty();
 	if (success)
@@ -128,7 +130,16 @@ bool Stack<T>::pop(ItemType& item)
 }
 
 template<class T>
-void Stack<T>::getTop(ItemType& item)
+inline T& Stack<T>::getTop()
+{
+	if (!isEmpty())
+	{
+		return topNode->item;
+	}
+}
+
+template<class T>
+void Stack<T>::getTop(T& item)
 {
 	if (!isEmpty())
 	{
@@ -139,7 +150,7 @@ void Stack<T>::getTop(ItemType& item)
 template<class T>
 void Stack<T>::displayInOrder()
 {
-	ItemType item;
+	T item;
 	if (!isEmpty())
 	{
 		while (!isEmpty())
