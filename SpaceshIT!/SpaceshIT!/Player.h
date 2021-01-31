@@ -8,7 +8,7 @@ private:
     int health;
     int max_ammo = 20;
     int ammo;
-    float max_speed = 10.f;
+    float max_speed = 1000.f;
     float speed;
 
     // Functions
@@ -24,11 +24,11 @@ public:
 
 
     // Functions
-    void move(const float x, const float y);
+    void move(const float dt, const float x, const float y);
     void takeDamage();
     void shoot();
 
-    void update() override;
-    void update(bool wasd);
+    void update(const float dt) override;
+    void update(const float dt, bool wasd);
 };
 

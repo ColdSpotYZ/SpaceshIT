@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Queue::Queue() { size = 0; current = 0; }
+Queue::Queue() { size = 0; }
 
 Queue::~Queue()
 {
@@ -12,8 +12,6 @@ Queue::~Queue()
 	{
 		dequeue();
 	}
-	current = NULL;
-	size = NULL;
 }
 
 bool Queue::enqueue(ItemType item)
@@ -24,59 +22,123 @@ bool Queue::enqueue(ItemType item)
 		dequeue();
 	}
 	string hashoflocation = sha256(item);
-	locations[current] = item;
-	hashes[current] = hashoflocation;
+	if (isEmpty())
+	{
+		location[0] = item;
+		hash[0] = hashoflocation;
+	}
+	else
+	{
+		location[current] = item;
+		hash[current] = hashoflocation;
+	}
 	size++;
-	current = (current++)%4;
-	return true;
+
 }
 
 bool Queue::dequeue()
 {
-	bool success = !isEmpty();
-	if (success)
-	{
-		locations[current].clear();
-		hashes[current].clear();
-	}
-	return success;
+	
 }
 
-bool Queue::dequeue(ItemType &location, ItemType hash)
+bool Queue::dequeue(ItemType &item)
 {
-
 	bool success = !isEmpty();
 	if (success)
 	{
-		if (size = 0)
-			current = 4;
-		else if (size != 5)
+		item = frontNode->location;
+		if (frontNode->next == NULL)
 		{
-			current = (current--) % 4;
+			delete frontNode;
+			frontNode = NULL;
+			backNode = NULL;
 		}
-		location = location[current];
-		hash = hash[current];
-		locations[current].clear();
-		hashes[current].clear();
+		else
+		{
+			Node* temp = new Node;
+			temp = frontNode;
+			frontNode = temp->next;
+			delete temp;
+			temp = NULL;
+		}
 	}
 	return success;
 }
 
-void Queue::getFront(ItemType& location, ItemType hash)
+void Queue::getFront(ItemType& item)
 {
-	location = location[current];
-	hash = hash[current];
+	item = frontNode->location;
 }
 
 bool Queue::isEmpty()
 {
-	if (size = 0)
+	if (frontNode == NULL)
 		return true;
 	else
 		return false;
 }
 
+void Queue::displayItems()
+{
+	if (!isEmpty())
+	{
+		Node* temp = new Node;
+		temp = frontNode;
+		cout << "=== Displaying items in the Queue ===" << endl;
+		while (temp != backNode)
+		{
+			cout << temp->location << endl;
+			temp = temp->next;
+		}
+		cout << backNode->location << endl;
+		temp = NULL;
+	}
+	else
+	{
+		cout << "Queue is Empty" << endl;
+	}
+
+}
+
+
+bool Queue::getLastElement(Queue& q, ItemType& item)
+{
+	bool success = !q.isEmpty();
+	if (success)
+	{
+		Queue newQ = q;
+		while (!newQ.isEmpty())
+		{
+			newQ.dequeue(item);
+		}
+	}
+	return success;
+}
+
 int Queue::getNoOfElements()
 {
-	return size;
+	bool success = !isEmpty();
+	int count = 0;
+	Queue tempQueue;
+	ItemType itemtype;
+	if (success)
+	{
+		while (!isEmpty())
+		{
+			dequeue(itemtype);
+			tempQueue.enqueue(itemtype);
+			count++;
+		}
+
+		while (!tempQueue.isEmpty())
+		{
+			tempQueue.dequeue(itemtype);
+			enqueue(itemtype);
+		}
+		return count;
+	}
+	else
+	{
+		return 0;
+	}
 }

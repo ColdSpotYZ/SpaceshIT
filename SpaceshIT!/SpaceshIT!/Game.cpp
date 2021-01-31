@@ -168,8 +168,8 @@ void Game::pollEvents()
 void Game::updateInput()
 {
 	// TODO: Push onto stack and pop in render()
-	this->player1->update(true);
-	this->player2->update(false);
+	this->player1->update(this->dt, true);
+	this->player2->update(this->dt, false);
 }
 
 void Game::updateMousePosition()

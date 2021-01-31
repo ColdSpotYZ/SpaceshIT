@@ -1,6 +1,10 @@
 #include "GameState.h"
 
-GameState::GameState(sf::RenderWindow* window) 
+void GameState::initPlayer()
+{
+}
+
+GameState::GameState(sf::RenderWindow* window)
 	: State(window)
 {
 }
@@ -14,7 +18,7 @@ void GameState::endState()
 	// End game state
 }
 
-void GameState::updateKeybinds(const float& dt)
+void GameState::updateInput(const float& dt)
 {
 	this->checkForQuit();
 }
@@ -22,9 +26,10 @@ void GameState::updateKeybinds(const float& dt)
 void GameState::update(const float& dt)
 {
 	// GameState updates
-	this->updateKeybinds(dt);
+	this->updateInput(dt);
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
+	this->player1->render(target);
 }

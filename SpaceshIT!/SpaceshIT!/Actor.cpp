@@ -25,10 +25,12 @@ void Actor::initVariables()
 
 Actor::Actor()
 {
+	this->movementSpeed = 1000.f;
 }
 
 Actor::Actor(char* filename)
 {
+	this->movementSpeed = 1000.f;
 	this->initTexture(filename);
 	this->initSprite();
 }
@@ -77,9 +79,9 @@ void Actor::setTexture(sf::Texture* texture)
 	this->texture = *texture;
 }
 
-void Actor::move(const float x, const float y, float speed)
+void Actor::move(const float dt, const float x, const float y, float speed)
 {
-	this->sprite.move(speed * x, speed * y);
+	this->sprite.move(speed * x * dt, speed * y * dt);
 }
 
 void Actor::render(sf::RenderTarget* target)

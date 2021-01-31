@@ -33,9 +33,9 @@ const int Player::getHpMax() const
 	return this->max_health;
 }
 
-void Player::move(const float x, const float y)
+void Player::move(const float dt, const float x, const float y)
 {
-	this->sprite.move(this->speed * x, this->speed * y);
+	this->sprite.move(this->speed * x * dt, this->speed * y * dt);
 }
 
 void Player::takeDamage()
@@ -52,33 +52,33 @@ void Player::shoot()
 		this->ammo = 0;
 }
 
-void Player::update()
+void Player::update(const float dt)
 {
 }
 
-void Player::update(bool wasd = true)
+void Player::update(const float dt, bool wasd = true)
 {
 	if (wasd)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-			this->move(-1.f, 0.f);
+			this->move(dt, -1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			this->move(1.f, 0.f);
+			this->move(dt, 1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			this->move(0.f, -1.f);
+			this->move(dt, 0.f, -1.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			this->move(0.f, 1.f);
+			this->move(dt, 0.f, 1.f);
 	}
 	else
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			this->move(-1.f, 0.f);
+			this->move(dt, -1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			this->move(1.f, 0.f);
+			this->move(dt, 1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			this->move(0.f, -1.f);
+			this->move(dt, 0.f, -1.f);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			this->move(0.f, 1.f);
+			this->move(dt, 0.f, 1.f);
 	}
 }
 

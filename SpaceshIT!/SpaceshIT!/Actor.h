@@ -16,6 +16,7 @@ class Actor
 protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
+	float movementSpeed;
 
 	// Functions
 	void initTexture(char*);
@@ -39,8 +40,8 @@ public:
 	void setTexture(sf::Texture*);
 
 	// Functions
-	void move(const float x, const float y, float speed);
-	virtual void update() = 0;
+	void move(const float dt, const float x, const float y, float speed);
+	virtual void update(const float dt) = 0;
 	virtual void render(sf::RenderTarget* target);
 };
 
