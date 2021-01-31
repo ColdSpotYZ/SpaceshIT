@@ -45,9 +45,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
     <ClCompile Include="Queue.cpp">
       <Filter>ADT</Filter>
     </ClCompile>

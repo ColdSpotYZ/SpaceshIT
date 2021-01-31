@@ -5,17 +5,15 @@ using namespace std;
 
 // typedef int T;
 
+const int MAX_SIZE = 10;
+
 template <class T>
 class Stack
 {
 private:
-	struct Node
-	{
-		T item;
-		Node* next;
-	};
+	T state[MAX_SIZE];
 
-	Node* topNode;
+	int size;
 
 public:
 	//Default constructor
@@ -51,7 +49,7 @@ public:
 //////////////////////////////
 
 template<class T>
-Stack<T>::Stack() { this->topNode = NULL; }
+Stack<T>::Stack() { size = 0; }
 
 template<class T>
 Stack<T>::~Stack()
@@ -60,41 +58,25 @@ Stack<T>::~Stack()
 	{
 		pop();
 	}
+	size = 0;
 
 }
 
 template<class T>
 bool Stack<T>::isEmpty()
 {
-	if (topNode == NULL)
-	{
+	if (size == 0)
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
 template<class T>
 bool Stack<T>::push(T& item)
 {
-	if (!isEmpty())
-	{
-		Node* temp = new Node;
-		temp->item = item;
-		temp->next = topNode;
-		topNode = temp;
-		return true;
-	}
-	else
-	{
-		Node* temp = new Node;
-		temp->item = item;
-		temp->next = NULL;
-		topNode = temp;
-		return true;
-	}
+	state[size] = item;
+	size++;
+	return true;
 
 }
 
@@ -104,11 +86,8 @@ bool Stack<T>::pop()
 	bool success = !isEmpty();
 	if (success)
 	{
-		Node* temp = topNode;
-		topNode = topNode->next;
-		temp->next = NULL;
-		delete temp;
-		temp = NULL;
+		state[size] = NULL;
+		size--;
 	}
 	return success;
 }
@@ -119,12 +98,9 @@ bool Stack<T>::pop(T& item)
 	bool success = !isEmpty();
 	if (success)
 	{
-		Node* temp = topNode;
-		item = temp->item;
-		topNode = topNode->next;
-		temp->next = NULL;
-		delete temp;
-		temp = NULL;
+		item = state[size];
+		state[size] = NULL;
+		size--;
 	}
 	return success;
 }
@@ -134,7 +110,7 @@ inline T& Stack<T>::getTop()
 {
 	if (!isEmpty())
 	{
-		return topNode->item;
+		return state[size];
 	}
 }
 
@@ -143,21 +119,18 @@ void Stack<T>::getTop(T& item)
 {
 	if (!isEmpty())
 	{
-		item = topNode->item;
+		item = state[size];
 	}
 }
 
 template<class T>
 void Stack<T>::displayInOrder()
 {
-	T item;
 	if (!isEmpty())
 	{
-		while (!isEmpty())
+		for (int i = 0; i < size; i++)
 		{
-			getTop(item);
-			cout << item << endl;
-			pop();
+			cout << state[i] << endl;
 		}
 	}
 }
