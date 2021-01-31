@@ -7,8 +7,8 @@
 
 // User-defined
 #include "Menu.h"
+#include "GameState.h"
 #include "Player.h"
-#include "Vector.h"
 
 
 //Game engine class
@@ -19,8 +19,14 @@ private:
 	
 	// Window
 	sf::RenderWindow* window;
-	sf::VideoMode videoMode;
 	sf::Event ev;
+
+	// Time
+	sf::Clock dtClock;
+	float dt;
+
+	// States
+	//Stack<State*> states;
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;
@@ -48,6 +54,7 @@ private:
 	// Initialization functions
 	void initVariables();
 	void initWindow();
+	void initStates();
 	void initMenu();
 	void initFonts();
 	void initWorld();
@@ -83,7 +90,10 @@ public:
 	const bool getWindowIsOpen() const;
 
 	// Functions
+	void updateDt();
 	void pollEvents();
+
+	void endApp();
 
 	void updateInput();
 	void updateMousePosition();

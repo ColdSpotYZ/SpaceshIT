@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{86348a14-5f9c-49d4-aff7-af05defa6942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{271f31fb-5fe9-45fd-ba82-16250bdd4b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADT">
+      <UniqueIdentifier>{48f592df-923a-4d8e-bb7a-5fb48aee34c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -24,17 +33,23 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="State.cpp">
+      <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Queue.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GameState.cpp">
+      <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Actor</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Stack.cpp">
+      <Filter>ADT</Filter>
+    </ClCompile>
+    <ClCompile Include="Queue.cpp">
+      <Filter>ADT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,20 +59,26 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="State.h">
+      <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameState.h">
+      <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>ADT</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

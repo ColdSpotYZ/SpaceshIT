@@ -1,3 +1,4 @@
+#include "State.h"
 #include "Game.h"
 
 
@@ -11,13 +12,31 @@ void Game::initVariables()
 
 void Game::initWindow()
 {
-	this->videoMode.width = 1600;
-	this->videoMode.height = 900;
+	// Read config(.ini) file
+	std::ifstream ifs("Config/window.ini");
+	std::string title = "None";
+	sf::VideoMode window_bounds(1600, 900);
+	unsigned framerate_limit = 144;
+	bool vertical_sync = false;
 
-	this->window = new sf::RenderWindow(this->videoMode, "SpaceshIT!", sf::Style::Titlebar | sf::Style::Close | sf::Style::Resize /*| sf::Style::Fullscreen*/);
-	this->window->setFramerateLimit(144);
-	this->window->setVerticalSyncEnabled(false);
+	if (ifs.is_open())
+	{
+		std::getline(ifs, title);
+		ifs >> window_bounds.width >> window_bounds.height;
+		ifs >> framerate_limit;
+		ifs >> vertical_sync;
+	}
+	ifs.close();
 
+	this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close /*| sf::Style::Fullscreen*/);
+	this->window->setFramerateLimit(framerate_limit);
+	this->window->setVerticalSyncEnabled(vertical_sync);
+
+}
+
+void Game::initStates()
+{
+	/*this->states.push(new GameState(this->window));*/
 }
 
 void Game::initFonts()
@@ -81,6 +100,7 @@ Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initStates();
 	this->initWorld();
 	this->initFonts();
 	this->initMenu();
@@ -94,11 +114,31 @@ Game::~Game()
 	delete this->playButton;
 	delete this->player1;
 	delete this->player2;
+	/*while (!this->states.empty())
+	{
+		delete this->states.top();
+		this->states.pop();
+	}*/
 }
+
+/*###############
+##	FUNCTIONS  ##	
+###############*/
 
 const bool Game::getWindowIsOpen() const
 {
 	return this->window->isOpen();
+}
+
+void Game::updateDt()
+{
+	// Set this->dt variable with the time it takes per frame
+	this->dt = this->dtClock.restart().asSeconds();
+}
+
+void Game::endApp()
+{
+	this->window->close();
 }
 
 void Game::pollEvents()
@@ -109,11 +149,11 @@ void Game::pollEvents()
 		switch (this->ev.type)
 		{
 		case sf::Event::EventType::Closed:
-			this->window->close();
+			this->endApp();
 			break;
 		case sf::Event::EventType::KeyPressed:
 			if (this->ev.key.code == sf::Keyboard::Escape)
-				this->window->close();
+				this->endApp();
 			break;
 		case sf::Event::EventType::GainedFocus:
 			this->isFocus = true;
@@ -193,6 +233,22 @@ void Game::update()
 	if (this->gameStart && this->isFocus)
 		this->updateInput();
 
+	// Update from states
+	/*if (!this->states.empty())
+	{
+		this->states.top()->update(this->dt);
+		if (this->initStates.top()->getQuit())
+		{
+			this->states.top()->endState();
+			delete this->states.top();
+			this->states.pop();
+		}
+	}
+	else
+	{
+		this->endApp();
+	}
+		*/
 	
 	this->updateCollision();
 	this->updateGUI();
@@ -216,6 +272,10 @@ void Game::render()
 	this->renderWorld();
 
 	//Draw	
+
+	// Render from states
+	//if (!this->states.empty())
+	//	this->states.top()->render();
 	if (!this->gameStart)
 		this->playButton->render(this->window, this->mousePosView, this->gameStart);
 	else
@@ -232,3 +292,5 @@ void Game::render()
 
 	this->window->display();
 }
+
+

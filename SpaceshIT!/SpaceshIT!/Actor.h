@@ -40,7 +40,7 @@ public:
 
 	// Functions
 	void move(const float x, const float y, float speed);
-	virtual void update();
+	virtual void update() = 0;
 	virtual void render(sf::RenderTarget* target);
 };
 

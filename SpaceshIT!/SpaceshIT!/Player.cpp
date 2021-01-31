@@ -52,6 +52,10 @@ void Player::shoot()
 		this->ammo = 0;
 }
 
+void Player::update()
+{
+}
+
 void Player::update(bool wasd = true)
 {
 	if (wasd)

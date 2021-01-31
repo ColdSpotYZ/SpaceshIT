@@ -28,6 +28,7 @@ public:
     void takeDamage();
     void shoot();
 
+    void update() override;
     void update(bool wasd);
 };
 

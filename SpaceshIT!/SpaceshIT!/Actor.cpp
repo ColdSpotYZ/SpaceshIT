@@ -82,10 +82,6 @@ void Actor::move(const float x, const float y, float speed)
 	this->sprite.move(speed * x, speed * y);
 }
 
-void Actor::update()
-{
-}
-
 void Actor::render(sf::RenderTarget* target)
 {
 	target->draw(this->sprite);
