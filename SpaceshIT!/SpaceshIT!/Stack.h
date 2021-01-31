@@ -12,10 +12,10 @@ private:
 	struct Node
 	{
 		T item;
-		Node<T>* next;
+		Node* next;
 	};
 
-	Node<T>* topNode;
+	Node* topNode;
 
 public:
 	//Default constructor
