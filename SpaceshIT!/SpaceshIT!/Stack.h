@@ -6,17 +6,17 @@ using namespace std;
 // typedef int ItemType;
 typedef string ItemType;
 
-
+template <class T>
 class Stack
 {
 private:
 	struct Node
 	{
-		ItemType item;
-		Node* next;
+		T item;
+		Node<T>* next;
 	};
 
-	Node* topNode;
+	Node<T>* topNode;
 
 public:
 	//Default constructor
@@ -42,6 +42,111 @@ public:
 	//display items in stack in order
 	void displayInOrder();
 
-	//display items in stack in order of insertion
-	void displayInOrderOfInsertion();
 };
+
+///////////////////////////////
+///     IMPLEMENTATIONS     ///
+//////////////////////////////
+
+template<class T>
+Stack<T>::Stack() { this->topNode = NULL; }
+
+template<class T>
+Stack<T>::~Stack()
+{
+	while (!isEmpty())
+	{
+		pop();
+	}
+
+}
+
+template<class T>
+bool Stack<T>::isEmpty()
+{
+	if (topNode == NULL)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+template<class T>
+bool Stack<T>::push(ItemType& item)
+{
+	if (!isEmpty())
+	{
+		Node* temp = new Node;
+		temp->item = item;
+		temp->next = topNode;
+		topNode = temp;
+		return true;
+	}
+	else
+	{
+		Node* temp = new Node;
+		temp->item = item;
+		temp->next = NULL;
+		topNode = temp;
+		return true;
+	}
+
+}
+
+template<class T>
+bool Stack<T>::pop()
+{
+	bool success = !isEmpty();
+	if (success)
+	{
+		Node* temp = topNode;
+		topNode = topNode->next;
+		temp->next = NULL;
+		delete temp;
+		temp = NULL;
+	}
+	return success;
+}
+
+template<class T>
+bool Stack<T>::pop(ItemType& item)
+{
+	bool success = !isEmpty();
+	if (success)
+	{
+		Node* temp = topNode;
+		item = temp->item;
+		topNode = topNode->next;
+		temp->next = NULL;
+		delete temp;
+		temp = NULL;
+	}
+	return success;
+}
+
+template<class T>
+void Stack<T>::getTop(ItemType& item)
+{
+	if (!isEmpty())
+	{
+		item = topNode->item;
+	}
+}
+
+template<class T>
+void Stack<T>::displayInOrder()
+{
+	ItemType item;
+	if (!isEmpty())
+	{
+		while (!isEmpty())
+		{
+			getTop(item);
+			cout << item << endl;
+			pop();
+		}
+	}
+}
