@@ -1,8 +1,9 @@
 # DSA_Assignment
 ---
 ## Concept
+✔️ ❌
 
 ## Checklist
-[ ] Setting up environment  
-[ ] Selecting an idea  
-[ ]  
+[✔️] Setting up environment  
+[✔️] Setting up game class  
+[❌]  TBD
