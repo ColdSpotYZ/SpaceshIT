@@ -1,6 +1,6 @@
 #include "State.h"
 #include "Game.h"
-
+#include <stack>
 
 void Game::initVariables()
 {
@@ -276,18 +276,31 @@ void Game::render()
 
 	// Render from states
 	if (!this->states.isEmpty())
-		this->states.getTop()->render();
-	if (!this->gameStart)
-		this->playButton->render(this->window, this->mousePosView, this->gameStart);
+	{
+		this->states.getTop()->render(this->window);
+		if (this->states.getTop()->getQuit())
+		{
+			this->states.getTop()->endState();
+			delete this->states.getTop();
+			this->states.pop();
+		}
+	}
 	else
 	{
-		this->player1->render(this->window);
-		this->player2->render(this->window);
-		this->window->draw(this->player1HpBarBack);
-		this->window->draw(this->player1HpBar);
-		this->window->draw(this->player2HpBarBack);
-		this->window->draw(this->player2HpBar);
+		this->endApp();
 	}
+
+	//if (!this->gameStart)
+	//	this->playButton->render(this->window, this->mousePosView, this->gameStart);
+	//else
+	//{
+	//	this->player1->render(this->window);
+	//	this->player2->render(this->window);
+	//	this->window->draw(this->player1HpBarBack);
+	//	this->window->draw(this->player1HpBar);
+	//	this->window->draw(this->player2HpBarBack);
+	//	this->window->draw(this->player2HpBar);
+	//}
 
 		
 

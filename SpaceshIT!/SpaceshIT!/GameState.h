@@ -9,6 +9,7 @@ private:
     Vector<Player*>* playerVec;
     Player* player1;
     Player* player2;
+    void initVariables();
     void initPlayer();
 public:
     GameState(sf::RenderWindow* window);

@@ -25,7 +25,7 @@ public:
 	bool isEmpty();
 
 	//push item on top of the stack
-	bool push(T& item);
+	bool push(T item);
 
 	//pop item from top of stack
 	bool pop();
@@ -72,7 +72,7 @@ bool Stack<T>::isEmpty()
 }
 
 template<class T>
-bool Stack<T>::push(T& item)
+bool Stack<T>::push(T item)
 {
 	state[size] = item;
 	size++;
@@ -86,7 +86,7 @@ bool Stack<T>::pop()
 	bool success = !isEmpty();
 	if (success)
 	{
-		state[size] = NULL;
+		state[size-1] = NULL;
 		size--;
 	}
 	return success;
@@ -98,8 +98,8 @@ bool Stack<T>::pop(T& item)
 	bool success = !isEmpty();
 	if (success)
 	{
-		item = state[size];
-		state[size] = NULL;
+		item = state[size-1];
+		state[size-1] = NULL;
 		size--;
 	}
 	return success;
@@ -110,8 +110,9 @@ inline T& Stack<T>::getTop()
 {
 	if (!isEmpty())
 	{
-		return state[size];
+		return state[size-1];
 	}
+	return state[0];
 }
 
 template<class T>
@@ -119,7 +120,7 @@ void Stack<T>::getTop(T& item)
 {
 	if (!isEmpty())
 	{
-		item = state[size];
+		item = state[size-1];
 	}
 }
 

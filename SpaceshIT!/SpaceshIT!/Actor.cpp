@@ -6,7 +6,7 @@ void Actor::initTexture(char* filename)
 	s << "Assets/Textures/" << filename << ".png";
 	if (!this->texture.loadFromFile(s.str()))
 	{
-		std::cout << "ERROR::ACTOR::INITTEXTURE::Could not load texture file." << std::endl;
+		throw("ERROR::ACTOR::INITTEXTURE::Could not load texture file.");
 	}
 }
 
