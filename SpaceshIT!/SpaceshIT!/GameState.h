@@ -6,10 +6,17 @@ class GameState :
     public State
 {
 private:
+    bool stateStart = false;
+    // Players
     Vector<Player*>* playerVec;
     Player* player1;
     Player* player2;
+
+    // Game music
+    sf::Music music;
+
     void initVariables();
+    void initMusic();
     void initPlayer();
 public:
     GameState(sf::RenderWindow* window);

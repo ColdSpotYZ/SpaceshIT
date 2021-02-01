@@ -5,6 +5,18 @@ void GameState::initVariables()
 	this->playerVec = new Vector<Player*>;
 }
 
+void GameState::initMusic()
+{
+	if (!this->music.openFromFile("Assets/Audio/theme.wav"))
+		throw("ERROR::GAMESTATE::INITMUSIC::Unable to load music");
+	else
+	{
+		this->music.setLoop(true);
+		this->music.setVolume(25);
+		this->music.play();
+	}
+}
+
 void GameState::initPlayer()
 {
 	this->player1 = new Player((char*)"player1");
@@ -32,11 +44,21 @@ void GameState::endState()
 void GameState::updateInput(const float& dt)
 {
 	this->checkForQuit();
-	std::cout << "Gamestate check for input" << std::endl;
+	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+	{
+		this->playerVec->at(i)->update(dt, !i);
+	}
 }
 
 void GameState::update(const float& dt)
 {
+	//Run once
+	if (!this->stateStart)
+	{
+		initMusic();
+		this->stateStart = true;
+	}
+		
 	// GameState updates
 	this->updateMousePosition();
 	this->updateInput(dt);
