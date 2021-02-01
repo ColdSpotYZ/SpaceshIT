@@ -3,20 +3,17 @@
 #include <iostream>
 using namespace std;
 
-// typedef int ItemType;
-typedef string ItemType;
+// typedef int T;
+
+const int MAX_SIZE = 10;
 
 template <class T>
 class Stack
 {
 private:
-	struct Node
-	{
-		T item;
-		Node<T>* next;
-	};
+	T state[MAX_SIZE];
 
-	Node<T>* topNode;
+	int size;
 
 public:
 	//Default constructor
@@ -28,16 +25,19 @@ public:
 	bool isEmpty();
 
 	//push item on top of the stack
-	bool push(ItemType& item);
+	bool push(T item);
 
 	//pop item from top of stack
 	bool pop();
 
 	//retrieve and pop item from top of stack
-	bool pop(ItemType& item);
+	bool pop(T& item);
 
 	//retrieve item from top of stack
-	void getTop(ItemType& item);
+	T& getTop();
+
+	//retrieve item from top of stack
+	void getTop(T& item);
 
 	//display items in stack in order
 	void displayInOrder();
@@ -49,7 +49,7 @@ public:
 //////////////////////////////
 
 template<class T>
-Stack<T>::Stack() { this->topNode = NULL; }
+Stack<T>::Stack() { size = 0; }
 
 template<class T>
 Stack<T>::~Stack()
@@ -58,41 +58,25 @@ Stack<T>::~Stack()
 	{
 		pop();
 	}
+	size = 0;
 
 }
 
 template<class T>
 bool Stack<T>::isEmpty()
 {
-	if (topNode == NULL)
-	{
+	if (size == 0)
 		return true;
-	}
 	else
-	{
 		return false;
-	}
 }
 
 template<class T>
-bool Stack<T>::push(ItemType& item)
+bool Stack<T>::push(T item)
 {
-	if (!isEmpty())
-	{
-		Node* temp = new Node;
-		temp->item = item;
-		temp->next = topNode;
-		topNode = temp;
-		return true;
-	}
-	else
-	{
-		Node* temp = new Node;
-		temp->item = item;
-		temp->next = NULL;
-		topNode = temp;
-		return true;
-	}
+	state[size] = item;
+	size++;
+	return true;
 
 }
 
@@ -102,51 +86,52 @@ bool Stack<T>::pop()
 	bool success = !isEmpty();
 	if (success)
 	{
-		Node* temp = topNode;
-		topNode = topNode->next;
-		temp->next = NULL;
-		delete temp;
-		temp = NULL;
+		state[size-1] = NULL;
+		size--;
 	}
 	return success;
 }
 
 template<class T>
-bool Stack<T>::pop(ItemType& item)
+bool Stack<T>::pop(T& item)
 {
 	bool success = !isEmpty();
 	if (success)
 	{
-		Node* temp = topNode;
-		item = temp->item;
-		topNode = topNode->next;
-		temp->next = NULL;
-		delete temp;
-		temp = NULL;
+		item = state[size-1];
+		state[size-1] = NULL;
+		size--;
 	}
 	return success;
 }
 
 template<class T>
-void Stack<T>::getTop(ItemType& item)
+inline T& Stack<T>::getTop()
 {
 	if (!isEmpty())
 	{
-		item = topNode->item;
+		return state[size-1];
+	}
+	return state[0];
+}
+
+template<class T>
+void Stack<T>::getTop(T& item)
+{
+	if (!isEmpty())
+	{
+		item = state[size-1];
 	}
 }
 
 template<class T>
 void Stack<T>::displayInOrder()
 {
-	ItemType item;
 	if (!isEmpty())
 	{
-		while (!isEmpty())
+		for (int i = 0; i < size; i++)
 		{
-			getTop(item);
-			cout << item << endl;
-			pop();
+			cout << state[i] << endl;
 		}
 	}
 }

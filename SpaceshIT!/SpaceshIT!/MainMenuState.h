@@ -1,19 +1,16 @@
 #pragma once
 #include "State.h"
-#include "Player.h"
-
-class GameState :
+class MainMenuState :
     public State
 {
 private:
-    Vector<Player*>* playerVec;
-    Player* player1;
-    Player* player2;
-    void initVariables();
-    void initPlayer();
+    sf::RectangleShape background;
+    sf::Font font;
+    void initFont();
+
 public:
-    GameState(sf::RenderWindow* window);
-    virtual ~GameState();
+    MainMenuState(sf::RenderWindow* window);
+    virtual ~MainMenuState();
 
     //Functions
     void endState();
