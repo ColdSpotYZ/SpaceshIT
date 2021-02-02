@@ -9,6 +9,7 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 #include "Player.h"
+#include "Bullet.h"
 
 
 //Game engine class

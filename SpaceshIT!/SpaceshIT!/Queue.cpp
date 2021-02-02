@@ -19,7 +19,7 @@ Queue::~Queue()
 bool Queue::enqueue(ItemType item)
 {
 
-	if (size = 5)
+	if (size == 5)
 	{
 		dequeue();
 	}
@@ -48,7 +48,7 @@ bool Queue::dequeue(ItemType& location, ItemType hash)
 	bool success = !isEmpty();
 	if (success)
 	{
-		if (size = 0)
+		if (size == 0)
 			current = 4;
 		else if (size != 5)
 		{
@@ -70,7 +70,7 @@ void Queue::getFront(ItemType& location, ItemType hash)
 
 bool Queue::isEmpty()
 {
-	if (size = 0)
+	if (size == 0)
 		return true;
 	else
 		return false;
