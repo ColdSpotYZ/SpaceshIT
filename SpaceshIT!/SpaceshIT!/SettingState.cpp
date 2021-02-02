@@ -30,6 +30,9 @@ void SettingState::initButtons()
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
+
+	std::string li[] = { "saddsa", "asddsasd", "sasda", "asdadsad", "lol" };
+	this->ddl = new gui::DropDownList(100, 100, 150, 50, this->font, li, 5);
 }
 
 SettingState::SettingState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
@@ -73,16 +76,19 @@ void SettingState::updateButtons()
 		i.second->update(this->mousePosView);
 	}
 
-	if (this->buttons[(char*)"EXIT_STATE"]->isPressed())
+	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();
+
 }
 
 void SettingState::update(const float& dt)
 {
 	// MainMenuState updates
+	this->updateKeyTime(dt);
 	this->updateMousePosition();
 	this->updateInput(dt);
 	this->updateButtons();
+	this->ddl->update(this->mousePosView, dt);
 }
 
 void SettingState::renderButtons(sf::RenderTarget* target)
@@ -98,4 +104,5 @@ void SettingState::render(sf::RenderTarget* target)
 {
 	target->draw(this->background);
 	this->renderButtons(target);
+	this->ddl->render(target);
 }

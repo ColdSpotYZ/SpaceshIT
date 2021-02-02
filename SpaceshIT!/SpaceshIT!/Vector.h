@@ -170,7 +170,7 @@ inline T* Vector<T>::begin()
 template<class T>
 inline T* Vector<T>::end()
 {
-	return this->internal_array + this->size();
+	return this->internal_array + this->size;
 }
 
 template<class T>

@@ -32,9 +32,12 @@ namespace gui
 		// Accessors
 
 		const bool isPressed() const;
+		const std::string& getText() const;
+
+		// Modifiers
+		void setText(const std::string text);
 
 		// Functions
-
 		void update(const sf::Vector2f& mousePos);
 		void render(sf::RenderTarget* target);
 	};
@@ -42,11 +45,21 @@ namespace gui
 	class DropDownList
 	{
 	private:
-		sf::RectangleShape activeSelection;
-		Vector<sf::RectangleShape> list;
+		float keyTime;
+		float keyTimeMax;
+		sf::Font& font;
+		gui::Button* activeSelection;
+		Vector <gui::Button*> list;
+		bool showList;
 
 	public:
-		void update(const sf::Vector2f& mousePos);
+		DropDownList(float x, float y, float width, float height, sf::Font& font, std::string options[], unsigned noOfElements, unsigned default_index = 0);
+		~DropDownList();
+
+		// Functions
+		const bool getKeyTime();
+		void updateKeyTime(const float& dt);
+		void update(const sf::Vector2f& mousePos, const float& dt);
 		void render(sf::RenderTarget* target);
 	};
 }

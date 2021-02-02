@@ -140,7 +140,6 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
-    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu[OLD].cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />

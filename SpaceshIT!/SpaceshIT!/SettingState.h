@@ -11,6 +11,8 @@ private:
 
     std::map<char*, gui::Button*> buttons;
 
+    gui::DropDownList* ddl;
+
 
     void initVariables();
     void initKeybinds();

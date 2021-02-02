@@ -1,52 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="States">
-      <UniqueIdentifier>{86348a14-5f9c-49d4-aff7-af05defa6942}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{271f31fb-5fe9-45fd-ba82-16250bdd4b46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ADT">
-      <UniqueIdentifier>{48f592df-923a-4d8e-bb7a-5fb48aee34c3}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Actor.cpp">
       <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Queue.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
-    <ClCompile Include="sha256.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Asteroids.cpp">
       <Filter>Actor</Filter>
@@ -54,57 +12,44 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>States</Filter>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenu.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Menu[OLD].cpp">
-      <Filter>Resource Files</Filter>
-=======
     <ClCompile Include="AVL_Tree.cpp">
       <Filter>ADT</Filter>
->>>>>>> 28f0ec5e4176124d7d969211a8760bd73071d69d
+    </ClCompile>
+    <ClCompile Include="Queue.cpp">
+      <Filter>ADT</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu[OLD].cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="sha256.cpp">
+      <Filter>ALG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>States</Filter>
-    </ClInclude>
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Actor.h">
       <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="sha256.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Asteroids.h">
       <Filter>Actor</Filter>
@@ -112,23 +57,8 @@
     <ClInclude Include="Bullet.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenu.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu[OLD].h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="AVL_Tree.h">
       <Filter>ADT</Filter>
@@ -136,5 +66,58 @@
     <ClInclude Include="BinaryNode.h">
       <Filter>ADT</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="Queue.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="Stack.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingState.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu[OLD].h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="sha256.h">
+      <Filter>ALG</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>State</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{9ea9f85c-5b20-415b-a33b-c34b06de5301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ADT">
+      <UniqueIdentifier>{d0a65292-8189-4a4a-9e69-ce4b1ef2bc54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{7691c962-8309-4933-afe9-9b19e0e8562e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{07e2ad92-fac9-4b17-a923-0a36619c5bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ALG">
+      <UniqueIdentifier>{42dafc19-0328-4471-a548-db7e3415b167}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
