@@ -44,9 +44,23 @@ void Game::initWindow()
 
 }
 
+void Game::initKeys()
+{
+
+	std::ifstream ifs("Config/keys.ini");
+	if (ifs.is_open())
+	{
+		std::string key;
+		int key_code;
+
+		while (ifs >> key >> key_code)
+			this->supportedKeys[key] = key_code;
+	}
+}
+
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(this->window, &this->states));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 void Game::initFonts()
@@ -57,7 +71,7 @@ void Game::initFonts()
 
 void Game::initWorld()
 {
-	if (!this->worldBackgroundTexture.loadFromFile("Assets/Background/nebula/nebula01.png"))
+	if (!this->worldBackgroundTexture.loadFromFile("Assets/Background/nebula/stars.png"))
 		throw("ERROR::GAME::INITWORLD::Could not load background");
 	this->worldBackgroundSprite.setTexture(this->worldBackgroundTexture);
 }
@@ -67,6 +81,7 @@ Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initKeys();
 	this->initStates();
 	this->initWorld();
 	this->initFonts();
@@ -75,7 +90,6 @@ Game::Game()
 Game::~Game()
 {
 	delete this->window;
-	delete this->playButton;
 	while (!this->states.isEmpty())
 	{
 		delete this->states.getTop();
@@ -112,10 +126,6 @@ void Game::pollEvents()
 		{
 		case sf::Event::EventType::Closed:
 			this->endApp();
-			break;
-		case sf::Event::EventType::KeyPressed:
-			if (this->ev.key.code == sf::Keyboard::Escape)
-				this->endApp();
 			break;
 		case sf::Event::EventType::GainedFocus:
 			this->isFocus = true;

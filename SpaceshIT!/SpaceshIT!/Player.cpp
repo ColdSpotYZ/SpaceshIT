@@ -47,7 +47,7 @@ const int Player::getHpMax() const
 
 void Player::move(const float dt, const float x, const float y)
 {
-	this->sprite.move(this->speed * x * dt, this->speed * y * dt);
+	this->sprite->move(this->speed * x * dt, this->speed * y * dt);
 }
 
 void Player::takeDamage()
@@ -75,28 +75,28 @@ void Player::update(const float dt)
 {
 }
 
-void Player::update(const float dt, bool wasd = true)
+void Player::update(const float dt, std::map<std::string, int> keybinds, bool wasd = true)
 {
 	if (wasd)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_left")))
 			this->move(dt, -1.f, 0.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_right")))
 			this->move(dt, 1.f, 0.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_front")))
 			this->move(dt, 0.f, -1.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_back")))
 			this->move(dt, 0.f, 1.f);
 	}
 	else
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_left")))
 			this->move(dt, -1.f, 0.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_right")))
 			this->move(dt, 1.f, 0.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_front")))
 			this->move(dt, 0.f, -1.f);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_back")))
 			this->move(dt, 0.f, 1.f);
 	}
 	this->updateGUI();
@@ -104,7 +104,7 @@ void Player::update(const float dt, bool wasd = true)
 
 void Player::render(sf::RenderTarget* target)
 {
-	target->draw(this->sprite);
+	target->draw(*this->sprite);
 	target->draw(this->playerHpBarBack);
 	target->draw(this->playerHpBar);
 }

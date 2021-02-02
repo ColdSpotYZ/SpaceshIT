@@ -29,6 +29,6 @@ void Bullet::changeState(bool state)
 
 void Bullet::move(const float dt, const float x, const float y)
 {
-	this->sprite.move(this->speed * x * dt, this->speed * y * dt);
+	this->sprite->move(this->speed * x * dt, this->speed * y * dt);
 }
 

@@ -35,7 +35,7 @@ public:
     void updateGUI();
 
     void update(const float dt) override;
-    void update(const float dt, bool wasd);
+    void update(const float dt, std::map < std::string , int > keybinds, bool wasd);
     void render(sf::RenderTarget* target);
 };
 

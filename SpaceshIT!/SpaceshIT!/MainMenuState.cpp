@@ -1,5 +1,22 @@
 #include "MainMenuState.h"
 
+void MainMenuState::initVariables()
+{
+}
+
+void MainMenuState::initKeybinds()
+{
+	this->keybinds["CLOSE"] = this->supportedKeys->at((char*)"Escape");
+}
+
+void MainMenuState::initBackground()
+{
+	this->background.setSize(sf::Vector2f((float)this->window->getSize().x, (float)this->window->getSize().y));
+	if (!this->backgroundTexture.loadFromFile("Assets/Background/bg.png"))
+		throw("ERROR::MAINMENUSTATE::INITBACKGROUND::Failed to load background image");
+	this->background.setTexture(&this->backgroundTexture);
+}
+
 void MainMenuState::initFont()
 {
 	if (!this->font.loadFromFile("Fonts/game.ttf"))
@@ -8,33 +25,40 @@ void MainMenuState::initFont()
 
 void MainMenuState::initButtons()
 {
-	this->buttons[(char*)"GAME_STATE"] = new Button(sf::Vector2f(100, 100), sf::Vector2f(150, 50),
+	this->buttons[(char*)"GAME_STATE"] = new gui::Button(sf::Vector2f(100, 100), sf::Vector2f(150, 50),
 		&this->font, (char*)"PLAY",
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
 
-	this->buttons[(char*)"SETTINGS"] = new Button(sf::Vector2f(100, 300), sf::Vector2f(150, 50),
+	this->buttons[(char*)"SETTINGS"] = new gui::Button(sf::Vector2f(100, 300), sf::Vector2f(150, 50),
 		&this->font, (char*)"SETTINGS",
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
 
-	this->buttons[(char*)"EXIT_STATE"] = new Button(sf::Vector2f(100, 500), sf::Vector2f(150, 50),
+	this->buttons[(char*)"CREDITS"] = new gui::Button(sf::Vector2f(100, 500), sf::Vector2f(150, 50),
+		&this->font, (char*)"CREDITS",
+		sf::Color(70, 70, 70, 200),
+		sf::Color(150, 150, 150, 255),
+		sf::Color(20, 20, 20, 200));
+
+
+	this->buttons[(char*)"EXIT_STATE"] = new gui::Button(sf::Vector2f(100, 700), sf::Vector2f(150, 50),
 		&this->font, (char*)"QUIT",
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, Stack<State*>* states)
-	: State(window, states)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
+	: State(window, supportedKeys, states)
 {
+	this->initVariables();
+	this->initKeybinds();
+	this->initBackground();
 	this->initFont();
 	this->initButtons();
-
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color(27, 40, 69));
 }
 
 MainMenuState::~MainMenuState()
@@ -54,7 +78,8 @@ void MainMenuState::endState()
 
 void MainMenuState::updateInput(const float& dt)
 {
-	this->checkForQuit();
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+		this->endState();*/
 }
 
 void MainMenuState::updateButtons()
@@ -65,8 +90,13 @@ void MainMenuState::updateButtons()
 	}
 
 	if (this->buttons[(char*)"GAME_STATE"]->isPressed())
-		this->states->push(new GameState(this->window, this->states));
+		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+
+	//if (this->buttons[(char*)"CREDITS"]->isPressed())
+	//	this->states->push(new CreditState(this->window, this->supportedKeys, this->states))
 		
+	if (this->buttons[(char*)"SETTINGS"]->isPressed())
+		this->states->push(new SettingState(this->window, this->supportedKeys, this->states));
 
 	if (this->buttons[(char*)"EXIT_STATE"]->isPressed())
 		this->endState();

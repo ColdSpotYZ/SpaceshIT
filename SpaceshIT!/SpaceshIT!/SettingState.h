@@ -1,21 +1,17 @@
 #pragma once
-
-#include "GameState.h"
-#include "SettingState.h"
+#include "State.h"
 #include "Gui.h"
-
-
-class MainMenuState :
-    public State
+class SettingState
+	: public State
 {
 private:
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
 
-    std::map<char *, gui::Button*> buttons;
+    std::map<char*, gui::Button*> buttons;
 
-    
+
     void initVariables();
     void initKeybinds();
     void initBackground();
@@ -23,10 +19,12 @@ private:
     void initButtons();
 
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
-    virtual ~MainMenuState();
+	SettingState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
+	virtual ~SettingState();
 
-    // Functions
+	// Accessors
+
+	// Functions
     void endState();
     void updateInput(const float& dt);
     void updateButtons();

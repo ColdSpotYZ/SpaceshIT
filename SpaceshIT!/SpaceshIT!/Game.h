@@ -6,7 +6,6 @@
 #include <iostream>
 
 // User-defined
-#include "Menu.h"
 #include "GameState.h"
 #include "MainMenuState.h"
 #include "Player.h"
@@ -33,6 +32,9 @@ private:
 	// States
 	Stack<State*> states;
 
+	// Keybinds
+	std::map<string, int> supportedKeys;
+
 	// Mouse position
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
@@ -40,17 +42,9 @@ private:
 	// Typography
 	sf::Font mainFont;
 
-	// Main Menu
-	Menu* playButton;
 
 	// GUI
 	sf::Text playerWin;
-	sf::RectangleShape player1HpBar;
-	sf::RectangleShape player1HpBarBack;
-	sf::RectangleShape player2HpBar;
-	sf::RectangleShape player2HpBarBack;
-
-
 
 	// World
 	sf::Texture worldBackgroundTexture;
@@ -60,6 +54,7 @@ private:
 	void initVariables();
 	void initWindow();
 	void initStates();
+	void initKeys();
 	void initFonts();
 	void initWorld();
 	/*void initGUI();*/
