@@ -17,6 +17,7 @@
 class State
 {
 protected:
+	Stack<State*>* states;
 	sf::RenderWindow* window;
 	Vector<sf::Texture> textures;
 	bool quit;
@@ -27,7 +28,7 @@ protected:
 	sf::Vector2f mousePosView;
 
 public:
-	State(sf::RenderWindow* window);
+	State(sf::RenderWindow* window, Stack<State*>* states);
 	virtual ~State();
 
 	const bool& getQuit() const;

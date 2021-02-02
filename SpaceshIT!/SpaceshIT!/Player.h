@@ -4,6 +4,10 @@ class Player :
     public Actor
 {
 private:
+    // HP Bar
+    sf::RectangleShape playerHpBar;
+    sf::RectangleShape playerHpBarBack;
+
     int max_health = 100;
     int health;
     int max_ammo = 20;
@@ -13,6 +17,7 @@ private:
 
     // Functions
     void initVariables();
+    void initGUI();
 public:
     Player();
     Player(char* filename);
@@ -27,8 +32,10 @@ public:
     void move(const float dt, const float x, const float y);
     void takeDamage();
     void shoot();
+    void updateGUI();
 
     void update(const float dt) override;
     void update(const float dt, bool wasd);
+    void render(sf::RenderTarget* target);
 };
 

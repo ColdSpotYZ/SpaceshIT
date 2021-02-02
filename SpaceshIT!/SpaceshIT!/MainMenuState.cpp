@@ -14,15 +14,21 @@ void MainMenuState::initButtons()
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
 
-	this->buttons[(char*)"EXIT_STATE"] = new Button(sf::Vector2f(100, 300), sf::Vector2f(150, 50),
+	this->buttons[(char*)"SETTINGS"] = new Button(sf::Vector2f(100, 300), sf::Vector2f(150, 50),
+		&this->font, (char*)"SETTINGS",
+		sf::Color(70, 70, 70, 200),
+		sf::Color(150, 150, 150, 255),
+		sf::Color(20, 20, 20, 200));
+
+	this->buttons[(char*)"EXIT_STATE"] = new Button(sf::Vector2f(100, 500), sf::Vector2f(150, 50),
 		&this->font, (char*)"QUIT",
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window)
-	: State(window)
+MainMenuState::MainMenuState(sf::RenderWindow* window, Stack<State*>* states)
+	: State(window, states)
 {
 	this->initFont();
 	this->initButtons();
@@ -43,6 +49,7 @@ MainMenuState::~MainMenuState()
 void MainMenuState::endState()
 {
 	// End game state
+	this->quit = true;
 }
 
 void MainMenuState::updateInput(const float& dt)
@@ -58,10 +65,11 @@ void MainMenuState::updateButtons()
 	}
 
 	if (this->buttons[(char*)"GAME_STATE"]->isPressed())
-		this->quit = true;
+		this->states->push(new GameState(this->window, this->states));
+		
 
 	if (this->buttons[(char*)"EXIT_STATE"]->isPressed())
-		this->quit = true;
+		this->endState();
 }
 
 void MainMenuState::update(const float& dt)

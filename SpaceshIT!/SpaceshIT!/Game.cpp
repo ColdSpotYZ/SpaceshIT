@@ -5,30 +5,40 @@
 void Game::initVariables()
 {
 	this->window = nullptr;
-	this->gameStart = false;
-	Player temp = Player();
-	this->playerVec = new Vector<Player*>;
+	this->dt = 0.f;
+	this->isFullscreen = false;
 }
 
 void Game::initWindow()
 {
 	// Read config(.ini) file
 	std::ifstream ifs("Config/window.ini");
+
+	this->videoModes = sf::VideoMode::getFullscreenModes();
+
 	std::string title = "None";
-	sf::VideoMode window_bounds(1600, 900);
+	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
 	unsigned framerate_limit = 144;
 	bool vertical_sync = false;
+	unsigned antialiasing_level = 0;
 
 	if (ifs.is_open())
 	{
 		std::getline(ifs, title);
 		ifs >> window_bounds.width >> window_bounds.height;
+		ifs >> this->isFullscreen;
 		ifs >> framerate_limit;
 		ifs >> vertical_sync;
+		ifs >> antialiasing_level;
 	}
 	ifs.close();
 
-	this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close /*| sf::Style::Fullscreen*/);
+	this->windowSettings.antialiasingLevel = antialiasing_level;
+	if (this->isFullscreen)
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close | sf::Style::Fullscreen, this->windowSettings);
+	else
+		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+
 	this->window->setFramerateLimit(framerate_limit);
 	this->window->setVerticalSyncEnabled(vertical_sync);
 
@@ -36,64 +46,20 @@ void Game::initWindow()
 
 void Game::initStates()
 {
-	this->states.push(new GameState(this->window));
-	this->states.push(new MainMenuState(this->window));
+	this->states.push(new MainMenuState(this->window, &this->states));
 }
 
 void Game::initFonts()
 {
 	if (!this->mainFont.loadFromFile("Fonts/game.ttf"))
-		std::cout << "Failed to load font." << std::endl;
+		throw("ERROR::GAME::INITFONTS::Failed to load font.");
 }
 
 void Game::initWorld()
 {
 	if (!this->worldBackgroundTexture.loadFromFile("Assets/Background/nebula/nebula01.png"))
-		std::cout << "ERROR::GAME::Could not load background" << std::endl;
+		throw("ERROR::GAME::INITWORLD::Could not load background");
 	this->worldBackgroundSprite.setTexture(this->worldBackgroundTexture);
-}
-
-void Game::initPlayer()
-{
-	this->player1 = new Player((char*)"player1");
-	this->player2 = new Player((char*)"player2");
-	this->playerVec->push_back(this->player1);
-	this->playerVec->push_back(this->player2);
-}
-
-void Game::initGUI()
-{
-	// Game over text
-	this->playerWin.setFont(this->mainFont);
-	this->playerWin.setCharacterSize(50);
-	this->playerWin.setFillColor(sf::Color::White);
-
-	// Player1 Health Bar
-	this->player1HpBar.setSize(sf::Vector2f(this->player1->getBounds().width, 10.f));
-	this->player1HpBar.setFillColor(sf::Color::Red);
-	this->player1HpBar.setPosition(sf::Vector2f(this->player1->getPos().x, this->player1->getPos().y - (this->player1->getBounds().height / 4)));
-
-	this->player1HpBarBack = this->player1HpBar;
-	this->player1HpBarBack.setFillColor(sf::Color(30, 30, 30, 240));
-
-	// Player2 Health Bar
-	this->player2HpBar.setSize(sf::Vector2f(this->player2->getBounds().width, 10.f));
-	this->player2HpBar.setFillColor(sf::Color::Red);
-	this->player2HpBar.setPosition(sf::Vector2f(this->player2->getPos().x, this->player2->getPos().y - (this->player2->getBounds().height / 4)));
-
-	this->player2HpBarBack = this->player2HpBar;
-	this->player2HpBarBack.setFillColor(sf::Color(33, 33, 33, 240));
-}
-
-void Game::initMenu()
-{
-	float button_x = 200.f;
-	float button_y = 100.f;
-	this->playButton = new Menu(
-		sf::Vector2f(((this->window->getSize().x - button_x ) / 2 ), ((this->window->getSize().y - button_y ) / 2 )),
-		sf::Vector2f(button_x, button_y),
-		(char*)"PLAY"
-	);
 }
 
 
@@ -104,17 +70,12 @@ Game::Game()
 	this->initStates();
 	this->initWorld();
 	this->initFonts();
-	this->initMenu();
-	this->initPlayer();
-	this->initGUI();
 }
 
 Game::~Game()
 {
 	delete this->window;
 	delete this->playButton;
-	delete this->player1;
-	delete this->player2;
 	while (!this->states.isEmpty())
 	{
 		delete this->states.getTop();
@@ -169,8 +130,7 @@ void Game::pollEvents()
 void Game::updateInput()
 {
 	// TODO: Push onto stack and pop in render()
-	this->player1->update(this->dt, true);
-	this->player2->update(this->dt, false);
+	
 }
 
 void Game::updateMousePosition()
@@ -179,45 +139,8 @@ void Game::updateMousePosition()
 	this->mousePosView = this->window->mapPixelToCoords(this->mousePosWindow);
 }
 
-void Game::updateGUI()
-{
-	// Something else
-
-	// Players health bar
-	
-	this->player1HpBar.setSize(sf::Vector2f(this->player1->getBounds().width * (static_cast<float>(this->player1->getHp()) / this->player1->getHpMax()), this->player1HpBar.getSize().y));
-	this->player1HpBar.setPosition(sf::Vector2f(this->player1->getPos().x, this->player1->getPos().y - (this->player1->getBounds().height / 4)));
-	this->player1HpBarBack.setPosition(sf::Vector2f(this->player1->getPos().x, this->player1->getPos().y - (this->player1->getBounds().height / 4)));
-	this->player2HpBar.setSize(sf::Vector2f(this->player2->getBounds().width * (static_cast<float>(this->player2->getHp()) / this->player2->getHpMax()), this->player2HpBar.getSize().y));
-	this->player2HpBar.setPosition(sf::Vector2f(this->player2->getPos().x, this->player2->getPos().y - (this->player2->getBounds().height / 4)));
-	this->player2HpBarBack.setPosition(sf::Vector2f(this->player2->getPos().x, this->player2->getPos().y - (this->player2->getBounds().height / 4)));
-}
-
 void Game::updateWorld()
 {
-}
-
-void Game::updateCollision()
-{
-	for (int i = 0; i < this->playerVec->getsize(); i++)
-	{
-		if (this->playerVec->at(i)->getBounds().left < 0.f)
-		{
-			this->playerVec->at(i)->setPos(0.f, this->playerVec->at(i)->getBounds().top);
-		}
-		else if (this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width > this->window->getSize().x)
-		{
-			this->playerVec->at(i)->setPos(this->window->getSize().x - this->playerVec->at(i)->getBounds().width, this->playerVec->at(i)->getBounds().top);
-		}
-		if (this->playerVec->at(i)->getBounds().top < 0.f)
-		{
-			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, 0.f);
-		}
-		else if (this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height >= this->window->getSize().y)
-		{
-			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, this->window->getSize().y - this->playerVec->at(i)->getBounds().height);
-		}
-	}
 }
 
 void Game::renderWorld()
@@ -237,7 +160,8 @@ void Game::update()
 	// Update from states
 	if (!this->states.isEmpty())
 	{
-		this->states.getTop()->update(this->dt);
+		if (this->isFocus)
+			this->states.getTop()->update(this->dt);
 		if (this->states.getTop()->getQuit())
 		{
 			this->states.getTop()->endState();
@@ -249,10 +173,6 @@ void Game::update()
 	{
 		this->endApp();
 	}
-		
-	
-	this->updateCollision();
-	this->updateGUI();
 
 	// Update mouse position
 	this->updateMousePosition();
@@ -289,18 +209,6 @@ void Game::render()
 	{
 		this->endApp();
 	}
-
-	//if (!this->gameStart)
-	//	this->playButton->render(this->window, this->mousePosView, this->gameStart);
-	//else
-	//{
-	//	this->player1->render(this->window);
-	//	this->player2->render(this->window);
-	//	this->window->draw(this->player1HpBarBack);
-	//	this->window->draw(this->player1HpBar);
-	//	this->window->draw(this->player2HpBarBack);
-	//	this->window->draw(this->player2HpBar);
-	//}
 
 		
 

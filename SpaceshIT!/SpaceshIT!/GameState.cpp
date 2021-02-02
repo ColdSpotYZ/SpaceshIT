@@ -12,9 +12,15 @@ void GameState::initMusic()
 	else
 	{
 		this->music.setLoop(true);
-		this->music.setVolume(25);
+		this->music.setVolume(15);
 		this->music.play();
 	}
+}
+
+void GameState::initFont()
+{
+	if (!this->font.loadFromFile("Fonts/Dosis-Light.ttf"))
+		throw("ERROR::MAINMENUSTATE::INITFONT::Failed to load menu font.");
 }
 
 void GameState::initPlayer()
@@ -25,11 +31,22 @@ void GameState::initPlayer()
 	this->playerVec->push_back(this->player2);
 }
 
-GameState::GameState(sf::RenderWindow* window)
-	: State(window)
+void GameState::initGUI()
+{
+	// Game over text
+	this->playerWin.setFont(this->font);
+	this->playerWin.setCharacterSize(50);
+	this->playerWin.setFillColor(sf::Color::White);
+}
+
+GameState::GameState(sf::RenderWindow* window, Stack<State*>* states)
+	: State(window, states)
 {
 	initVariables();
+	initFont();
 	initPlayer();
+	initGUI();
+	initMusic();
 }
 
 GameState::~GameState()
@@ -50,18 +67,36 @@ void GameState::updateInput(const float& dt)
 	}
 }
 
+void GameState::updateCollision()
+{
+	for (int i = 0; i < this->playerVec->getsize(); i++)
+	{
+		if (this->playerVec->at(i)->getBounds().left < 0.f)
+		{
+			this->playerVec->at(i)->setPos(0.f, this->playerVec->at(i)->getBounds().top);
+		}
+		else if (this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width > this->window->getSize().x)
+		{
+			this->playerVec->at(i)->setPos(this->window->getSize().x - this->playerVec->at(i)->getBounds().width, this->playerVec->at(i)->getBounds().top);
+		}
+		if (this->playerVec->at(i)->getBounds().top < 0.f)
+		{
+			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, 0.f);
+		}
+		else if (this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height >= this->window->getSize().y)
+		{
+			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, this->window->getSize().y - this->playerVec->at(i)->getBounds().height);
+		}
+	}
+}
+
 void GameState::update(const float& dt)
 {
-	//Run once
-	if (!this->stateStart)
-	{
-		initMusic();
-		this->stateStart = true;
-	}
-		
 	// GameState updates
+	this->updateCollision();
 	this->updateMousePosition();
 	this->updateInput(dt);
+	
 }
 
 void GameState::render(sf::RenderTarget* target)

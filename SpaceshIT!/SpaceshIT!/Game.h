@@ -21,6 +21,9 @@ private:
 	// Window
 	sf::RenderWindow* window;
 	sf::Event ev;
+	vector<sf::VideoMode> videoModes;
+	bool isFullscreen;
+	sf::ContextSettings windowSettings;
 
 	// Time
 	sf::Clock dtClock;
@@ -56,19 +59,11 @@ private:
 	void initVariables();
 	void initWindow();
 	void initStates();
-	void initMenu();
 	void initFonts();
 	void initWorld();
-	void initGUI();
-
-	// Player
-	Vector<Player*>* playerVec;
-	Player* player1;
-	Player* player2;
-	void initPlayer();
+	/*void initGUI();*/
 
 	// Flags
-	bool gameStart;
 	bool isFocus = true;
 
 public:
@@ -98,9 +93,7 @@ public:
 
 	void updateInput();
 	void updateMousePosition();
-	void updateGUI();
 	void updateWorld();
-	void updateCollision();
 
 	void renderWorld();
 	void update();
