@@ -63,7 +63,7 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
+    <ClCompile Include="AVL_Tree.cpp">
       <Filter>ADT</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,6 +111,12 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="AVL_Tree.h">
+      <Filter>ADT</Filter>
+    </ClInclude>
+    <ClInclude Include="BinaryNode.h">
       <Filter>ADT</Filter>
     </ClInclude>
   </ItemGroup>
