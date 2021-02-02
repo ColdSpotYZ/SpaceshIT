@@ -2,19 +2,33 @@
 
 void Bullet::InitVairables()
 {
-	speed = this->speed;
-	state = this->state;
+	this->speed = this->speed;
+	this->state = this->state;
 }
 
-Bullet::Bullet() {
-	initVariables();
-	x_axis = 0;
-	y_axis = 0;
+Bullet::Bullet() 
+{
+	this->initVariables();
 };
 
-Bullet::Bullet(int x, int y) {
-	initVariables();
-	x_axis = x;
-	y_axis = y;
-};
+Bullet::~Bullet()
+{
+
+}
+
+
+bool Bullet::getState()
+{
+	return this->state;
+}
+
+bool Bullet::changeState(bool state)
+{
+	this->state = state;
+}
+
+void Bullet::move(const float dt, const float x, const float y)
+{
+	this->sprite.move(this->speed * x * dt, this->speed * y * dt);
+}
 
