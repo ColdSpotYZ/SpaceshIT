@@ -22,7 +22,7 @@ bool Bullet::getState()
 	return this->state;
 }
 
-bool Bullet::changeState(bool state)
+void Bullet::changeState(bool state)
 {
 	this->state = state;
 }
