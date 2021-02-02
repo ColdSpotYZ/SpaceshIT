@@ -5,6 +5,19 @@ void GameState::initVariables()
 	this->playerVec = new Vector<Player*>;
 }
 
+void GameState::initKeybinds()
+{
+	std::ifstream ifs("Config/gamestate_keys.ini");
+	if (ifs.is_open())
+	{
+		std::string key;
+		string key_code_map;
+
+		while (ifs >> key >> key_code_map)
+			this->keybinds[key] = this->supportedKeys->at(key_code_map);
+	}
+}
+
 void GameState::initMusic()
 {
 	if (!this->music.openFromFile("Assets/Audio/theme.wav"))
@@ -39,11 +52,19 @@ void GameState::initGUI()
 	this->playerWin.setFillColor(sf::Color::White);
 }
 
-GameState::GameState(sf::RenderWindow* window, Stack<State*>* states)
-	: State(window, states)
+void GameState::initPauseMenu()
+{
+	this->pauseMenu = new PauseMenu(*this->window, this->font);
+	this->pauseMenu->addButton("EXIT_STATE", 700.f , "QUIT");
+}
+
+GameState::GameState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
+	: State(window, supportedKeys, states)
 {
 	initVariables();
+	initKeybinds();
 	initFont();
+	initPauseMenu();
 	initPlayer();
 	initGUI();
 	initMusic();
@@ -51,19 +72,38 @@ GameState::GameState(sf::RenderWindow* window, Stack<State*>* states)
 
 GameState::~GameState()
 {
+	this->playerVec->~Vector();
+	delete this->pauseMenu;
 }
 
 void GameState::endState()
 {
 	// End game state
+	this->quit = true;
 }
 
 void GameState::updateInput(const float& dt)
 {
-	this->checkForQuit();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime())
+	{
+		if (!this->paused)
+		{
+			this->pauseState();
+			this->music.pause();
+		}
+		else
+		{
+			this->unpauseState();
+			this->music.play();
+		}
+	}
+}
+
+void GameState::updatePlayerInput(const float& dt)
+{
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
 	{
-		this->playerVec->at(i)->update(dt, !i);
+		this->playerVec->at(i)->update(dt, this->keybinds, !i);
 	}
 }
 
@@ -90,12 +130,28 @@ void GameState::updateCollision()
 	}
 }
 
+void GameState::updatePauseMenuButtons()
+{
+	if (this->pauseMenu->isButtonPressed("EXIT_STATE"))
+		this->endState();
+}
+
 void GameState::update(const float& dt)
 {
 	// GameState updates
-	this->updateCollision();
 	this->updateMousePosition();
+	this->updateKeyTime(dt);
 	this->updateInput(dt);
+	if (!this->paused)
+	{
+		this->updateCollision();	
+		this->updatePlayerInput(dt);
+	}
+	else
+	{
+		this->pauseMenu->update(this->mousePosView);
+		this->updatePauseMenuButtons();
+	}
 	
 }
 
@@ -103,4 +159,8 @@ void GameState::render(sf::RenderTarget* target)
 {
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
 		playerVec->at(i)->render(target);
+	if (this->paused)
+	{
+		this->pauseMenu->render(target);
+	}
 }

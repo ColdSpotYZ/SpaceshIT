@@ -1,6 +1,6 @@
-#include "Button.h"
+#include "Gui.h"
 
-Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font* font, char* text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
+gui::Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font* font, char* text, sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
 {
 	this->buttonState = BTN_IDLE;
 	// Rectangle
@@ -25,16 +25,17 @@ Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font* font, char* text, 
 	this->shape.setFillColor(this->idleColor);
 }
 
-Button::~Button()
+gui::Button::~Button()
 {
 }
 
-const bool Button::isPressed() const
+
+const bool gui::Button::isPressed() const
 {
 	return (this->buttonState == BTN_ACTIVE) ? true : false;
 }
 
-void Button::update(const sf::Vector2f mousePos)
+void gui::Button::update(const sf::Vector2f& mousePos)
 {
 	// Check idle, hover or active
 	this->buttonState = BTN_IDLE;
@@ -62,8 +63,16 @@ void Button::update(const sf::Vector2f mousePos)
 	}
 }
 
-void Button::render(sf::RenderTarget* target)
+void gui::Button::render(sf::RenderTarget* target)
 {
 	target->draw(this->shape);
 	target->draw(this->text);
+}
+
+void gui::DropDownList::update(const sf::Vector2f& mousePos)
+{
+}
+
+void gui::DropDownList::render(sf::RenderTarget* target)
+{
 }

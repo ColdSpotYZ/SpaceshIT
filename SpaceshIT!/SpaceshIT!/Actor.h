@@ -13,8 +13,8 @@
 class Actor
 {
 protected:
-	sf::Sprite sprite;
-	sf::Texture texture;
+	sf::Sprite* sprite;
+	sf::Texture* texture;
 	float movementSpeed;
 
 	// Functions
@@ -25,6 +25,9 @@ public:
 	Actor();
 	Actor(char*);
 	virtual ~Actor();
+
+	// Component
+	void createSprite(sf::Texture* texture);
 
 	// Accessors
 	const sf::Vector2f& getPos() const;
