@@ -18,7 +18,7 @@ class Bullet : public Actor
 
 		bool getState();
 
-		bool changeState(bool state);
+		void changeState(bool state);
 
 		void move(const float dt, const float x, const float y);
 };
