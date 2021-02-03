@@ -135,9 +135,9 @@ inline Vector<T>::Vector(Vector& copier)
 {
 	this->size = copier.size;
 	this->capacity = copier.capacity;
-	this->internal_array = new T*[this->size];
+	this->internal_array = new T[this->capacity];
 
-	for (size_type i = 0; size_type < copier.size(); i++)
+	for (size_type i = 0; i < copier.size; i++)
 	{
 		this->internal_array[i] = copier[i];
 	}

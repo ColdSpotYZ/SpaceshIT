@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Actor.h"
 
 void Actor::initTexture(char* filename)

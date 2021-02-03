@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameState.h"
 
 void GameState::initVariables()
@@ -161,6 +162,7 @@ void GameState::render(sf::RenderTarget* target)
 		playerVec->at(i)->render(target);
 	if (this->paused)
 	{
+
 		this->pauseMenu->render(target);
 	}
 }

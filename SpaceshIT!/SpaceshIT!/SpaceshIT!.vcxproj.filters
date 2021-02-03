@@ -45,6 +45,9 @@
     <ClCompile Include="sha256.cpp">
       <Filter>ALG</Filter>
     </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Headers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -102,6 +105,9 @@
     <ClInclude Include="State.h">
       <Filter>State</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -118,6 +124,9 @@
     </Filter>
     <Filter Include="ALG">
       <UniqueIdentifier>{42dafc19-0328-4471-a548-db7e3415b167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{69ee7f0c-68a1-4ea4-9bcf-2cfe53555a66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

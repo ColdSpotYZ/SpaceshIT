@@ -1,5 +1,5 @@
 // AVL_Tree.cpp - AVL functions (Implementation)
-
+#include "stdafx.h"
 #include "AVL_Tree.h"
 #define max(x,y) ((x > y)? x : y)
 

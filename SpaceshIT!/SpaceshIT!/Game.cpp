@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "State.h"
 #include "Game.h"
 #include <stack>
@@ -71,9 +72,9 @@ void Game::initFonts()
 
 void Game::initWorld()
 {
-	if (!this->worldBackgroundTexture.loadFromFile("Assets/Background/nebula/stars.png"))
+	/*if (!this->worldBackgroundTexture.loadFromFile("Assets/Background/nebula/stars.png"))
 		throw("ERROR::GAME::INITWORLD::Could not load background");
-	this->worldBackgroundSprite.setTexture(this->worldBackgroundTexture);
+	this->worldBackgroundSprite.setTexture(this->worldBackgroundTexture);*/
 }
 
 

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Queue.h"
 #include <string>
 #include "sha256.h"
