@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include <cmath>
 
 // ADT
 #include "Vector.h"

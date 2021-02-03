@@ -28,7 +28,7 @@ Player::Player(char* filename) : Actor(filename)
 {
 	this->initVariables();
 	this->initSprite(sf::Vector2f(0.4f, 0.4f));
-	this->initGUI();
+	/*this->initGUI();*/
 }
 
 Player::~Player()
@@ -81,33 +81,63 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 	if (wasd)
 	{
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_left")))
-			this->move(dt, -1.f, 0.f);
+			this->rotateAmount1 = -0.02f;
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_right")))
-			this->move(dt, 1.f, 0.f);
+			this->rotateAmount1 = 0.02f;
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_front")))
-			this->move(dt, 0.f, -1.f);
+		{
+			this->p1Velocity.y = -1;
+			this->p1Velocity.x = 1;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_back")))
-			this->move(dt, 0.f, 1.f);
+		{
+			this->p1Velocity.y = 1;
+			this->p1Velocity.x = 1;
+		}
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
+			std::cout << "P1 shoot!" << std::endl;
+
+		this->rotation1 += this->rotateAmount1;
+		this->sprite->rotate(this->rotation1);
+		this->move(dt, this->p1Velocity.x * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), this->p1Velocity.y * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)));
+		this->p1Velocity.x = 0;
+		this->p1Velocity.y = 0;
+		this->rotateAmount1 = 0;
 	}
 	else
 	{
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_left")))
-			this->move(dt, -1.f, 0.f);
+			this->rotateAmount2 = -0.02f;
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_right")))
-			this->move(dt, 1.f, 0.f);
+			this->rotateAmount2 = 0.02f;
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_front")))
-			this->move(dt, 0.f, -1.f);
+		{
+			this->p2Velocity.y = -1;
+			this->p2Velocity.x = 1;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_back")))
-			this->move(dt, 0.f, 1.f);
+		{
+			this->p2Velocity.y = 1;
+			this->p2Velocity.x = 1;
+		}
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")))
+			std::cout << "P2 shoot!" << std::endl;
+
+		this->rotation2 += this->rotateAmount2;
+		this->sprite->rotate(this->rotation2);
+		this->move(dt, this->p2Velocity.x * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), this->p2Velocity.y * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)));
+		this->p2Velocity.x = 0;
+		this->p2Velocity.y = 0;
+		this->rotateAmount2 = 0;
 	}
-	this->updateGUI();
+	/*this->updateGUI();*/
 }
 
 void Player::render(sf::RenderTarget* target)
 {
 	target->draw(*this->sprite);
-	target->draw(this->playerHpBarBack);
-	target->draw(this->playerHpBar);
+	//target->draw(this->playerHpBarBack);
+	//target->draw(this->playerHpBar);
 }
 
 
