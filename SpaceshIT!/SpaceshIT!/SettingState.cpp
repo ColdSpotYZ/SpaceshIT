@@ -1,7 +1,10 @@
+#include "stdafx.h"
 #include "SettingState.h"
 
 void SettingState::initVariables()
 {
+	for (auto i : sf::VideoMode::getFullscreenModes())
+		this->modes.push_back(i);
 }
 
 void SettingState::initKeybinds()
@@ -23,13 +26,36 @@ void SettingState::initFont()
 		throw("ERROR::MAINMENUSTATE::INITFONT::Failed to load menu font.");
 }
 
-void SettingState::initButtons()
+void SettingState::initGUI()
 {
-	this->buttons[(char*)"EXIT_STATE"] = new gui::Button(sf::Vector2f(100, 700), sf::Vector2f(150, 50),
-		&this->font, (char*)"QUIT",
+	this->buttons[(char*)"EXIT_STATE"] = new gui::Button(sf::Vector2f(100, 780), sf::Vector2f(150, 50),
+		&this->font, (char*)"BACK",
 		sf::Color(70, 70, 70, 200),
 		sf::Color(150, 150, 150, 255),
 		sf::Color(20, 20, 20, 200));
+
+	this->buttons[(char*)"APPLY"] = new gui::Button(sf::Vector2f(100, 700), sf::Vector2f(150, 50),
+		&this->font, (char*)"APPLY",
+		sf::Color(70, 70, 70, 200),
+		sf::Color(150, 150, 150, 255),
+		sf::Color(20, 20, 20, 200));
+
+	Vector<std::string> modes_str;
+	for (auto& i : this->modes)
+	{
+		std::string temp = std::to_string(i.width) + "x" + std::to_string(i.height);
+		modes_str.push_back(temp);
+	}
+	this->dropDownLists[(char*)"RESOLUTIONS"] = new gui::DropDownList(100, 100, 150, 50, font, modes_str, modes_str.getsize());
+}
+
+void SettingState::initText()
+{
+	this->optionsText.setFont(this->font);
+	this->optionsText.setPosition(sf::Vector2f(300, 125));
+	this->optionsText.setCharacterSize(24);
+	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+	this->optionsText.setString("Resolution \n\n\n\n\n\nFullscreen \n\n\n\n\n\nVsync \n\n\n\n\n\nAntialiasing \n\n\n\n\n\n");
 }
 
 SettingState::SettingState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
@@ -39,7 +65,8 @@ SettingState::SettingState(sf::RenderWindow* window, std::map<string, int>* supp
 	this->initKeybinds();
 	this->initBackground();
 	this->initFont();
-	this->initButtons();
+	this->initGUI();
+	this->initText();
 }
 
 SettingState::~SettingState()
@@ -48,6 +75,12 @@ SettingState::~SettingState()
 	for (i = this->buttons.begin(); i != this->buttons.end(); ++i)
 	{
 		delete i->second;
+	}
+
+	auto i2 = this->dropDownLists.begin();
+	for (i2 = this->dropDownLists.begin(); i2 != this->dropDownLists.end(); ++i2)
+	{
+		delete i2->second;
 	}
 }
 
@@ -66,36 +99,58 @@ void SettingState::updateInput(const float& dt)
 		this->endState();*/
 }
 
-void SettingState::updateButtons()
+void SettingState::updateGUI(const float& dt)
 {
+	// Update all buttons
 	for (auto& i : this->buttons)
 	{
 		i.second->update(this->mousePosView);
 	}
 
-	if (this->buttons[(char*)"EXIT_STATE"]->isPressed())
+	// Update dropdownlist
+	for (auto& i : this->dropDownLists)
+	{
+		i.second->update(this->mousePosView, dt);
+	}
+
+	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();
+
+	if (this->buttons[(char*)"APPLY"]->isPressed() && this->getKeyTime())
+	{
+		// TO REMOVE
+		this->window->create(this->modes[this->dropDownLists[(char*)"RESOLUTIONS"]->getActiveElementId()], "Test", sf::Style::Default);
+	}
+
 }
 
 void SettingState::update(const float& dt)
 {
 	// MainMenuState updates
+	this->updateKeyTime(dt);
 	this->updateMousePosition();
 	this->updateInput(dt);
-	this->updateButtons();
+	this->updateGUI(dt);
 }
 
-void SettingState::renderButtons(sf::RenderTarget* target)
+void SettingState::renderGUI(sf::RenderTarget* target)
 {
+	// Render all buttons
 	for (auto& i : this->buttons)
 	{
 		i.second->render(target);
 	}
 
+	// Render all dropdownlist
+	for (auto& i : this->dropDownLists)
+	{
+		i.second->render(target);
+	}
 }
 
 void SettingState::render(sf::RenderTarget* target)
 {
 	target->draw(this->background);
-	this->renderButtons(target);
+	this->renderGUI(target);
+	target->draw(this->optionsText);
 }

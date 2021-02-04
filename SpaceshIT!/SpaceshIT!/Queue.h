@@ -8,7 +8,6 @@ using namespace std;
 
 typedef string ItemType;
 
-const int MAX_SIZE = 4;
 
 class Queue
 {

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "GameState.h"
 
 void GameState::initVariables()
@@ -113,19 +114,19 @@ void GameState::updateCollision()
 	{
 		if (this->playerVec->at(i)->getBounds().left < 0.f)
 		{
-			this->playerVec->at(i)->setPos(0.f, this->playerVec->at(i)->getBounds().top);
+			this->playerVec->at(i)->setPos(0.f + this->playerVec->at(i)->getBounds().width / 2.f, this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height / 2.f);
 		}
 		else if (this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width > this->window->getSize().x)
 		{
-			this->playerVec->at(i)->setPos(this->window->getSize().x - this->playerVec->at(i)->getBounds().width, this->playerVec->at(i)->getBounds().top);
+			this->playerVec->at(i)->setPos(this->window->getSize().x - this->playerVec->at(i)->getBounds().width / 2.f, this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height / 2.f);
 		}
 		if (this->playerVec->at(i)->getBounds().top < 0.f)
 		{
-			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, 0.f);
+			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width / 2.f, 0.f + this->playerVec->at(i)->getBounds().height / 2.f);
 		}
 		else if (this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height >= this->window->getSize().y)
 		{
-			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left, this->window->getSize().y - this->playerVec->at(i)->getBounds().height);
+			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width / 2.f, this->window->getSize().y - this->playerVec->at(i)->getBounds().height / 2.f);
 		}
 	}
 }
@@ -161,6 +162,7 @@ void GameState::render(sf::RenderTarget* target)
 		playerVec->at(i)->render(target);
 	if (this->paused)
 	{
+
 		this->pauseMenu->render(target);
 	}
 }

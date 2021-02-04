@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include <cstring>
 #include <fstream>
 #include "sha256.h"

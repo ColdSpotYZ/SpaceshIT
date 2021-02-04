@@ -1,15 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
-
-// SFML include
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-
-
 class Actor
 {
 protected:

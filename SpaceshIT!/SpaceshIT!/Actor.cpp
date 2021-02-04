@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Actor.h"
 
 void Actor::initTexture(char* filename)
@@ -17,6 +18,8 @@ void Actor::initSprite(sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
 
 	//Resize sprite
 	this->sprite->scale(scale);
+	this->sprite->setOrigin(this->sprite->getLocalBounds().width / 2.f, this->sprite->getLocalBounds().height / 2.f);
+	this->sprite->setPosition(800, 800);
 }
 
 void Actor::initVariables()

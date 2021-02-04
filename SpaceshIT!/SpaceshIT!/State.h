@@ -1,19 +1,5 @@
 #pragma once
 
-#include <fstream>
-#include <sstream>
-
-#include "Vector.h"
-#include "Stack.h"
-//#include "Map.h"
-
-// SFML include
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
-
 class State
 {
 protected:

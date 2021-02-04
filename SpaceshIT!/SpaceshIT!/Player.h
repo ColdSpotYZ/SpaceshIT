@@ -15,6 +15,13 @@ private:
     float max_speed = 1000.f;
     float speed;
 
+    float rotation1 = 0.f;
+    float rotateAmount1 = 0;
+    float rotation2 = 0.f;
+    float rotateAmount2 = 0;
+    sf::Vector2f p1Velocity{ 0.f, 0.f };
+    sf::Vector2f p2Velocity{ 0.f, 0.f };
+
     // Functions
     void initVariables();
     void initGUI();

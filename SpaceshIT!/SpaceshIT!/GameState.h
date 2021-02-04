@@ -12,6 +12,7 @@ private:
     Player* player1;
     Player* player2;
 
+
     // Font
     sf::Font font;
 

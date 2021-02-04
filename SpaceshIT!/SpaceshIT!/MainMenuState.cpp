@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MainMenuState.h"
 
 void MainMenuState::initVariables()
@@ -89,22 +90,23 @@ void MainMenuState::updateButtons()
 		i.second->update(this->mousePosView);
 	}
 
-	if (this->buttons[(char*)"GAME_STATE"]->isPressed())
+	if (this->buttons[(char*)"GAME_STATE"]->isPressed() && this->getKeyTime())
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 
 	//if (this->buttons[(char*)"CREDITS"]->isPressed())
 	//	this->states->push(new CreditState(this->window, this->supportedKeys, this->states))
 		
-	if (this->buttons[(char*)"SETTINGS"]->isPressed())
+	if (this->buttons[(char*)"SETTINGS"]->isPressed() && this->getKeyTime())
 		this->states->push(new SettingState(this->window, this->supportedKeys, this->states));
 
-	if (this->buttons[(char*)"EXIT_STATE"]->isPressed())
+	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();
 }
 
 void MainMenuState::update(const float& dt)
 {
 	// MainMenuState updates
+	this->updateKeyTime(dt);
 	this->updateMousePosition();
 	this->updateInput(dt);
 	this->updateButtons();
