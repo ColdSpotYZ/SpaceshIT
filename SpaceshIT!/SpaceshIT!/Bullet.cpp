@@ -3,7 +3,7 @@
 
 void Bullet::InitVairables()
 {
-	this->speed = this->speed;
+	this->movementSpeed = this->movementSpeed;
 	this->state = this->state;
 }
 
@@ -12,11 +12,28 @@ Bullet::Bullet()
 	this->initVariables();
 };
 
-Bullet::~Bullet()
+Bullet::Bullet(sf::Texture& texture, float dir_X, float dir_Y, float speed)
 {
-
+	this->shape.setTexture(texture);
+	this->direction.x = dir_X;
+	this->direction.y = dir_Y;
+	this->movementSpeed = speed;
 }
 
+Bullet::~Bullet()
+{
+	// Empty
+}
+
+void Bullet::update()
+{
+	this->shape.move(this->movementSpeed * this->direction);
+}
+
+void Bullet::render(sf::RenderTarget* target)
+{
+	target->draw(this->shape);
+}
 
 bool Bullet::getState()
 {
@@ -30,6 +47,6 @@ void Bullet::changeState(bool state)
 
 void Bullet::move(const float dt, const float x, const float y)
 {
-	this->sprite->move(this->speed * x * dt, this->speed * y * dt);
+	this->sprite->move(this->movementSpeed * x * dt, this->movementSpeed * y * dt);
 }
 

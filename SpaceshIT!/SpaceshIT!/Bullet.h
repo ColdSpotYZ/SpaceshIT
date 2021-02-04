@@ -4,8 +4,15 @@
 
 class Bullet : public Actor
 {
+	
+
 	private:
-		float speed;
+		sf::Sprite shape;
+		sf::Texture* texture;
+
+		sf::Vector2f direction;
+		float movementSpeed;
+
 		bool state;
 
 		
@@ -14,7 +21,13 @@ class Bullet : public Actor
 	public:
 		Bullet();
 
+		Bullet(sf::Texture& texture, float dir_X, float dir_Y, float speed);
+
 		~Bullet();
+
+		void update();
+
+		void render(sf::RenderTarget* target);
 
 		bool getState();
 
