@@ -78,12 +78,19 @@ void Player::update(const float dt)
 
 void Player::update(const float dt, std::map<std::string, int> keybinds, bool wasd = true)
 {
+	bool isPress = false;
 	if (wasd)
 	{
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_left")))
-			this->rotateAmount1 = -0.02f;
+		{
+			isPress = true;
+			this->rotateAmount1 = -0.03f;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_right")))
-			this->rotateAmount1 = 0.02f;
+		{
+			isPress = true;
+			this->rotateAmount1 = 0.03f;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_front")))
 		{
 			this->p1Velocity.y = -1;
@@ -97,6 +104,12 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
 			std::cout << "P1 shoot!" << std::endl;
 
+		if (!isPress)
+			this->rotation1 = 0;
+		if (this->rotation1 < 0 && this->rotateAmount1 > 0)
+			this->rotation1 = 0;
+		else if (this->rotation1 > 0 && this->rotateAmount1 < 0)
+			this->rotation1 = 0;
 		this->rotation1 += this->rotateAmount1;
 		this->sprite->rotate(this->rotation1);
 		this->move(dt, this->p1Velocity.x * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), this->p1Velocity.y * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)));
@@ -107,9 +120,15 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 	else
 	{
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_left")))
+		{
+			isPress = true;
 			this->rotateAmount2 = -0.02f;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_right")))
+		{
+			isPress = true;
 			this->rotateAmount2 = 0.02f;
+		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_front")))
 		{
 			this->p2Velocity.y = -1;
@@ -123,6 +142,12 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")))
 			std::cout << "P2 shoot!" << std::endl;
 
+		if (!isPress)
+			this->rotation2 = 0;
+		if (this->rotation2 < 0 && this->rotateAmount2 > 0)
+			this->rotation2 = 0;
+		else if (this->rotation2 > 0 && this->rotateAmount2 < 0)
+			this->rotation2 = 0;
 		this->rotation2 += this->rotateAmount2;
 		this->sprite->rotate(this->rotation2);
 		this->move(dt, this->p2Velocity.x * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), this->p2Velocity.y * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)));

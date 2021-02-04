@@ -12,6 +12,9 @@ private:
     Player* player1;
     Player* player2;
 
+    // Background
+    sf::Texture backgroundTexture;
+    sf::RectangleShape background;
 
     // Font
     sf::Font font;
@@ -25,6 +28,7 @@ private:
 
     void initVariables();
     void initKeybinds();
+    void initBackground();
     void initMusic();
     void initFont();
     void initPlayer();

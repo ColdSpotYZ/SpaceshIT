@@ -12,7 +12,7 @@ private:
     int health;
     int max_ammo = 20;
     int ammo;
-    float max_speed = 1000.f;
+    float max_speed = 500.f;
     float speed;
 
     float rotation1 = 0.f;

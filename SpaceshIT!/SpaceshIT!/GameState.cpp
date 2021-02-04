@@ -19,6 +19,14 @@ void GameState::initKeybinds()
 	}
 }
 
+void GameState::initBackground()
+{
+	this->background.setSize(sf::Vector2f((float)this->window->getSize().x, (float)this->window->getSize().y));
+	if (!this->backgroundTexture.loadFromFile("Assets/Background/game.png"))
+		throw("ERROR::MAINMENUSTATE::INITBACKGROUND::Failed to load background image");
+	this->background.setTexture(&this->backgroundTexture);
+}
+
 void GameState::initMusic()
 {
 	if (!this->music.openFromFile("Assets/Audio/theme.wav"))
@@ -64,6 +72,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<string, int>* supportedK
 {
 	initVariables();
 	initKeybinds();
+	initBackground();
 	initFont();
 	initPauseMenu();
 	initPlayer();
@@ -158,6 +167,7 @@ void GameState::update(const float& dt)
 
 void GameState::render(sf::RenderTarget* target)
 {
+	target->draw(this->background);
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
 		playerVec->at(i)->render(target);
 	if (this->paused)
