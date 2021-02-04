@@ -91,6 +91,8 @@ public:
 	void updateMousePosition();
 	void updateWorld();
 
+	void run();
+
 	void renderWorld();
 	void update();
 	void render();

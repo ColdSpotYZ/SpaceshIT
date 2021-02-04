@@ -227,3 +227,16 @@ void Game::render()
 }
 
 
+void Game::run()
+{
+	while (this->getWindowIsOpen())
+	{
+		//Update Delta Time
+		this->updateDt();
+		//Update
+		this->update();
+		//Render
+		this->render();
+
+	}
+}

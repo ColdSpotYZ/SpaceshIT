@@ -8,16 +8,7 @@ int main()
 	Game game;
 	
 	// Game loop (should be moved into game class)
-	while (game.getWindowIsOpen())
-	{
-		//Update Delta Time
-		game.updateDt();
-		//Update
-		game.update();
-		//Render
-		game.render();
-
-	}
+	game.run();
 
 	return 0;
 }
