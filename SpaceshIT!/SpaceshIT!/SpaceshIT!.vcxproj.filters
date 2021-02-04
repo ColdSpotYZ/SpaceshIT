@@ -1,140 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="States">
-      <UniqueIdentifier>{86348a14-5f9c-49d4-aff7-af05defa6942}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{271f31fb-5fe9-45fd-ba82-16250bdd4b46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ADT">
-      <UniqueIdentifier>{48f592df-923a-4d8e-bb7a-5fb48aee34c3}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Asteroids.cpp" />
+    <ClCompile Include="AVL_Tree.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Gui.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="Menu[OLD].cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Queue.cpp" />
+    <ClCompile Include="SettingState.cpp" />
+    <ClCompile Include="sha256.cpp" />
+    <ClCompile Include="State.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Queue.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
-    <ClCompile Include="sha256.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Asteroids.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Actor</Filter>
-    </ClCompile>
-    <ClCompile Include="MainMenuState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>ADT</Filter>
-    </ClCompile>
-    <ClCompile Include="PauseMenu.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SettingState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="Gui.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="Menu[OLD].cpp">
-      <Filter>Resource Files</Filter>
-=======
-    <ClCompile Include="AVL_Tree.cpp">
-      <Filter>ADT</Filter>
->>>>>>> 28f0ec5e4176124d7d969211a8760bd73071d69d
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="Queue.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="sha256.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Asteroids.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Actor</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenuState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="PauseMenu.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="Gui.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu[OLD].h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AVL_Tree.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryNode.h">
-      <Filter>ADT</Filter>
-    </ClInclude>
+    <ClInclude Include="Actor.h" />
+    <ClInclude Include="Asteroids.h" />
+    <ClInclude Include="AVL_Tree.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Gui.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="BinaryNode.h" />
+    <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="Map.h" />
+    <ClInclude Include="Menu[OLD].h" />
+    <ClInclude Include="PauseMenu.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Queue.h" />
+    <ClInclude Include="SettingState.h" />
+    <ClInclude Include="sha256.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
 </Project>

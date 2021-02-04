@@ -79,6 +79,8 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 {
 	if (wasd)
 	{
+		// if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
+		// 	this->shoot();
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_left")))
 			this->move(dt, -1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_right")))
@@ -90,6 +92,8 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 	}
 	else
 	{
+		// if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")))
+		// 	this->shoot();
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_left")))
 			this->move(dt, -1.f, 0.f);
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_right")))
@@ -99,6 +103,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_back")))
 			this->move(dt, 0.f, 1.f);
 	}
+	
 	this->updateGUI();
 }
 
