@@ -132,9 +132,11 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")) && canAttack())
 		{
-			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8) , this->getPos().y - (this->sprite->getLocalBounds().height / 8), 1 * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), (-1 * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 3.5f);
+			Bullet* tempBullet = new Bullet(this->getPos().x - 5.f + (5.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
+				this->getPos().y - this->sprite->getLocalBounds().height / 50.f + (-0.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
+				1 * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)),
+				(-1 * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 3.5f);
 			this->bullets.push_back(tempBullet);
-			std::cout << "P1_shooting" << endl;
 		}
 
 		if (!isPress)
