@@ -6,6 +6,7 @@ void Player::initVariables()
 {
 	this->health = this->max_health;
 	this->speed = this->max_speed;
+	this->attackCoolDownMax = 10.f;
 	this->attackCoolDown = this->attackCoolDownMax;
 }
 
@@ -77,12 +78,12 @@ void Player::updateBullets()
 		{
 			//Delete bullet
 			delete this->bullets.at(counter);
-			this->bullets.erase(counter);
+			this->bullets.erase(counter + 1);
 			--counter;
 
 			// std::cout << this->bullets.getsize() << endl;
 		}
-		++counter;
+		counter++;
 	}
 }
 
@@ -98,15 +99,20 @@ const bool Player::canAttack()
 	if (this->attackCoolDown >= this->attackCoolDownMax)
 	{
 		this->attackCoolDown = 0.f;
+		// std::cout << this->attackCoolDown << endl;
 		return true;
 	}
 	return false;
+	// std::cout << this->canAttack << endl;
+
 }
 
 void Player::updateAttack()
 {
 	if (this->attackCoolDown < this->attackCoolDownMax)
-		this->attackCoolDown += 0.5f;
+		this->attackCoolDown += 0.1f;
+	std::cout << this->attackCoolDown << endl;
+
 }
 
 void Player::update(const float dt)
@@ -139,7 +145,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 			this->p1Velocity.y = 1;
 			this->p1Velocity.x = -1;
 		}
-		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")) && this->canAttack())
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
 		{
 			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8) , this->getPos().y - (this->sprite->getLocalBounds().height / 8), 0.f, -1.f, 5.f);
 			this->bullets.push_back(tempBullet);
@@ -183,7 +189,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")))
 		{
-			Bullet* tempBullet = new Bullet(this->getPos().x, this->getPos().y, 0.f, 0.f, 0.f);
+			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8), this->getPos().y - (this->sprite->getLocalBounds().height / 8), 0.f, -1.f, 5.f);
 			this->bullets.push_back(tempBullet);
 			std::cout << "P2_shooting" << endl;
 		}
@@ -201,7 +207,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		this->p2Velocity.y = 0;
 		this->rotateAmount2 = 0;
 		
-		this->updateAttack();
+		// this->updateAttack();
 	}
 	/*this->updateGUI();*/
 }
