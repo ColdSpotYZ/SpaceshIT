@@ -12,6 +12,7 @@ Bullet::Bullet(float pos_x, float pos_y, float dir_X, float dir_Y, float speed)
 	this->state = true;
 	this->shape.setTexture(this->texture);
 	this->shape.setPosition(pos_x, pos_y);
+	// this->shape.setOrigin(this->shape.getLocalBounds().width / 2.f, this->shape.getLocalBounds().height/ 2.f);
 	this->direction.x = dir_X;
 	this->direction.y = dir_Y;
 	this->movementSpeed = speed;
