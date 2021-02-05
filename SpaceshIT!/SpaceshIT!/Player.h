@@ -28,7 +28,7 @@ private:
 
     // Attack
     float attackCoolDown;
-    float attackCoolDownMax;
+    float attackCoolDownMax = 10.f;
 
     // Functions
     void initVariables();
