@@ -52,8 +52,8 @@ void MainMenuState::initButtons()
 		sf::Color(20, 20, 20, 200));
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
-	: State(window, supportedKeys, states)
+MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states)
+	: State(window, supportedKeys, states), gfxSettings(gfxSettings)
 {
 	this->initVariables();
 	this->initKeybinds();
@@ -97,7 +97,7 @@ void MainMenuState::updateButtons()
 	//	this->states->push(new CreditState(this->window, this->supportedKeys, this->states))
 		
 	if (this->buttons[(char*)"SETTINGS"]->isPressed() && this->getKeyTime())
-		this->states->push(new SettingState(this->window, this->supportedKeys, this->states));
+		this->states->push(new SettingState(this->window, this->gfxSettings, this->supportedKeys, this->states));
 
 	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();

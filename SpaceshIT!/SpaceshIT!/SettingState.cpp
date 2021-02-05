@@ -58,8 +58,8 @@ void SettingState::initText()
 	this->optionsText.setString("Resolution \n\n\n\n\n\nFullscreen \n\n\n\n\n\nVsync \n\n\n\n\n\nAntialiasing \n\n\n\n\n\n");
 }
 
-SettingState::SettingState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
-	: State(window, supportedKeys, states)
+SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states)
+	: State(window, supportedKeys, states), gfxSettings(gfxSettings)
 {
 	this->initVariables();
 	this->initKeybinds();
@@ -119,7 +119,8 @@ void SettingState::updateGUI(const float& dt)
 	if (this->buttons[(char*)"APPLY"]->isPressed() && this->getKeyTime())
 	{
 		// TO REMOVE
-		this->window->create(this->modes[this->dropDownLists[(char*)"RESOLUTIONS"]->getActiveElementId()], "Test", sf::Style::Default);
+		this->gfxSettings.resolution = this->modes[this->dropDownLists[(char*)"RESOLUTIONS"]->getActiveElementId()];
+		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Titlebar | sf::Style::Close, this->gfxSettings.contextSettings);
 	}
 
 }

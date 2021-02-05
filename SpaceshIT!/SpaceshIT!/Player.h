@@ -7,10 +7,8 @@ class Player :
     public Actor
 {
 private:
-    // HP Bar
-    sf::RectangleShape playerHpBar;
-    sf::RectangleShape playerHpBarBack;
 
+    int playerNum;
     int max_health = 100;
     int health;
     float max_speed = 500.f;
@@ -32,7 +30,6 @@ private:
 
     // Functions
     void initVariables();
-    void initGUI();
 public:
     Player();
     Player(char* filename);
@@ -41,18 +38,18 @@ public:
     // Accessors
     const int getHp() const;
     const int getHpMax() const;
+    const int getPlayerNum() const;
 
 
     // Functions
     void move(const float dt, const float x, const float y);
     void takeDamage();
     void updateBullets();
-    void updateGUI();
     const bool canAttack();
 
     void updateAttack();
     void update(const float dt) override;
-    void update(const float dt, std::map < std::string , int > keybinds, bool wasd);
+    void update(const float dt, std::map < std::string , int > keybinds);
     void render(sf::RenderTarget* target);
 };
 

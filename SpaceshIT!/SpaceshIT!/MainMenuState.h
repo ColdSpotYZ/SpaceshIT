@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameState.h"
+#include "GraphicsSettings.h"
 #include "SettingState.h"
 #include "Gui.h"
 
@@ -9,6 +10,7 @@ class MainMenuState :
     public State
 {
 private:
+    GraphicsSettings& gfxSettings;
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
@@ -23,7 +25,7 @@ private:
     void initButtons();
 
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
+    MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states);
     virtual ~MainMenuState();
 
     // Functions

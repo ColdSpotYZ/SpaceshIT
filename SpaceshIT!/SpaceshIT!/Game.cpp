@@ -44,7 +44,7 @@ void Game::initKeys()
 
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
+	this->states.push(new MainMenuState(this->window, this->gfxSettings, &this->supportedKeys, &this->states));
 }
 
 void Game::initFonts()
@@ -64,6 +64,7 @@ void Game::initWorld()
 Game::Game()
 {
 	this->initVariables();
+	this->initGraphicsSettings();
 	this->initWindow();
 	this->initKeys();
 	this->initStates();
