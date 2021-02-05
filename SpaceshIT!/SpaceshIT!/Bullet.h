@@ -2,28 +2,24 @@
 #include "Actor.h"
 
 
-class Bullet : public Actor
+class Bullet
 {
-	
-
 	private:
 		sf::Sprite shape;
-		sf::Texture* texture;
-
+		sf::Texture texture;
 		sf::Vector2f direction;
 		float movementSpeed;
-
 		bool state;
-
-		
-		void InitVairables();
-
+		 
 	public:
 		Bullet();
 
-		Bullet(sf::Texture& texture, float dir_X, float dir_Y, float speed);
+		Bullet(float pos_x, float pos_y, float dir_X, float dir_Y, float speed);
 
 		~Bullet();
+
+		 // Accessor
+		const sf::FloatRect getBounds() const;
 
 		void update();
 
@@ -32,7 +28,5 @@ class Bullet : public Actor
 		bool getState();
 
 		void changeState(bool state);
-
-		void move(const float dt, const float x, const float y);
 };
 

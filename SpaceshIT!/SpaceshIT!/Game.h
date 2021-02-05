@@ -26,7 +26,7 @@ private:
 	sf::ContextSettings windowSettings;
 
 	// Resources 
-	Map<std::string, sf::Texture> textures;
+	
 
 	// Time
 	sf::Clock dtClock;

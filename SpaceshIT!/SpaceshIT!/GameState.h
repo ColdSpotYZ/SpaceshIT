@@ -2,6 +2,8 @@
 #include "State.h"
 #include "Player.h"
 #include "PauseMenu.h"
+#include "Map.h"
+#include "Bullet.h"
 
 class GameState :
     public State

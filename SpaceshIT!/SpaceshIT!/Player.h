@@ -1,5 +1,8 @@
 #pragma once
 #include "Actor.h"
+#include "Bullet.h"
+#include <map>
+
 class Player :
     public Actor
 {
@@ -22,6 +25,9 @@ private:
     sf::Vector2f p1Velocity{ 0.f, 0.f };
     sf::Vector2f p2Velocity{ 0.f, 0.f };
 
+    // Bullets
+    Vector<Bullet*> bullets;
+
     // Functions
     void initVariables();
     void initGUI();
@@ -39,6 +45,7 @@ public:
     void move(const float dt, const float x, const float y);
     void takeDamage();
     void shoot();
+    void updateBullets();
     void updateGUI();
 
     void update(const float dt) override;

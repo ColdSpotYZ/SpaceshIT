@@ -84,6 +84,7 @@ GameState::~GameState()
 {
 	this->playerVec->~Vector();
 	delete this->pauseMenu;
+
 }
 
 void GameState::endState()
@@ -115,6 +116,9 @@ void GameState::updatePlayerInput(const float& dt)
 	{
 		this->playerVec->at(i)->update(dt, this->keybinds, !i);
 	}
+
+	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+		playerVec->at(i)->updateBullets();
 }
 
 void GameState::updateCollision()
@@ -152,6 +156,7 @@ void GameState::update(const float& dt)
 	this->updateMousePosition();
 	this->updateKeyTime(dt);
 	this->updateInput(dt);
+
 	if (!this->paused)
 	{
 		this->updateCollision();	

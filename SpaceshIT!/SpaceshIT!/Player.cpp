@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 
+
 void Player::initVariables()
 {
 	this->health = this->max_health;
@@ -16,6 +17,7 @@ void Player::initGUI()
 
 	this->playerHpBarBack = this->playerHpBar;
 	this->playerHpBarBack.setFillColor(sf::Color(30, 30, 30, 240));
+
 }
 
 Player::Player()
@@ -33,7 +35,12 @@ Player::Player(char* filename) : Actor(filename)
 
 Player::~Player()
 {
+	// Delete Textures
 
+	for (auto* i : this->bullets)
+	{
+		delete i;
+	}
 }
 
 const int Player::getHp() const
@@ -65,6 +72,14 @@ void Player::shoot()
 		this->ammo = 0;
 }
 
+void Player::updateBullets()
+{
+	for (auto* bullet : this->bullets)
+	{
+		bullet->update();
+	}
+}
+
 void Player::updateGUI()
 {
 	this->playerHpBar.setSize(sf::Vector2f(this->getBounds().width * (static_cast<float>(this->getHp()) / this->getHpMax()), this->playerHpBar.getSize().y));
@@ -94,6 +109,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_front")))
 		{
 			this->p1Velocity.y = -1;
+		
 			this->p1Velocity.x = 1;
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_back")))
@@ -102,7 +118,11 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 			this->p1Velocity.x = -1;
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
-			std::cout << "P1 shoot!" << std::endl;
+		{
+			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 2) , this->getPos().y, 0.f, 0.f, 0.f);
+			this->bullets.push_back(tempBullet);
+			std::cout << "P1_shooting" << endl;
+		}
 
 		if (!isPress)
 			this->rotation1 = 0;
@@ -140,7 +160,11 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 			this->p2Velocity.x = -1;
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")))
-			std::cout << "P2 shoot!" << std::endl;
+		{
+			Bullet* tempBullet = new Bullet(this->getPos().x, this->getPos().y, 0.f, 0.f, 0.f);
+			this->bullets.push_back(tempBullet);
+			std::cout << "P2_shooting" << endl;
+		}
 
 		if (!isPress)
 			this->rotation2 = 0;
@@ -161,6 +185,12 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 void Player::render(sf::RenderTarget* target)
 {
 	target->draw(*this->sprite);
+
+	for (auto* i : this->bullets)
+	{
+		i->render(target);
+	}
+
 	//target->draw(this->playerHpBarBack);
 	//target->draw(this->playerHpBar);
 }

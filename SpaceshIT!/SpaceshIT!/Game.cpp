@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "State.h"
 #include "Game.h"
+#include "Map.h"
 #include <stack>
 
 void Game::initVariables()
@@ -86,6 +87,7 @@ Game::Game()
 	this->initStates();
 	this->initWorld();
 	this->initFonts();
+
 }
 
 Game::~Game()
