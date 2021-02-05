@@ -22,7 +22,7 @@ private:
     sf::Vector2f p2Velocity{ 0.f, 0.f };
 
     // Bullets
-    Vector<Bullet*> p1bullets;
+    Vector<Bullet*> bullets;
 
     // Attack
     float attackCoolDown;
@@ -45,9 +45,13 @@ public:
     void move(const float dt, const float x, const float y);
     void takeDamage();
     void updateBullets();
-    const bool canAttack();
 
+    // Combat
+    void Combat(Player* player, Player* player2);
+    const bool canAttack();
     void updateAttack();
+
+
     void update(const float dt) override;
     void update(const float dt, std::map < std::string , int > keybinds);
     void render(sf::RenderTarget* target);

@@ -9,7 +9,6 @@ class Bullet
 		sf::Texture texture;
 		sf::Vector2f direction;
 		float movementSpeed;
-		bool state;
 		 
 	public:
 		Bullet();
@@ -24,8 +23,6 @@ class Bullet
 		void update();
 
 		void render(sf::RenderTarget* target);
-
-		bool getState();
 
 		void changeState(bool state);
 };

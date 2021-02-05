@@ -124,7 +124,11 @@ void GameState::updateInput(const float& dt)
 	}
 
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+	{
 		playerVec->at(i)->updateBullets();
+		playerVec->at(i)->Combat(player1, player2);
+		playerVec->at(i)->Combat(player2, player1);
+	}
 }
 
 void GameState::updatePlayerInput(const float& dt)

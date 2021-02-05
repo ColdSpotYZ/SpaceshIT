@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "Bullet.h"
 
-Bullet::Bullet() 
+Bullet::Bullet()
 {
-	this->state = true;
-};
+	this->movementSpeed = 7.f;
+}
 
 Bullet::Bullet(float pos_x, float pos_y, float dir_X, float dir_Y, float speed)
 {
 	this->texture.loadFromFile("Assets/Textures/rsz_bullet.png");
-	this->state = true;
 	this->shape.setTexture(this->texture);
 	this->shape.setPosition(pos_x, pos_y);
 	// this->shape.setOrigin(this->shape.getLocalBounds().width / 2.f, this->shape.getLocalBounds().height/ 2.f);
@@ -37,14 +36,3 @@ void Bullet::render(sf::RenderTarget* target)
 {
 	target->draw(this->shape);
 }
-
-bool Bullet::getState()
-{
-	return this->state;
-}
-
-void Bullet::changeState(bool state)
-{
-	this->state = state;
-}
-
