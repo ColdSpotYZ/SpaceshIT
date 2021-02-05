@@ -2,6 +2,7 @@
 #include "State.h"
 #include "Player.h"
 #include "PauseMenu.h"
+#include "PlayerGUI.h"
 #include "Map.h"
 #include "Bullet.h"
 
@@ -13,6 +14,7 @@ private:
     Vector<Player*>* playerVec;
     Player* player1;
     Player* player2;
+    Vector<PlayerGUI*> playerGUIs;
 
     // Background
     sf::Texture backgroundTexture;
@@ -36,6 +38,7 @@ private:
     void initPlayer();
     void initGUI();
     void initPauseMenu();
+    void initPlayerGUI();
 
 public:
     GameState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
@@ -45,6 +48,7 @@ public:
     void endState();
     void updateInput(const float& dt);
     void updatePlayerInput(const float& dt);
+    void updatePlayerGUI(const float& dt);
     void updateCollision();
     void updatePauseMenuButtons();
     void update(const float& dt);

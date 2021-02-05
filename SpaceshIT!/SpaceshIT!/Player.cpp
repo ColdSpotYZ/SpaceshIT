@@ -10,25 +10,17 @@ void Player::initVariables()
 	this->attackCoolDown = this->attackCoolDownMax;
 }
 
-void Player::initGUI()
-{
-	this->playerHpBar.setSize(sf::Vector2f(this->getBounds().width, 10.f));
-	this->playerHpBar.setFillColor(sf::Color::Red);
-	this->playerHpBar.setPosition(sf::Vector2f(this->getPos().x, this->getPos().y - (this->getBounds().height / 4)));
-
-	this->playerHpBarBack = this->playerHpBar;
-	this->playerHpBarBack.setFillColor(sf::Color(30, 30, 30, 240));
-
-}
-
 Player::Player()
 {
 	this->initVariables();
-	this->initGUI();
 }
 
 Player::Player(char* filename) : Actor(filename)
 {
+	if (filename == "player1")
+		this->playerNum = 1;
+	else
+		this->playerNum = 2;
 	this->initVariables();
 	this->initSprite(sf::Vector2f(0.4f, 0.4f));
 	/*this->initGUI();*/
@@ -52,6 +44,11 @@ const int Player::getHp() const
 const int Player::getHpMax() const
 {
 	return this->max_health;
+}
+
+const int Player::getPlayerNum() const
+{
+	return this->playerNum;
 }
 
 void Player::move(const float dt, const float x, const float y)
@@ -87,13 +84,6 @@ void Player::updateBullets()
 	}
 }
 
-void Player::updateGUI()
-{
-	this->playerHpBar.setSize(sf::Vector2f(this->getBounds().width * (static_cast<float>(this->getHp()) / this->getHpMax()), this->playerHpBar.getSize().y));
-	this->playerHpBar.setPosition(sf::Vector2f(this->getPos().x, this->getPos().y - (this->getBounds().height / 4)));
-	this->playerHpBarBack.setPosition(sf::Vector2f(this->getPos().x, this->getPos().y - (this->getBounds().height / 4)));
-}
-
 const bool Player::canAttack()
 {
 	if (this->attackCoolDown >= this->attackCoolDownMax)
@@ -119,10 +109,10 @@ void Player::update(const float dt)
 {
 }
 
-void Player::update(const float dt, std::map<std::string, int> keybinds, bool wasd = true)
+void Player::update(const float dt, std::map<std::string, int> keybinds)
 {
 	bool isPress = false;
-	if (wasd)
+	if (this->playerNum == 1)
 	{
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_left")))
 		{
@@ -220,9 +210,6 @@ void Player::render(sf::RenderTarget* target)
 	{
 		i->render(target);
 	}
-
-	//target->draw(this->playerHpBarBack);
-	//target->draw(this->playerHpBar);
 }
 
 

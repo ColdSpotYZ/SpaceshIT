@@ -45,6 +45,12 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Headers</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsSettings.cpp">
+      <Filter>etc</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -99,6 +105,12 @@
     <ClInclude Include="stdafx.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsSettings.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGUI.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actor">
@@ -118,6 +130,9 @@
     </Filter>
     <Filter Include="Headers">
       <UniqueIdentifier>{69ee7f0c-68a1-4ea4-9bcf-2cfe53555a66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="etc">
+      <UniqueIdentifier>{0e806428-c786-4c82-b0c6-775759a2c54f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

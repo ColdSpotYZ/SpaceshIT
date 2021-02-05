@@ -1,10 +1,12 @@
 #pragma once
 #include "State.h"
+#include "GraphicsSettings.h"
 #include "Gui.h"
 class SettingState
 	: public State
 {
 private:
+    GraphicsSettings& gfxSettings;
     sf::Texture backgroundTexture;
     sf::RectangleShape background;
     sf::Font font;
@@ -25,7 +27,7 @@ private:
     void initText();
 
 public:
-	SettingState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
+	SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states);
 	virtual ~SettingState();
 
 	// Accessors

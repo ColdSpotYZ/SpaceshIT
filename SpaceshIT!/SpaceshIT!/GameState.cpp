@@ -67,6 +67,15 @@ void GameState::initPauseMenu()
 	this->pauseMenu->addButton("EXIT_STATE", 700.f , "QUIT");
 }
 
+void GameState::initPlayerGUI()
+{
+	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+	{
+		PlayerGUI* temp = new PlayerGUI(this->window, this->playerVec->at(i));
+		this->playerGUIs.push_back(temp);
+	}
+}
+
 GameState::GameState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
@@ -76,6 +85,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<string, int>* supportedK
 	initFont();
 	initPauseMenu();
 	initPlayer();
+	this->initPlayerGUI();
 	initGUI();
 	initMusic();
 }
@@ -84,6 +94,10 @@ GameState::~GameState()
 {
 	this->playerVec->~Vector();
 	delete this->pauseMenu;
+	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
+	{
+		delete this->playerGUIs.at(i);
+	}
 
 }
 
@@ -117,8 +131,14 @@ void GameState::updatePlayerInput(const float& dt)
 {
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
 	{
-		this->playerVec->at(i)->update(dt, this->keybinds, !i);
+		this->playerVec->at(i)->update(dt, this->keybinds);
 	}
+}
+
+void GameState::updatePlayerGUI(const float& dt)
+{
+	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
+		this->playerGUIs.at(i)->update(dt);
 }
 
 void GameState::updateCollision()
@@ -161,6 +181,7 @@ void GameState::update(const float& dt)
 	{
 		this->updateCollision();	
 		this->updatePlayerInput(dt);
+		this->updatePlayerGUI(dt);
 	}
 	else
 	{
@@ -175,6 +196,8 @@ void GameState::render(sf::RenderTarget* target)
 	target->draw(this->background);
 	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
 		playerVec->at(i)->render(target);
+	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
+		this->playerGUIs.at(i)->render(target);
 	if (this->paused)
 	{
 
