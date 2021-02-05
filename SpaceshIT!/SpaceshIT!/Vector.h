@@ -273,6 +273,6 @@ template<class T>
 inline void Vector<T>::print()
 {
 	for (size_type i = 0; i < this->size; i++)
-		std::cout << this->internal_array[i] << std::endl;
+		std::cout << i << " " << this->internal_array[i] << std::endl;
 	std::cout << "===" << std::endl;
 }
