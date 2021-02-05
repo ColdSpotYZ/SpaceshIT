@@ -53,6 +53,11 @@ void GameState::initPlayer()
 	this->playerVec->push_back(this->player2);
 }
 
+void GameState::initAsteroid()
+{
+	this->spawnTimerAsteroids = this->spawnTimerAsteroidsMax;
+}
+
 void GameState::initGUI()
 {
 	// Game over text
@@ -88,6 +93,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<string, int>* supportedK
 	this->initPlayerGUI();
 	initGUI();
 	initMusic();
+	initAsteroid();
 }
 
 GameState::~GameState()
@@ -97,6 +103,10 @@ GameState::~GameState()
 	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
 	{
 		delete this->playerGUIs.at(i);
+	}
+	for (auto* i : this->Asteroid_s)
+	{
+		delete i;
 	}
 
 }
@@ -145,6 +155,21 @@ void GameState::updatePlayerGUI(const float& dt)
 		this->playerGUIs.at(i)->update(dt);
 }
 
+void GameState::updateAsteroid()
+{
+	this->spawnTimerAsteroids += 0.5f;
+	if (this->spawnTimerAsteroids >= this->spawnTimerAsteroidsMax)
+	{
+		Asteroids* ATemp = new Asteroids(rand() % 200, rand() % 200);
+		this->Asteroid_s.push_back(ATemp);
+		this->spawnTimerAsteroids = 0.f;
+	}
+	for (auto* A : this->Asteroid_s)
+	{
+		A->update();
+	}
+} 
+
 void GameState::updateCollision()
 {
 	for (int i = 0; i < this->playerVec->getsize(); i++)
@@ -186,6 +211,7 @@ void GameState::update(const float& dt)
 		this->updateCollision();	
 		this->updatePlayerInput(dt);
 		this->updatePlayerGUI(dt);
+		this->updateAsteroid();
 	}
 	else
 	{
@@ -202,9 +228,14 @@ void GameState::render(sf::RenderTarget* target)
 		playerVec->at(i)->render(target);
 	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
 		this->playerGUIs.at(i)->render(target);
+
+	for (auto* Asteroid : this->Asteroid_s)
+	{
+		Asteroid->render(this->window);
+	}
+
 	if (this->paused)
 	{
-
 		this->pauseMenu->render(target);
 	}
 }

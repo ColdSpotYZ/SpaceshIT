@@ -60,7 +60,9 @@ void Player::takeDamage()
 {
 	this->health -= 20;
 	if (this->health < 0)
+	{
 		this->health = 0;
+	}
 }
 
 void Player::updateBullets()
@@ -69,10 +71,14 @@ void Player::updateBullets()
 	{
 		bullets.at(counter)->update();
 
-		// Bulleting culling (top of screen)
-		if (bullets.at(counter)->getBounds().top + bullets.at(counter)->getBounds().height < 0.f)
+		// Bulleting culling
+		if (bullets.at(counter)->getBounds().top + bullets.at(counter)->getBounds().height < 0.f || 
+			bullets.at(counter)->getBounds().top + bullets.at(counter)->getBounds().height > 900.f ||
+			bullets.at(counter)->getBounds().width + bullets.at(counter)->getBounds().left > 1600.f ||
+			bullets.at(counter)->getBounds().width + bullets.at(counter)->getBounds().left < 0.f)
 		{
 			//Delete bullet
+			// std::cout << "culling of bullets" << endl;
 			delete this->bullets.at(counter);
 			this->bullets.erase(counter);
 		}

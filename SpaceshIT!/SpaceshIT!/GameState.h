@@ -5,6 +5,7 @@
 #include "PlayerGUI.h"
 #include "Map.h"
 #include "Bullet.h"
+#include "Asteroids.h"
 
 class GameState :
     public State
@@ -15,6 +16,11 @@ private:
     Player* player1;
     Player* player2;
     Vector<PlayerGUI*> playerGUIs;
+
+    // Asteroids
+    float spawnTimerAsteroids;
+    float spawnTimerAsteroidsMax = 50.f;
+    Vector<Asteroids*> Asteroid_s;
 
     // Background
     sf::Texture backgroundTexture;
@@ -36,6 +42,7 @@ private:
     void initMusic();
     void initFont();
     void initPlayer();
+    void initAsteroid();
     void initGUI();
     void initPauseMenu();
     void initPlayerGUI();
@@ -49,6 +56,7 @@ public:
     void updateInput(const float& dt);
     void updatePlayerInput(const float& dt);
     void updatePlayerGUI(const float& dt);
+    void updateAsteroid();
     void updateCollision();
     void updatePauseMenuButtons();
     void update(const float& dt);
