@@ -8,7 +8,7 @@ Bullet::Bullet()
 
 Bullet::Bullet(float pos_x, float pos_y, float dir_X, float dir_Y, float speed)
 {
-	this->texture.loadFromFile("Assets/Textures/bullet.png");
+	this->texture.loadFromFile("Assets/Textures/rsz_bullet.png");
 	this->state = true;
 	this->shape.setTexture(this->texture);
 	this->shape.setPosition(pos_x, pos_y);

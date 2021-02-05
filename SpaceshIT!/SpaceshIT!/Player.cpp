@@ -74,9 +74,20 @@ void Player::shoot()
 
 void Player::updateBullets()
 {
+	unsigned counter = 0;
 	for (auto* bullet : this->bullets)
 	{
 		bullet->update();
+
+		// Bulleting culling (top of screen)
+		if (bullet->getBounds().top + bullet->getBounds().height < 0.f)
+		{
+			//Delete bullet
+			delete this->bullets.at(counter);
+			this->bullets.erase(&bullet);
+			--counter;
+		}
+		++counter;
 	}
 }
 
@@ -119,7 +130,7 @@ void Player::update(const float dt, std::map<std::string, int> keybinds, bool wa
 		}
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")))
 		{
-			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 2) , this->getPos().y, 0.f, 0.f, 0.f);
+			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8) , this->getPos().y - (this->sprite->getLocalBounds().height / 8), 0.f, -1.f, 5.f);
 			this->bullets.push_back(tempBullet);
 			std::cout << "P1_shooting" << endl;
 		}

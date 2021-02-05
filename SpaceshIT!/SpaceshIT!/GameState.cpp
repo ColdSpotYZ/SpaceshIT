@@ -108,6 +108,9 @@ void GameState::updateInput(const float& dt)
 			this->music.play();
 		}
 	}
+
+	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+		playerVec->at(i)->updateBullets();
 }
 
 void GameState::updatePlayerInput(const float& dt)
@@ -116,9 +119,6 @@ void GameState::updatePlayerInput(const float& dt)
 	{
 		this->playerVec->at(i)->update(dt, this->keybinds, !i);
 	}
-
-	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
-		playerVec->at(i)->updateBullets();
 }
 
 void GameState::updateCollision()
