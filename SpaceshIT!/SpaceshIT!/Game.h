@@ -17,6 +17,32 @@
 class Game
 {
 private:
+	class GraphicsSettings
+	{
+	public:
+		GraphicsSettings()
+		{
+			this->resolution = sf::VideoMode::getDesktopMode();
+			this->fullscreen = false;
+			this->verticalSync = false;
+			this->frameRateLimit = 144;
+			this->contextSettings.antialiasingLevel = 0;
+			for (unsigned i = 0; i < sf::VideoMode::getFullscreenModes().size(); i++)
+				this->videoModes.push_back(sf::VideoMode::getFullscreenModes()[i]);
+		}
+		// Variables
+		sf::VideoMode resolution;
+		bool fullscreen;
+		bool verticalSync;
+		unsigned frameRateLimit;
+		sf::ContextSettings contextSettings;
+		Vector<const sf::VideoMode> videoModes;
+
+		// Functions
+		void saveToFile(const std::string path);
+
+		void loadFromFile(const std::string path);
+	};
 	
 	// Window
 	sf::RenderWindow* window;

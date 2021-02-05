@@ -84,7 +84,7 @@ void Player::updateBullets()
 		{
 			//Delete bullet
 			delete this->bullets.at(counter);
-			this->bullets.erase(&bullet);
+			this->bullets.erase(counter);
 			--counter;
 		}
 		++counter;

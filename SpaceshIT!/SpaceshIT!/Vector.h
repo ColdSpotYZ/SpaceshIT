@@ -39,9 +39,7 @@ public:
 	/*
 	Description: Assign another vector to the current vector object
 	*/
-	/*Vector& operator= (const Vector& other_vector);*/
 	Vector<T>& operator=(const Vector<T>&);
-
 
 	// Iterators
 	T* begin();
@@ -77,7 +75,7 @@ public:
 	/*
 	Description: Removes a single element from the vector
 	*/
-	T* erase(T* position);
+	T* erase(size_type position);
 
 	// DEBUG AND EXTRAS
 	void print();
@@ -260,7 +258,7 @@ inline void Vector<T>::insert(T position, T& value)
 }
 
 template<class T>
-inline T* Vector<T>::erase(T* position)
+inline T* Vector<T>::erase(size_type position)
 {
 	T ret_value = this->internal_array[position];
 	for (size_type i = position; i < this->size; i++)
@@ -268,7 +266,7 @@ inline T* Vector<T>::erase(T* position)
 		this->internal_array[i] = this->internal_array[i + 1];
 	}
 	this->size--;
-	return ret_value;
+	return &ret_value;
 }
 
 template<class T>
