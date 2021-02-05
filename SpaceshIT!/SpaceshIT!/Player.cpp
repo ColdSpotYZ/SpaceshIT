@@ -65,22 +65,18 @@ void Player::takeDamage()
 
 void Player::updateBullets()
 {
-	unsigned counter = 0;
-	for (auto* bullet : this->bullets)
+	for (unsigned counter = 0; counter < this->bullets.getsize(); counter++)
 	{
-		bullet->update();
+		bullets.at(counter)->update();
 
 		// Bulleting culling (top of screen)
-		if (bullet->getBounds().top + bullet->getBounds().height < 0.f)
+		if (bullets.at(counter)->getBounds().top + bullets.at(counter)->getBounds().height < 0.f)
 		{
 			//Delete bullet
 			delete this->bullets.at(counter);
-			this->bullets.erase(this->bullets.begin() + counter);
-			--counter;
-
-			// std::cout << this->bullets.getsize() << endl;
+			this->bullets.erase(counter);
 		}
-		counter++;
+
 	}
 }
 
@@ -129,20 +125,18 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 		
 			this->p1Velocity.x = 1;
 		}
-		/*
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_back")))
 		{
 			this->p1Velocity.y = 1;
 			this->p1Velocity.x = -1;
 		}
-		*/
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")) && canAttack())
 		{
-			Bullet* tempBullet = new Bullet(this->getPos().x, this->getPos().y - (this->sprite->getLocalBounds().height / 10), this->p1Velocity.x * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), (this->p1Velocity.y * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 5.f);
+			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8) , this->getPos().y - (this->sprite->getLocalBounds().height / 8), 1 * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)), (-1 * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 3.5f);
 			this->bullets.push_back(tempBullet);
 			std::cout << "P1_shooting" << endl;
 		}
-		
+
 		if (!isPress)
 			this->rotation1 = 0;
 		if (this->rotation1 < 0 && this->rotateAmount1 > 0)
@@ -173,21 +167,18 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 			this->p2Velocity.y = -1;
 			this->p2Velocity.x = 1;
 		}
-		/*
-		
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_back")))
 		{
 			this->p2Velocity.y = 1;
 			this->p2Velocity.x = -1;
 		}
-		*/
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")) && canAttack())
 		{
 			Bullet* tempBullet = new Bullet(this->getPos().x - (this->sprite->getLocalBounds().width / 8), this->getPos().y - (this->sprite->getLocalBounds().height / 8), 0.f, -1.f, 5.f);
 			this->bullets.push_back(tempBullet);
 			std::cout << "P2_shooting" << endl;
 		}
-		
+
 		if (!isPress)
 			this->rotation2 = 0;
 		if (this->rotation2 < 0 && this->rotateAmount2 > 0)
