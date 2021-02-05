@@ -6,7 +6,7 @@ void Player::initVariables()
 {
 	this->health = this->max_health;
 	this->speed = this->max_speed;
-	this
+	this;
 }
 
 void Player::initGUI()
@@ -77,7 +77,7 @@ void Player::updateBullets()
 		{
 			//Delete bullet
 			delete this->bullets.at(counter);
-			this->bullets.erase(this->bullets.begin() + counter);
+			this->bullets.erase(counter);
 			--counter;
 
 			// std::cout << this->bullets.getsize() << endl;
