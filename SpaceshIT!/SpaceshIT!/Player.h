@@ -13,8 +13,6 @@ private:
 
     int max_health = 100;
     int health;
-    int max_ammo = 20;
-    int ammo;
     float max_speed = 500.f;
     float speed;
 
@@ -27,6 +25,10 @@ private:
 
     // Bullets
     Vector<Bullet*> bullets;
+
+    // Attack
+    float attackCoolDown;
+    float attackCoolDownMax;
 
     // Functions
     void initVariables();
@@ -44,10 +46,11 @@ public:
     // Functions
     void move(const float dt, const float x, const float y);
     void takeDamage();
-    void shoot();
     void updateBullets();
     void updateGUI();
+    const bool canAttack();
 
+    void updateAttack();
     void update(const float dt) override;
     void update(const float dt, std::map < std::string , int > keybinds, bool wasd);
     void render(sf::RenderTarget* target);

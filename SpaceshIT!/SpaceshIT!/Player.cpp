@@ -5,8 +5,8 @@
 void Player::initVariables()
 {
 	this->health = this->max_health;
-	this->ammo = this->max_ammo;
 	this->speed = this->max_speed;
+	this
 }
 
 void Player::initGUI()
@@ -65,13 +65,6 @@ void Player::takeDamage()
 		this->health = 0;
 }
 
-void Player::shoot()
-{
-	this->ammo--;
-	if (this->ammo < 0)
-		this->ammo = 0;
-}
-
 void Player::updateBullets()
 {
 	unsigned counter = 0;
@@ -84,8 +77,10 @@ void Player::updateBullets()
 		{
 			//Delete bullet
 			delete this->bullets.at(counter);
-			this->bullets.erase(&bullet);
+			this->bullets.erase(this->bullets.begin() + counter);
 			--counter;
+
+			// std::cout << this->bullets.getsize() << endl;
 		}
 		++counter;
 	}
@@ -96,6 +91,19 @@ void Player::updateGUI()
 	this->playerHpBar.setSize(sf::Vector2f(this->getBounds().width * (static_cast<float>(this->getHp()) / this->getHpMax()), this->playerHpBar.getSize().y));
 	this->playerHpBar.setPosition(sf::Vector2f(this->getPos().x, this->getPos().y - (this->getBounds().height / 4)));
 	this->playerHpBarBack.setPosition(sf::Vector2f(this->getPos().x, this->getPos().y - (this->getBounds().height / 4)));
+}
+
+const bool Player::canAttack()
+{
+	if (this->attackCoolDown >= this->attackCoolDownMax)
+		return true;
+	return false;
+}
+
+void Player::updateAttack()
+{
+	if (this->attackCoolDown < this->attackCoolDownMax)
+		this->attackCoolDown += 1.f;
 }
 
 void Player::update(const float dt)
