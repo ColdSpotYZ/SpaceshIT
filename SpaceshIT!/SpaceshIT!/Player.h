@@ -22,7 +22,7 @@ private:
     sf::Vector2f p2Velocity{ 0.f, 0.f };
 
     // Bullets
-    std::vector<Bullet*> bullets;
+    Vector<Bullet*> bullets;
 
     // Attack
     float attackCoolDown;
