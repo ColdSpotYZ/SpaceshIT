@@ -62,6 +62,12 @@ void GameState::initAsteroid()
 	this->spawnTimerAsteroids = this->spawnTimerAsteroidsMax;
 }
 
+void GameState::initPacks()
+{
+	this->spawnTimerHealthPack = rand() % 101;
+	this->SpawnTimerBulletPack = rand() % 101;
+}
+
 void GameState::initGUI()
 {
 	// Game over text
@@ -184,7 +190,28 @@ void GameState::updateAsteroid()
 			// std::cout << this->Asteroid_s.getsize() << endl;
 		}
 	}
-} 
+}
+void GameState::updatePacks()
+{
+	// Updates Health Packs
+	this->spawnTimerHealthPack += 0.2f;
+	if (this->spawnTimerHealthPack >= this->spawnTimerHealthPackMax)
+	{
+		HealthPack* HPTemp = new HealthPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
+		this->HealthPacks.push_back(HPTemp);
+		this->spawnTimerHealthPack = 0.f;
+	}
+
+	// Updates Bullet Packs
+	this->SpawnTimerBulletPack += 0.2f;
+	if (this->SpawnTimerBulletPack >= this->spawnTimerBulletPackMax)
+	{
+		BulletPack* BPTemp = new BulletPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
+		this->BulletPacks.push_back(BPTemp);
+		this->SpawnTimerBulletPack = 0.f;
+	}
+}
+
 
 
 
@@ -294,11 +321,8 @@ void GameState::render(sf::RenderTarget* target)
 			Asteroid->render(this->window);
 		}
 
-
-
-		if (this->paused)
-		{
-			this->pauseMenu->render(target);
-		}
+	if (this->paused)
+	{
+		this->pauseMenu->render(target);
 	}
 }
