@@ -11,6 +11,8 @@ private:
     int playerNum;
     int max_health = 100;
     int health;
+    int ammo;
+    int max_ammo = 20;
     float max_speed = 500.f;
     float speed;
 
@@ -45,11 +47,12 @@ public:
     void move(const float dt, const float x, const float y);
     void takeDamage();
     void updateBullets();
-
-    // Combat
     void Combat(Player* player, Player* player2);
     const bool canAttack();
     void updateAttack();
+    void shoot();
+    void heal();
+    void restockammo();
 
 
     void update(const float dt) override;

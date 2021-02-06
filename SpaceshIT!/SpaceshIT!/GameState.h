@@ -27,12 +27,12 @@ private:
 
     // Bullet Pack
     float SpawnTimerBulletPack;
-    float spawnTimerBulletPackMax = 50.f;
+    float spawnTimerBulletPackMax = 70.f;
     Vector<BulletPack*> BulletPacks;
 
     // Health Pack
     float spawnTimerHealthPack;
-    float spawnTimerHealthPackMax = 50.f;
+    float spawnTimerHealthPackMax = 100.f;
     Vector<HealthPack*> HealthPacks;
 
 
@@ -73,6 +73,7 @@ public:
     void updatePlayerGUI(const float& dt);
     void updateAsteroid();
     void updatePacks();
+    void collectPacks(Player* player);
     void updateCollision();
     void AsteroidsDamage(Player* player);
     void updatePauseMenuButtons();

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameState.h"
+#include <time.h>
 
 void GameState::initVariables()
 {
@@ -194,7 +195,7 @@ void GameState::updateAsteroid()
 void GameState::updatePacks()
 {
 	// Updates Health Packs
-	this->spawnTimerHealthPack += 0.2f;
+	this->spawnTimerHealthPack += 0.05f;
 	if (this->spawnTimerHealthPack >= this->spawnTimerHealthPackMax)
 	{
 		HealthPack* HPTemp = new HealthPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
@@ -203,17 +204,38 @@ void GameState::updatePacks()
 	}
 
 	// Updates Bullet Packs
-	this->SpawnTimerBulletPack += 0.2f;
+	this->SpawnTimerBulletPack += 0.05f;
 	if (this->SpawnTimerBulletPack >= this->spawnTimerBulletPackMax)
 	{
 		BulletPack* BPTemp = new BulletPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
 		this->BulletPacks.push_back(BPTemp);
 		this->SpawnTimerBulletPack = 0.f;
 	}
+
+	this->collectPacks(player1);
+	this->collectPacks(player2);
 }
 
+void GameState::collectPacks(Player* player)
+{
+	for (unsigned i = 0; i < this->HealthPacks.getsize(); i++)
+	{
+		if (this->HealthPacks[i]->getBounds().intersects(player->getBounds()))
+		{
+			HealthPacks.erase(i);
+			player->heal();
+		}
+	}
 
-
+	for (unsigned i = 0; i < this->BulletPacks.getsize(); i++)
+	{
+		if (this->BulletPacks[i]->getBounds().intersects(player->getBounds()))
+		{
+			BulletPacks.erase(i);
+			player->restockammo();
+		}
+	}
+}
 
 void GameState::updateCollision()
 {
@@ -276,17 +298,18 @@ void GameState::update(const float& dt)
 	// GameState updates
 	this->updateMousePosition();
 	this->updateKeyTime(dt);
-	
 
 	if (!this->endGame)
 	{
 		this->updateInput(dt);
 		if (!this->paused)
 		{
+			srand(time(0));
 			this->updateCollision();
 			this->updatePlayerInput(dt);
 			this->updatePlayerGUI(dt);
 			this->updateAsteroid();
+			this->updatePacks();
 			updateGameStateEnd();
 		}
 		else
@@ -321,8 +344,28 @@ void GameState::render(sf::RenderTarget* target)
 			Asteroid->render(this->window);
 		}
 
-	if (this->paused)
-	{
-		this->pauseMenu->render(target);
+		for (auto* bulletP : this->BulletPacks)
+		{
+			// std::cout << "Bullet Packs" << endl;
+			bulletP->render(this->window);
+		}
+
+		for (auto* healthP : this->HealthPacks)
+		{
+			// std::cout << "Health Packs" << endl;
+			healthP->render(this->window);
+		}
+
+		if (this->paused)
+		{
+			this->pauseMenu->render(target);
+		}
+
+		if (this->paused)
+		{
+			this->pauseMenu->render(target);
+		}
 	}
+
+
 }

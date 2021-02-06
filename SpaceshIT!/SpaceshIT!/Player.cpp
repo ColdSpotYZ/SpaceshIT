@@ -8,6 +8,7 @@ void Player::initVariables()
 	this->speed = this->max_speed;
 	this->attackCoolDownMax = 10.f;
 	this->attackCoolDown = this->attackCoolDownMax;
+	this->ammo = this->max_ammo;
 }
 
 Player::Player()
@@ -69,6 +70,33 @@ void Player::takeDamage()
 	}
 }
 
+void Player::shoot()
+{
+	this->ammo -= 1;
+	if (this->ammo < 0)
+	{
+		this->ammo = 0;
+	}
+}
+
+void Player::heal()
+{
+	this->health += 60;
+	if (this->health > this->max_health)
+	{
+		this->health = this->max_health;
+	}
+}
+
+void Player::restockammo()
+{
+	this->ammo += 20;
+	if (this->ammo > this->max_ammo)
+	{
+		this->ammo = this->max_ammo;
+	}
+}
+
 void Player::updateBullets()
 {
 	for (unsigned counter = 0; counter < this->bullets.getsize(); counter++)
@@ -122,6 +150,7 @@ void Player::update(const float dt)
 {
 }
 
+
 void Player::update(const float dt, std::map<std::string, int> keybinds)
 {
 	bool isPress = false;
@@ -150,13 +179,14 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 			this->p1Velocity.x = -1;
 		}
 		*/
-		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")) && canAttack())
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_shoot")) && canAttack() && ammo > 0)
 		{
 			Bullet* tempBullet = new Bullet(this->getPos().x - 5.f + (5.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
 				this->getPos().y - this->sprite->getLocalBounds().height / 50.f + (-0.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
 				1 * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)),
 				(-1 * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 7.f);
 			this->bullets.push_back(tempBullet);
+			this->shoot();
 		}
 
 		if (!isPress)
@@ -197,13 +227,14 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 			this->p2Velocity.x = -1;
 		}
 		*/
-		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")) && canAttack())
+		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p2_shoot")) && canAttack() && ammo > 0)
 		{
 			Bullet* tempBullet = new Bullet(this->getPos().x - 5.f + (5.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
 				this->getPos().y - this->sprite->getLocalBounds().height / 50.f + (-0.f * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))),
 				1 * sin(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0)),
 				(-1 * cos(this->sprite->getRotation() * ((2 * acos(0.0)) / 180.0))), 7.f);
 			this->bullets.push_back(tempBullet);
+			this->shoot();
 		}
 		
 		if (!isPress)
