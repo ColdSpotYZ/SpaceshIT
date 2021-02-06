@@ -15,14 +15,18 @@ Player::Player()
 	this->initVariables();
 }
 
-Player::Player(char* filename) : Actor(filename)
+Player::Player(char* filename, sf::Vector2f pos) : Actor(filename, pos)
 {
 	if (filename == "player1")
 		this->playerNum = 1;
 	else
 		this->playerNum = 2;
 	this->initVariables();
-	this->initSprite(sf::Vector2f(0.4f, 0.4f));
+	this->initSprite(pos, sf::Vector2f(0.4f, 0.4f));
+	if (this->playerNum == 1)
+		this->sprite->setRotation(90);
+	else
+		this->sprite->setRotation(270);
 	/*this->initGUI();*/
 }
 
@@ -91,12 +95,9 @@ const bool Player::canAttack()
 	if (this->attackCoolDown >= this->attackCoolDownMax)
 	{
 		this->attackCoolDown = 0.f;
-		// std::cout << this->attackCoolDown << endl;
 		return true;
 	}
 	return false;
-	// std::cout << this->canAttack << endl;
-
 }
 
 void Player::Combat(Player* player, Player* player2)
@@ -115,7 +116,6 @@ void Player::updateAttack()
 {
 	if (this->attackCoolDown < this->attackCoolDownMax)
 		this->attackCoolDown += 0.5f;
-	// std::cout << this->attackCoolDown << endl;
 }
 
 void Player::update(const float dt)
@@ -220,7 +220,6 @@ void Player::update(const float dt, std::map<std::string, int> keybinds)
 		this->rotateAmount2 = 0;
 	}
 	this->updateAttack();
-	/*this->updateGUI();*/
 }
 
 void Player::render(sf::RenderTarget* target)

@@ -11,7 +11,7 @@ void Actor::initTexture(char* filename)
 	}
 }
 
-void Actor::initSprite(sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
+void Actor::initSprite(sf::Vector2f pos, sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
 {
 	// Set texture for sprite object
 	this->sprite->setTexture(*this->texture);
@@ -19,7 +19,7 @@ void Actor::initSprite(sf::Vector2f scale = sf::Vector2f(1.f, 1.f))
 	//Resize sprite
 	this->sprite->scale(scale);
 	this->sprite->setOrigin(this->sprite->getLocalBounds().width / 2.f, this->sprite->getLocalBounds().height / 2.f);
-	this->sprite->setPosition(800, 800);
+	this->sprite->setPosition(pos);
 }
 
 void Actor::initVariables()
@@ -38,11 +38,11 @@ Actor::Actor()
 	this->initVariables();
 }
 
-Actor::Actor(char* filename)
+Actor::Actor(char* filename, sf::Vector2f pos)
 {
 	this->initVariables();
 	this->initTexture(filename);
-	this->initSprite();
+	this->initSprite(pos);
 }
 
 // Destructor

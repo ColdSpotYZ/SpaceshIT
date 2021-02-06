@@ -9,11 +9,11 @@ protected:
 
 	// Functions
 	void initTexture(char*);
-	void initSprite(sf::Vector2f);
+	void initSprite(sf::Vector2f pos, sf::Vector2f);
 	void initVariables();
 public:
 	Actor();
-	Actor(char*);
+	Actor(char*, sf::Vector2f pos);
 	virtual ~Actor();
 
 	// Component
