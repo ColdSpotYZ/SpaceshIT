@@ -17,7 +17,7 @@ void GameState::initKeybinds()
 
 		while (ifs >> key >> key_code_map)
 		{
-			pair<std::string, int> temp = pair<std::string, int>{ key, (int) key_code_map.c_str() };
+			pair<std::string, int> temp = pair<std::string, int>{ key, this->supportedKeys->at(key_code_map) };
 			this->keybinds.insert(&temp);
 		}
 	}
