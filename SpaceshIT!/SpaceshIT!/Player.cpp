@@ -151,7 +151,7 @@ void Player::update(const float dt)
 }
 
 
-void Player::update(const float dt, std::map<std::string, int> keybinds)
+void Player::update(const float dt, Map<std::string, int> keybinds)
 {
 	bool isPress = false;
 	if (this->playerNum == 1)

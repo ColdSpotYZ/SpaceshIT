@@ -10,8 +10,6 @@ void Asteroids::initShape()
 
 void Asteroids::initVariables()
 {
-	this->hpMax = (rand() % 2 + 1) * 25;
-	this->hp = hpMax;
 	this->direction = (rand() % 7) - 3;
 }
 
@@ -31,6 +29,8 @@ Asteroids::~Asteroids()
 {
 	// Empty
 }
+
+
 
 void Asteroids::update()
 {

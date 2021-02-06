@@ -34,7 +34,7 @@ private:
 	Stack<State*> states;
 
 	// Keybinds
-	std::map<string, int> supportedKeys;
+	Map<string, int> supportedKeys;
 
 	// Mouse position
 	sf::Vector2i mousePosWindow;

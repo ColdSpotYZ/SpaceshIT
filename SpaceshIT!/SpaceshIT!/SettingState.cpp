@@ -58,7 +58,7 @@ void SettingState::initText()
 	this->optionsText.setString("Resolution \n\n\n\n\n\nFullscreen \n\n\n\n\n\nVsync \n\n\n\n\n\nAntialiasing \n\n\n\n\n\n");
 }
 
-SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states)
+SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, Map<string, int>* supportedKeys, Stack<State*>* states)
 	: State(window, supportedKeys, states), gfxSettings(gfxSettings)
 {
 	this->initVariables();

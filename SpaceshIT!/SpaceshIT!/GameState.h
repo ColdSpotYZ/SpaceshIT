@@ -63,7 +63,7 @@ private:
     void initPlayerGUI();
 
 public:
-    GameState(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
+    GameState(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<State*>* states);
     virtual ~GameState();
 
     //Functions

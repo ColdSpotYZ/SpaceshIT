@@ -52,7 +52,7 @@ void MainMenuState::initButtons()
 		sf::Color(20, 20, 20, 200));
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states)
+MainMenuState::MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, Map<string, int>* supportedKeys, Stack<State*>* states)
 	: State(window, supportedKeys, states), gfxSettings(gfxSettings)
 {
 	this->initVariables();

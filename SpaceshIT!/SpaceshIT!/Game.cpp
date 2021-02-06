@@ -38,7 +38,10 @@ void Game::initKeys()
 		int key_code;
 
 		while (ifs >> key >> key_code)
-			this->supportedKeys[key] = key_code;
+		{
+			// this->supportedKeys[key] = key_code;
+			this->supportedKeys.insert(&(pair<std::string, int>{key, key_code}));
+		}
 	}
 }
 

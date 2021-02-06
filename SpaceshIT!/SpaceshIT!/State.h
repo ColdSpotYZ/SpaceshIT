@@ -1,12 +1,13 @@
 #pragma once
+#include "Map.h"
 
 class State
 {
 protected:
 	Stack<State*>* states;
 	sf::RenderWindow* window;
-	std::map<string, int>* supportedKeys;
-	std::map<string, int> keybinds;
+	Map<string, int>* supportedKeys;
+	Map<string, int> keybinds;
 
 	Vector<sf::Texture> textures;
 	bool quit;
@@ -23,7 +24,7 @@ protected:
 	virtual void initKeybinds() = 0;
 
 public:
-	State(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states);
+	State(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<State*>* states);
 	virtual ~State();
 
 	// Accessors

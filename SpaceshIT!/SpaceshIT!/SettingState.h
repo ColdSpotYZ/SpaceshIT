@@ -27,7 +27,7 @@ private:
     void initText();
 
 public:
-	SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states);
+	SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, Map<string, int>* supportedKeys, Stack<State*>* states);
 	virtual ~SettingState();
 
 	// Accessors

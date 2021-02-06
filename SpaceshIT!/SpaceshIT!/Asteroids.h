@@ -6,8 +6,6 @@ class Asteroids
 	private:
 		sf::Sprite Shape;
 		sf::Texture texture;
-		int hp;
-		int hpMax;
 		float direction;
 
 		void initShape();

@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "State.h"
+#include "Map.h"
 
-State::State(sf::RenderWindow* window, std::map<string, int>* supportedKeys, Stack<State*>* states)
+State::State(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<State*>* states)
 {
 	this->window = window;
 	this->supportedKeys = supportedKeys;

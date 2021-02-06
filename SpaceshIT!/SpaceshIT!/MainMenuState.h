@@ -25,7 +25,7 @@ private:
     void initButtons();
 
 public:
-    MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, std::map<string, int>* supportedKeys, Stack<State*>* states);
+    MainMenuState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, Map<string, int>* supportedKeys, Stack<State*>* states);
     virtual ~MainMenuState();
 
     // Functions

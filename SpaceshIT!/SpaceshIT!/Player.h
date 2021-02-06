@@ -1,7 +1,8 @@
 #pragma once
 #include "Actor.h"
 #include "Bullet.h"
-#include <map>
+#include "Asteroids.h"
+#include "Map.h"
 
 class Player :
     public Actor
@@ -56,7 +57,7 @@ public:
 
 
     void update(const float dt) override;
-    void update(const float dt, std::map < std::string , int > keybinds);
+    void update(const float dt, Map<std::string, int> keybinds);
     void render(sf::RenderTarget* target);
 };
 
