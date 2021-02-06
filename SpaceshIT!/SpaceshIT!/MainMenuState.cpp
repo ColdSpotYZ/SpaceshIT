@@ -7,7 +7,8 @@ void MainMenuState::initVariables()
 
 void MainMenuState::initKeybinds()
 {
-	this->keybinds["CLOSE"] = this->supportedKeys->at((char*)"Escape");
+	pair<std::string, int> temp = pair<std::string, int>{ "CLOSE", this->supportedKeys->at((char*)"Escape") };
+	this->keybinds.insert(&temp);
 }
 
 void MainMenuState::initBackground()

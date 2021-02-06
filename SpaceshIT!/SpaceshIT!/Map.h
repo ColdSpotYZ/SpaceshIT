@@ -94,10 +94,10 @@ template<class K, class T>
 bool Map<K, T>::insert(pair<K, T> pairarray[])
 {
 	// Converting the key to an integer if it is not an integer
-	int hashkey = this->hash((std::string)pairarray[0]);
+	int hashkey = this->hash((std::string)pairarray->first);
 	Node* temp = new Node;
-	temp->item = (T)pairarray[1];
-	temp->key = (K)pairarray[0];
+	temp->item = (T)pairarray->second;
+	temp->key = (K)pairarray->first;
 	temp->next = nullptr;
 	if (items[hashkey] != nullptr)
 	{

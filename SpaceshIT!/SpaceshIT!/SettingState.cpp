@@ -9,7 +9,8 @@ void SettingState::initVariables()
 
 void SettingState::initKeybinds()
 {
-	this->keybinds["CLOSE"] = this->supportedKeys->at((char*)"Escape");
+	pair<std::string, int> temp = pair<std::string, int>{ "CLOSE", this->supportedKeys->at((char*)"Escape") };
+	this->keybinds.insert(&temp);
 }
 
 void SettingState::initBackground()
