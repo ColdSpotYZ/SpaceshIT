@@ -80,6 +80,13 @@ public:
 	// DEBUG AND EXTRAS
 	void print();
 
+	template<typename T>
+	struct is_pointer { static const bool value = false; };
+
+	template<typename T>
+	struct is_pointer<T*> { static const bool value = true; };
+
+
 };
 
 
@@ -265,8 +272,12 @@ inline void Vector<T>::push_back(T& item)
 template<class T>
 inline void Vector<T>::pop_back()
 {
+	this->internal_array[this->size] = NULL;
 	// Calling T's class destructor
-	(this->internal_array[this->size])->~T();
+	if (is_pointer<T>::value == true)
+		(this->internal_array[this->size])->~T();
+	else
+		(this->internal_array[this->size]).~T();
 	this->size--;
 }
 
