@@ -136,10 +136,12 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Asteroids.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletPack.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HealthPack.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Menu[OLD].cpp" />
@@ -159,10 +161,12 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Asteroids.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletPack.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HealthPack.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu[OLD].h" />

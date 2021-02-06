@@ -6,6 +6,8 @@
 #include "Map.h"
 #include "Bullet.h"
 #include "Asteroids.h"
+#include "BulletPack.h"
+#include "HealthPack.h"
 
 class GameState :
     public State
@@ -21,6 +23,17 @@ private:
     float spawnTimerAsteroids;
     float spawnTimerAsteroidsMax = 50.f;
     Vector<Asteroids*> Asteroid_s;
+
+    // Bullet Pack
+    float SpawnTimerBulletPack;
+    float spawnTimerBulletPackMax = 50.f;
+    Vector<BulletPack*> BulletPacks;
+
+    // Health Pack
+    float spawnTimerHealthPack;
+    float spawnTimerHealthPackMax = 50.f;
+    Vector<HealthPack*> HealthPacks;
+
 
     // Background
     sf::Texture backgroundTexture;
@@ -43,6 +56,7 @@ private:
     void initFont();
     void initPlayer();
     void initAsteroid();
+    void initPacks();
     void initGUI();
     void initPauseMenu();
     void initPlayerGUI();
@@ -57,6 +71,7 @@ public:
     void updatePlayerInput(const float& dt);
     void updatePlayerGUI(const float& dt);
     void updateAsteroid();
+    void updatePacks();
     void updateCollision();
     void AsteroidsDamage(Player* player);
     void updatePauseMenuButtons();

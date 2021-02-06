@@ -49,7 +49,14 @@ public:
 //////////////////////////////
 
 template<class T>
-Stack<T>::Stack() { size = 0; }
+Stack<T>::Stack() 
+{ 
+	for (int i = 0; i < MAX_SIZE; i++)
+	{
+		state[i] = nullptr;
+	}
+	size = 0;
+}
 
 template<class T>
 Stack<T>::~Stack()
