@@ -58,6 +58,7 @@ public:
     void updatePlayerGUI(const float& dt);
     void updateAsteroid();
     void updateCollision();
+    void AsteroidsDamage(Player* player);
     void updatePauseMenuButtons();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);

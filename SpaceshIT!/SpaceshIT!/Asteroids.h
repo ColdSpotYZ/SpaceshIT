@@ -8,6 +8,7 @@ class Asteroids
 		sf::Texture texture;
 		int hp;
 		int hpMax;
+		float direction;
 
 		void initShape();
 		void initVariables();
@@ -23,5 +24,8 @@ class Asteroids
 		void update();
 
 		void render(sf::RenderTarget* target);
+
+		// Accessors
+		const sf::FloatRect getBounds() const;
 };
 

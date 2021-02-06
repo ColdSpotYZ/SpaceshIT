@@ -138,6 +138,7 @@ void GameState::updateInput(const float& dt)
 		playerVec->at(i)->updateBullets();
 		playerVec->at(i)->Combat(player1, player2);
 		playerVec->at(i)->Combat(player2, player1);
+
 	}
 }
 
@@ -157,18 +158,31 @@ void GameState::updatePlayerGUI(const float& dt)
 
 void GameState::updateAsteroid()
 {
-	this->spawnTimerAsteroids += 0.5f;
+	this->spawnTimerAsteroids += 0.2f;
 	if (this->spawnTimerAsteroids >= this->spawnTimerAsteroidsMax)
 	{
-		Asteroids* ATemp = new Asteroids(rand() % 200, rand() % 200);
+		Asteroids* ATemp = new Asteroids(rand() % this->window->getSize().x - 20.f, -100.f);
 		this->Asteroid_s.push_back(ATemp);
 		this->spawnTimerAsteroids = 0.f;
 	}
-	for (auto* A : this->Asteroid_s)
+
+	this->AsteroidsDamage(player1);
+	this->AsteroidsDamage(player2);
+
+	for (int i = 0; i < this->Asteroid_s.getsize(); i++)
 	{
-		A->update();
+		Asteroid_s[i]->update();
+
+		// Culling of Asteroid at the bottom of the screen
+		if (this->Asteroid_s[i]->getBounds().top > this->window->getSize().y)
+		{
+			this->Asteroid_s.erase(i);
+			// std::cout << this->Asteroid_s.getsize() << endl;
+		}
 	}
 } 
+
+
 
 void GameState::updateCollision()
 {
@@ -189,6 +203,18 @@ void GameState::updateCollision()
 		else if (this->playerVec->at(i)->getBounds().top + this->playerVec->at(i)->getBounds().height >= this->window->getSize().y)
 		{
 			this->playerVec->at(i)->setPos(this->playerVec->at(i)->getBounds().left + this->playerVec->at(i)->getBounds().width / 2.f, this->window->getSize().y - this->playerVec->at(i)->getBounds().height / 2.f);
+		}
+	}
+}
+
+void GameState::AsteroidsDamage(Player* player)
+{
+	for (unsigned i = 0; i < this->Asteroid_s.getsize(); i++)
+	{
+		if (this->Asteroid_s[i]->getBounds().intersects(player->getBounds()))
+		{
+			Asteroid_s.erase(i);
+			player->takeDamage();
 		}
 	}
 }

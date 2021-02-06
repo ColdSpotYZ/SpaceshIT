@@ -23,7 +23,5 @@ class Bullet
 		void update();
 
 		void render(sf::RenderTarget* target);
-
-		void changeState(bool state);
 };
 
