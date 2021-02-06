@@ -13,6 +13,7 @@ class GameState :
     public State
 {
 private:
+    bool endGame = false;
     // Players
     Vector<Player*>* playerVec;
     Player* player1;
@@ -75,6 +76,7 @@ public:
     void updateCollision();
     void AsteroidsDamage(Player* player);
     void updatePauseMenuButtons();
+    void updateGameStateEnd();
     void update(const float& dt);
     void render(sf::RenderTarget* target = nullptr);
 };

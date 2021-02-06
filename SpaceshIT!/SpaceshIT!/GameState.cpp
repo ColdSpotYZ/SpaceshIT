@@ -47,8 +47,12 @@ void GameState::initFont()
 
 void GameState::initPlayer()
 {
-	this->player1 = new Player((char*)"player1");
-	this->player2 = new Player((char*)"player2");
+	this->player1 = new Player((char*)"player1",
+		sf::Vector2f( (float)(rand() % (this->window->getSize().x / 4 + 1)), (float)(rand() % (this->window->getSize().y + 1)))
+		);
+	this->player2 = new Player((char*)"player2",
+		sf::Vector2f((float)(rand() % (this->window->getSize().x / 2 + 1)) + 3 * this->window->getSize().x / 4, (float)(rand() % (this->window->getSize().y + 1)))
+		);
 	this->playerVec->push_back(this->player1);
 	this->playerVec->push_back(this->player2);
 }
@@ -56,12 +60,6 @@ void GameState::initPlayer()
 void GameState::initAsteroid()
 {
 	this->spawnTimerAsteroids = this->spawnTimerAsteroidsMax;
-}
-
-void GameState::initPacks()
-{
-	this->spawnTimerHealthPack = rand() % 101;
-	this->SpawnTimerBulletPack = rand() % 101;
 }
 
 void GameState::initGUI()
@@ -186,28 +184,7 @@ void GameState::updateAsteroid()
 			// std::cout << this->Asteroid_s.getsize() << endl;
 		}
 	}
-}
-void GameState::updatePacks()
-{
-	// Updates Health Packs
-	this->spawnTimerHealthPack += 0.2f;
-	if (this->spawnTimerHealthPack >= this->spawnTimerHealthPackMax)
-	{
-		HealthPack* HPTemp = new HealthPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
-		this->HealthPacks.push_back(HPTemp);
-		this->spawnTimerHealthPack = 0.f;
-	}
-
-	// Updates Bullet Packs
-	this->SpawnTimerBulletPack += 0.2f;
-	if (this->SpawnTimerBulletPack >= this->spawnTimerBulletPackMax)
-	{
-		BulletPack* BPTemp = new BulletPack(rand() % this->window->getSize().x - 20.f, rand() % this->window->getSize().y - 20.f);
-		this->BulletPacks.push_back(BPTemp);
-		this->SpawnTimerBulletPack = 0.f;
-	}
-}
-
+} 
 
 
 
@@ -252,53 +229,76 @@ void GameState::updatePauseMenuButtons()
 		this->endState();
 }
 
+void GameState::updateGameStateEnd()
+{
+	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+	{
+		if (this->playerVec->at(i)->getHp() <= 0)
+		{
+			this->endGame = true;
+			if (this->playerVec->at(i)->getPlayerNum() == 1)
+				this->playerWin.setString("Player 2 wins \n Press ESC to exit");
+			else
+				this->playerWin.setString("Player 1 wins \n Press ESC to exit");
+		}
+	}
+}
+
 void GameState::update(const float& dt)
 {
 	// GameState updates
 	this->updateMousePosition();
 	this->updateKeyTime(dt);
-	this->updateInput(dt);
+	
 
-	if (!this->paused)
+	if (!this->endGame)
 	{
-		this->updateCollision();	
-		this->updatePlayerInput(dt);
-		this->updatePlayerGUI(dt);
-		this->updateAsteroid();
+		this->updateInput(dt);
+		if (!this->paused)
+		{
+			this->updateCollision();
+			this->updatePlayerInput(dt);
+			this->updatePlayerGUI(dt);
+			this->updateAsteroid();
+			updateGameStateEnd();
+		}
+		else
+		{
+			this->pauseMenu->update(this->mousePosView);
+			this->updatePauseMenuButtons();
+		}
 	}
 	else
 	{
-		this->pauseMenu->update(this->mousePosView);
-		this->updatePauseMenuButtons();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime())
+		{
+			this->endState();
+		}
 	}
-	
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
 	target->draw(this->background);
-	for (unsigned i = 0; i < this->playerVec->getsize(); i++)
-		playerVec->at(i)->render(target);
-	for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
-		this->playerGUIs.at(i)->render(target);
-
-	for (auto* Asteroid : this->Asteroid_s)
+	if (this->endGame)
+		target->draw(this->playerWin);
+	else
 	{
-		Asteroid->render(this->window);
-	}
+		for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+			playerVec->at(i)->render(target);
+		for (unsigned i = 0; i < this->playerGUIs.getsize(); i++)
+			this->playerGUIs.at(i)->render(target);
 
-	for (auto* bulletP : this->BulletPacks)
-	{
-		bulletP->render(this->window);
-	}
+		for (auto* Asteroid : this->Asteroid_s)
+		{
+			Asteroid->render(this->window);
+		}
 
-	for (auto* healthP : this->BulletPacks)
-	{
-		healthP->render(this->window);
-	}
 
-	if (this->paused)
-	{
-		this->pauseMenu->render(target);
+
+		if (this->paused)
+		{
+			this->pauseMenu->render(target);
+		}
 	}
 }

@@ -32,7 +32,7 @@ private:
     void initVariables();
 public:
     Player();
-    Player(char* filename);
+    Player(char* filename, sf::Vector2f pos);
     virtual ~Player();
 
     // Accessors

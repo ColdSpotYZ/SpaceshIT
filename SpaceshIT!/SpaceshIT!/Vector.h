@@ -88,6 +88,16 @@ public:
 ///     IMPLEMENTATIONS     ///
 //////////////////////////////
 
+////////////////////////////////////////////////////////////
+/// \brief Assign a new array to local internal_array
+///
+/// This function creates a new array with specified size and
+/// assign it to the local internal_array variable set by the
+/// arguments given.
+///
+/// \param new_capacity     New capacity to allocate to new array (defines the capacity of the newly created and soon to be asigned internal_array)
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline void Vector<T>::reserve(size_type new_capacity)
 {
@@ -107,6 +117,15 @@ inline void Vector<T>::reserve(size_type new_capacity)
 	this->internal_array = temp;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Default constructor for Vector
+///
+/// This constructor takes no arguments and initializes
+/// the Vector with a starting size of 0 and a capacity
+/// specified by the defined interval_rate
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline Vector<T>::Vector()
 {
@@ -114,6 +133,18 @@ inline Vector<T>::Vector()
 	this->capacity = interval_rate;
 	this->internal_array = new T[this->capacity];
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Constructor for Vector
+///
+/// This constructor takes takes the number of times and the
+/// value to be duplicated. The result of the Vector is a vector
+/// of size specified the user with the value being duplicated
+/// X number of times, where X is the size given.
+/// 
+/// \param n	The number of time 
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline Vector<T>::Vector(size_type n, T& value)
