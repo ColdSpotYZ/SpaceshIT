@@ -4,7 +4,7 @@
 #include<iostream>
 using namespace std;
 
-const int maximum_size = 201;
+const int maximum_size = 1001;
 
 template<class K, class T>
 class Map
@@ -14,7 +14,6 @@ private:
 	{
 		K  key;   // search key
 		T item;	// data item
-		Node* next;	// pointer pointing to next item
 	};
 
 	Node* items[maximum_size];
@@ -55,7 +54,8 @@ public:
 	// Counting the number of mapped values are in the map
 	int getAmount();
 
-
+	// Prints out all the mapping of the key to the value
+	void printMap();
 };
 
 ///////////////////////////////
@@ -78,15 +78,7 @@ Map<K, T>::Map()
 template<class K, class T>
 Map<K, T>::~Map()
 {
-	for (int i = 0; i < 201; i++)
-	{
-		if (items[i] != nullptr)
-		{
-			delete items[i];
-			items[i] = nullptr;
-		}
-	}
-	size = 0;
+
 }
 
 // Insertion of the key and the value
@@ -95,35 +87,22 @@ bool Map<K, T>::insert(pair<K, T> pairarray[])
 {
 	// Converting the key to an integer if it is not an integer
 	int hashkey = this->hash((std::string)pairarray->first);
+	// cout << hashkey << endl;
 	Node* temp = new Node;
 	temp->item = (T)pairarray->second;
 	temp->key = (K)pairarray->first;
-	temp->next = nullptr;
+	cout << (K)pairarray->first << " " << (T)pairarray->second  << endl;
 	if (items[hashkey] != nullptr)
 	{
-		Node* newTemp = items[hashkey];
-		// Checks if the first Actual Key are the same 
-		if (newTemp->key == pairarray[0])
-		{
-			return false;
-		}
-		// Iterates over until it reaches the last of the linked list
-		while (newTemp->key != NULL)
-		{
-			if (newTemp->key == pairarray[0])
-				return false;
-			newTemp = newTemp->next;
-		}
-		newTemp->next = temp;
-		newTemp = NULL;
+		return false;
 	}
 	else
 	{
 		items[hashkey] = temp;
 	}
 	size++;
+	printMap();
 	return true;
-	
 }
 
 // Erasing of mapped value with the key
@@ -134,52 +113,13 @@ bool Map<K, T>::erase(K Key)
 	int hashkey = hash(Key);
 	if (items[hashkey] != nullptr)
 	{
-		Node* newTemp = items[hashkey];
-		Node* temp = nullptr;
-		// iterates over to get the node with the same key and the one previous
-		while(newTemp->key != nullptr)
-		{
-			if (newTemp->next != nullptr)
-			{
-				temp = newTemp;
-				newTemp = newTemp->next;
-			}
-			else
-				break;
-		}
-		if (newTemp->key == Key)
-		{
-			// when there is only one
-			if (temp == nullptr)
-			{
-				items[hashkey] = nullptr;
-				delete newTemp;
-			}
-			else
-			{
-				// when there is multiple and the node is between two nodes
-				if (newTemp->next != nullptr)
-				{
-					temp->next = newTemp->next;
-				}
-				// when there is multiple and the node is at the last
-				else
-				{
-					temp->next = nullptr;
-				}
-				delete newTemp;
-			}
-		}
-		else
-		{
-			return false;
-			// cout << "No item found with the key " << key << endl;
-		}
+		delete items[hashkey];
 		size--;
-		temp = NULL;
-		newTemp = NULL;
-		return success;
-		
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
@@ -190,20 +130,7 @@ T Map<K, T>::operator[] (K Key)
 	int hashKey = this->hash(Key);
 	if (items[hashKey] != nullptr)
 	{
-		Node* newTemp = items[hashKey];
-		// Iterates if it is not the key
-		while (newTemp->key != Key)
-		{
-			if (newTemp->next != NULL)
-			{
-				newTemp = newTemp->next;
-			}
-		}
-		// Return if it is the key
-		if (newTemp->key == Key)
-			return newTemp->item;
-		else
-			return T();
+		return items[hashKey]->item;
 	}
 	else
 		return T();
@@ -215,20 +142,7 @@ inline T Map<K, T>::at(K Key)
 	int hashKey = this->hash(Key);
 	if (items[hashKey] != nullptr)
 	{
-		Node* newTemp = items[hashKey];
-		// Iterates if it is not the key
-		while (newTemp->key != Key)
-		{
-			if (newTemp->next != NULL)
-			{
-				newTemp = newTemp->next;
-			}
-		}
-		// Return if it is the key
-		if (newTemp->key == Key)
-			return newTemp->item;
-		else
-			return T();
+		return items[hashKey]->item;
 	}
 	else
 		return T();
@@ -237,26 +151,10 @@ inline T Map<K, T>::at(K Key)
 template<class K, class T>
 inline bool Map<K, T>::Change(pair<K, T> pairarray[])
 {
-	int hashKey = this->hash(pairarray[0]);
+	int hashKey = this->hash((K)pairarray->first);
 	if (items[hashKey] != nullptr)
 	{
-		Node* newTemp = items[hashKey];
-		// Iterates if it is not the key
-		while (newTemp->key != pairarray[0])
-		{
-			if (newTemp->next != NULL)
-			{
-				newTemp = newTemp->next;
-			}
-		}
-		// Return if it is the key
-		if (newTemp->key == pairarray[0])
-		{
-			newTemp->item = pairarray[1];
-			return true;
-		}
-		else
-			return false;
+		items[hashKey]->item = (T)pairarray->second;
 	}
 	else
 		return false;
@@ -267,7 +165,7 @@ int Map<K, T>::hash(std::string Key)
 {
 	unsigned hk = salt;
 	for (int i = 0; i < Key.size(); i++)
-		hk = (hk * maximum_size + (unsigned)Key[i]) % maximum_size;
+		hk = (hk * 21 + (unsigned)Key[i]) % maximum_size;
 	return hk;
 }
 
@@ -284,5 +182,17 @@ template<class T, class V>
 int Map<T, V>::getAmount()
 {
 	return size;
+}
+
+template<class K, class T>
+inline void Map<K, T>::printMap()
+{
+	for (int i = 0; i < maximum_size; i++)
+	{
+		if (items[i] != nullptr)
+		{
+			// cout << "valid" << endl;
+		}
+	}
 }
 

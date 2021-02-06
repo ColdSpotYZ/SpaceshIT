@@ -169,7 +169,6 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 		if (sf::Keyboard::isKeyPressed((sf::Keyboard::Key)keybinds.at("p1_front")))
 		{
 			this->p1Velocity.y = -1;
-		
 			this->p1Velocity.x = 1;
 		}
 		/*
