@@ -110,7 +110,7 @@ public:
 /// assign it to the local internal_array variable set by the
 /// arguments given.
 ///
-/// \param new_capacity     New capacity to allocate to new array (defines the capacity of the newly created and soon to be asigned internal_array)
+/// \param new_capacity	New capacity to allocate to new array (defines the capacity of the newly created and soon to be asigned internal_array)
 ////////////////////////////////////////////////////////////
 
 template<class T>
@@ -132,6 +132,16 @@ inline void Vector<T>::reserve(size_type new_capacity)
 	this->internal_array = temp;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Internal function to swap 2 different values in the internal array
+///
+/// This function swaps the location of 2 specified values
+/// in the internal array.
+///
+/// \param a    first value to be swapped
+/// \param b	second value to be swapped
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline void Vector<T>::swap(int* a, int* b)
 {
@@ -139,6 +149,18 @@ inline void Vector<T>::swap(int* a, int* b)
 	*a = *b;
 	*b = t;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Partitioning for quicksort
+///
+/// This function creates a partition and select a pivot value.
+/// All other values will then be compared to the pivot value
+/// and will be moved to the left of the pivot if it is of a 
+/// lower value and moved to the right if it is of a higher value.
+///
+/// \param left	start value to partition
+/// \param right	end value to partition
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline int Vector<T>::partition(int left, int right)
@@ -172,6 +194,16 @@ inline int Vector<T>::partition(int left, int right)
 	}
 	return i;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Recursion for quicksort
+///
+/// This function checks if two local pointers intersects
+/// and calls itself recursively to sort values.
+///
+/// \param left	start value to partition
+/// \param right	end value to partition
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::quicksort(int left, int right)
@@ -209,7 +241,8 @@ inline Vector<T>::Vector()
 /// of size specified the user with the value being duplicated
 /// X number of times, where X is the size given.
 /// 
-/// \param n	The number of time 
+/// \param n	The number of times the value will be added
+/// \param value	The value to be added
 ///
 ////////////////////////////////////////////////////////////
 
@@ -226,6 +259,16 @@ inline Vector<T>::Vector(size_type n, T& value)
 	}
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Constructor for Vector
+///
+/// This constructor takes takes a vector object and copies it's
+/// value into the new vector
+/// 
+/// \param copier	The vector to be copied from
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline Vector<T>::Vector(Vector& copier)
 {
@@ -239,11 +282,27 @@ inline Vector<T>::Vector(Vector& copier)
 	}
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Destructor for Vector
+///
+/// TThe destructor destroys and unallocate the internal array
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline Vector<T>::~Vector()
 {
 	delete[] this->internal_array;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Vector assignment
+///
+/// This operator copies a vector into the current vector
+/// 
+/// \param copier	The vector to be copied from
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline Vector<T>& Vector<T>::operator=(const Vector<T>& copier)
@@ -257,11 +316,25 @@ inline Vector<T>& Vector<T>::operator=(const Vector<T>& copier)
 	return *this;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Retrieve a pointer to the first item
+///
+/// This function returns a pointer to the first item in the vector
+/// 
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline T* Vector<T>::begin()
 {
 	return this->internal_array;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Retrieve a pointer to the last item
+///
+/// This function returns a pointer to the last item in the vector
+/// 
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline T* Vector<T>::end()
@@ -269,11 +342,26 @@ inline T* Vector<T>::end()
 	return this->internal_array + this->size;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Retrieve the size of the vector
+///
+/// This function returns the size of the vector
+/// 
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline size_type Vector<T>::getsize()
 {
 	return this->size;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Resize the vector
+///
+/// This function resize the vector to a size greater than the current
+/// 
+/// \param size	size to resize
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline bool Vector<T>::resize(size_type size)
@@ -283,17 +371,39 @@ inline bool Vector<T>::resize(size_type size)
 	return true;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Retrieve the capacity of the vector
+///
+/// This function returns the capacity of the vector
+/// 
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline size_type Vector<T>::getcapacity()
 {
 	return this->capacity;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Check if vector is empty
+///
+/// This function returns the size of the vector
+/// 
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline bool Vector<T>::empty()
 {
 	return !size;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Sorts the array
+///
+/// This function sorts the array with quicksort algorithm 
+/// from smaller value to greater. ie. ascending order
+/// 
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::sort()
@@ -304,6 +414,15 @@ inline void Vector<T>::sort()
 	}
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Access an item
+///
+/// This operator returns an item from the vector
+/// 
+/// \param index	index of the item to be returned
+/// 
+////////////////////////////////////////////////////////////
+
 
 template<class T>
 inline T Vector<T>::operator[](size_type index)
@@ -313,11 +432,27 @@ inline T Vector<T>::operator[](size_type index)
 	return this->internal_array[index];
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Retrieve an item in the vector
+///
+/// This function returns an item in the vector
+/// 
+/// \param index	index of the item to be returned
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline T Vector<T>::at(size_type index)
 {
 	return this->internal_array[index];
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Retrieve the first item
+///
+/// This function return the item at the front of the vector
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline T Vector<T>::front()
@@ -325,11 +460,27 @@ inline T Vector<T>::front()
 	return this->internal_array[0];
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Retrieve the last item
+///
+/// This function return the last item of the vector
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline T Vector<T>::back()
 {
 	return this->internal_array[this->size - 1];
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Adds an item to the back
+///
+/// This function adds an item to the back of the vector
+/// 
+/// \param item	The item to be added
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::push_back(T& item)
@@ -338,6 +489,16 @@ inline void Vector<T>::push_back(T& item)
 		reserve(this->capacity + interval_rate);
 	this->internal_array[this->size++] = item;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Slice the vector
+///
+/// This function slices the vector into a smaller or same sized vector
+/// 
+/// \param start	Start index to slice
+/// \param end	End index to slice
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::trim(size_type start, size_type end)
@@ -355,6 +516,14 @@ inline void Vector<T>::trim(size_type start, size_type end)
 	this->size = end - start;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Remove item from back
+///
+/// This function removes an item from the back of the array
+/// decreasing the vector's size by 1
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline void Vector<T>::pop_back()
 {
@@ -366,6 +535,17 @@ inline void Vector<T>::pop_back()
 		(this->internal_array[this->size]).~T();
 	this->size--;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief Insert item
+///
+/// This function inserts an item to a specified index,
+/// pushing other values back
+/// 
+/// \param position	index to insert
+/// \param value	item to insert
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::insert(T position, T& value)
@@ -385,6 +565,16 @@ inline void Vector<T>::insert(T position, T& value)
 	this->size++;
 }
 
+////////////////////////////////////////////////////////////
+/// \brief Removes an item
+///
+/// This function removes an item at a specified index,
+/// moving other items forward
+/// 
+/// \param position	index to be removed
+///
+////////////////////////////////////////////////////////////
+
 template<class T>
 inline T* Vector<T>::erase(size_type position)
 {
@@ -396,6 +586,13 @@ inline T* Vector<T>::erase(size_type position)
 	this->size--;
 	return &ret_value;
 }
+
+////////////////////////////////////////////////////////////
+/// \brief DEBUG PRINT
+///
+/// This functions prints all values and index in the vector
+///
+////////////////////////////////////////////////////////////
 
 template<class T>
 inline void Vector<T>::print()
