@@ -1,3 +1,9 @@
+/*
+Team member: Lim Kai Xian, Jason
+Group: CookieZ
+studentID: S10195450H
+*/
+
 //Stack.h (Pointer-based implementation)
 #pragma once
 #include <iostream>

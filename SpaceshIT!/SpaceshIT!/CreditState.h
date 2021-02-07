@@ -1,3 +1,9 @@
+/*
+Team member: Lim Kai Xian
+Group: CookieZ
+studentID: S10195450H
+*/
+
 #pragma once
 #include "State.h"
 #include "GraphicsSettings.h"

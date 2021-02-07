@@ -1,3 +1,9 @@
+/*
+Team member: Lim Kai Xian
+Group: CookieZ
+studentID: S10195450H
+*/
+
 // Queue.h - Specification of Queue ADT (Pointer-based)
 #pragma once
 #include<string>
