@@ -292,7 +292,32 @@ void GameState::updateGameStateEnd()
 				this->playerWin.setString("Player 2 wins \n Press ESC to exit");
 			else
 				this->playerWin.setString("Player 1 wins \n Press ESC to exit");
+
 		}
+		
+	}
+	if (this->endGame)
+	{
+		for (unsigned i = 0; i < this->playerVec->getsize(); i++)
+		{
+			int point = this->playerVec->at(i)->getPoints();
+			this->playerPoints.push_back(point);
+		}
+		// Open config(.ini) file
+		std::ofstream player1_db("Config/DB/scores_player1.ini", std::ios::app);
+		if (player1_db.is_open())
+		{
+			player1_db << this->playerPoints.at(0) << std::endl;
+		}
+		player1_db.close();
+
+		// Open config(.ini) file
+		std::ofstream player2_db("Config/DB/scores_player2.ini", std::ios::app);
+		if (player2_db.is_open())
+		{
+			player2_db << this->playerPoints.at(1) << std::endl;
+		}
+		player2_db.close();
 	}
 }
 

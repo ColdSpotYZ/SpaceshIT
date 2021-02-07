@@ -67,4 +67,25 @@ namespace gui
 		void update(const sf::Vector2f& mousePos, const float& dt);
 		void render(sf::RenderTarget* target);
 	};
+
+	class List
+	{
+	private:
+		float keyTime;
+		float keyTimeMax;
+		sf::Font& font;
+		gui::Button* activeSelection;
+		Vector <gui::Button*> list;
+		bool showList;
+
+	public:
+		List(float x, float y, float width, float height, sf::Font& font, Vector<int> options, unsigned noOfElements, char* default_name);
+		~List();
+
+		// Functions
+		const bool getKeyTime();
+		void updateKeyTime(const float& dt);
+		void update(const sf::Vector2f& mousePos, const float& dt);
+		void render(sf::RenderTarget* target);
+	};
 }

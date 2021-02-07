@@ -98,7 +98,10 @@ void MainMenuState::updateButtons()
 		this->states->push(new CreditState(this->window, this->supportedKeys, this->states));
 		
 	if (this->buttons[(char*)"SETTINGS"]->isPressed() && this->getKeyTime())
+	{
+		this->keyTime = 0.f;
 		this->states->push(new SettingState(this->window, this->gfxSettings, this->supportedKeys, this->states));
+	}
 
 	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();

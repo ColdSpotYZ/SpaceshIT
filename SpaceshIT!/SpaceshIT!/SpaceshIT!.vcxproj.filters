@@ -63,6 +63,9 @@
     <ClCompile Include="xhash.cpp">
       <Filter>ALG</Filter>
     </ClCompile>
+    <ClCompile Include="LeaderboardState.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="xhash.h">
       <Filter>ALG</Filter>
+    </ClInclude>
+    <ClInclude Include="LeaderboardState.h">
+      <Filter>State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

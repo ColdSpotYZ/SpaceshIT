@@ -56,6 +56,11 @@ const int Player::getPlayerNum() const
 	return this->playerNum;
 }
 
+const int Player::getPoints() const
+{
+	return (this->points < 0) ? 0 : this->points;
+}
+
 void Player::move(const float dt, const float x, const float y)
 {
 	this->sprite->move(this->speed * x * dt, this->speed * y * dt);
@@ -64,6 +69,7 @@ void Player::move(const float dt, const float x, const float y)
 void Player::takeDamage()
 {
 	this->health -= 20;
+	this->points += this->healthLostPoints;
 	if (this->health < 0)
 	{
 		this->health = 0;
@@ -73,6 +79,7 @@ void Player::takeDamage()
 void Player::shoot()
 {
 	this->ammo -= 1;
+	this->points += this->bulletUsedPoints;
 	if (this->ammo < 0)
 	{
 		this->ammo = 0;
@@ -250,6 +257,7 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 		this->rotateAmount2 = 0;
 	}
 	this->updateAttack();
+	this->points += this->tickPoints;
 }
 
 void Player::queuePlayerLocation()

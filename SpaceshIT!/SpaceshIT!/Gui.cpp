@@ -193,3 +193,67 @@ void gui::DropDownList::render(sf::RenderTarget* target)
 			i->render(target);
 	}
 }
+
+gui::List::List(float x, float y, float width, float height, sf::Font& font, Vector<int> options, unsigned noOfElements, char* default_name)
+	:font(font), showList(false), keyTimeMax(10.f), keyTime(0.f)
+{
+	this->activeSelection = new gui::Button(
+		sf::Vector2f(x, y), sf::Vector2f(width, height),
+		&this->font, default_name,
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200),
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 200)
+	);
+	for (unsigned i = 0; i < noOfElements; i++)
+	{
+		Button* temp = new gui::Button(
+			sf::Vector2f(x, y + (noOfElements - i) * height), sf::Vector2f(width, height),
+			&this->font, (char*)std::to_string(options[i]).c_str(),
+			sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200),
+			sf::Color::Transparent, sf::Color::Transparent, sf::Color::Transparent,
+			i
+		);
+		this->list.push_back(temp);
+	}
+
+}
+
+gui::List::~List()
+{
+}
+
+const bool gui::List::getKeyTime()
+{
+	if (this->keyTime >= this->keyTimeMax)
+	{
+		this->keyTime = 0.f;
+		return true;
+	}
+	return false;
+}
+
+void gui::List::updateKeyTime(const float& dt)
+{
+	if (this->keyTime < this->keyTimeMax)
+		this->keyTime += 20.f * dt;
+}
+
+void gui::List::update(const sf::Vector2f& mousePos, const float& dt)
+{
+	this->updateKeyTime(dt);
+	this->activeSelection->update(mousePos);
+
+	if (this->activeSelection->isPressed() && this->getKeyTime())
+	{
+		this->showList = !this->showList;
+	}
+}
+
+void gui::List::render(sf::RenderTarget* target)
+{
+	this->activeSelection->render(target);
+	if (this->showList)
+	{
+		for (auto& i : this->list)
+			i->render(target);
+	}
+}
