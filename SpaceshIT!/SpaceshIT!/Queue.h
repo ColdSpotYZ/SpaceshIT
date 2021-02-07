@@ -2,6 +2,7 @@
 #pragma once
 #include<string>
 #include<iostream>
+#include "xhash.h"
 
 using namespace std;
 

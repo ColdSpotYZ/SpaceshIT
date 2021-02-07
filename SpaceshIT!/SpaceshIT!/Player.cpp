@@ -262,22 +262,27 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 
 void Player::queuePlayerLocation()
 {
+	bool validmovement = true;
 	sf::Vector2f CurrentLocation = this->sprite->getPosition();
 	sf::Vector2f location;
 	std::string hash;
 	if (!this->PlayerLocations.isEmpty())
 		this->PlayerLocations.getBack(location, hash);
 	this->PlayerLocations.enqueue_back(CurrentLocation);
-	xhash("test");
 	if (!this->PlayerLocations.isEmpty())
 	{
-		if ("" == hash)
+		if (xhash((std::to_string(location.x) + std::to_string(location.y))) == hash)
 		{
 			if (!((CurrentLocation.x - location.x) < 8) && ((CurrentLocation.x - location.x) > -8) && ((CurrentLocation.y - location.y) < 8) && ((CurrentLocation.y - location.y) > -8))
-			{
-				std::cout << "invalid movement" << endl;
-			}
+				validmovement = false;
 		}
+		else
+			validmovement = false;
+	}
+	if (!validmovement)
+	{
+		// Server Implementation (Ban the user)
+		std::cout << "Cheating have been detected" << endl;
 	}
 
 	
