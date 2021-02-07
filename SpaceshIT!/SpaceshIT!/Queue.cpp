@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Queue::Queue() { size = 0; current = 0; salt = rand() % 512; }
+Queue::Queue() { size = 0; current = 0; salt = rand() % 512;}
 
 Queue::~Queue()
 {
@@ -24,7 +24,7 @@ bool Queue::enqueue_back(ItemType item)
 	{
 		dequeue_front();
 	}
-	string hashoflocation = "";//sha256((std::to_string(item.x) + std::to_string(item.y)));
+	string hashoflocation = xhash((std::to_string(item.x) + std::to_string(item.y)));
 	locations[current] = item;
 	hashes[current] = hashoflocation;
 	size++;
@@ -39,7 +39,7 @@ bool Queue::enqueue_front(ItemType item)
 	{
 		dequeue_back();
 	}
-	string hashoflocation = "";//sha256((std::to_string(item.x) + std::to_string(item.y)));
+	string hashoflocation = xhash((std::to_string(item.x) + std::to_string(item.y)));
 	locations[current] = item;
 	hashes[current] = hashoflocation;
 	size++;
