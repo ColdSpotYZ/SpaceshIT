@@ -33,6 +33,12 @@ private:
     // Bullets
     Vector<Bullet*> bullets;
 
+    // Points
+    int tickPoints = 1;
+    int healthLostPoints = -500;
+    int bulletUsedPoints = -20;
+    int points = 0;
+
     // Attack
     float attackCoolDown;
     float attackCoolDownMax;
@@ -48,6 +54,7 @@ public:
     const int getHp() const;
     const int getHpMax() const;
     const int getPlayerNum() const;
+    const int getPoints() const;
 
 
     // Functions

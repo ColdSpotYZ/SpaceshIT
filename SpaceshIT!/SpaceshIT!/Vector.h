@@ -15,6 +15,11 @@ private:
 	// Reserve space to allocate new array
 	void reserve(size_type new_capacity);
 
+	// Sorting function
+	void swap(int* a, int* b);
+	int partition(int left, int right);
+	void quicksort(int left, int right);
+
 public:
 
 	// Member functions
@@ -52,6 +57,8 @@ public:
 	size_type getcapacity();
 	bool empty();
 
+	// Sort wrapper
+	void sort();
 
 	// Accessors
 	T operator[] (size_type index);
@@ -61,6 +68,7 @@ public:
 
 	// Modifiers
 	void push_back(T& item);
+	void trim(size_type start, size_type end);
 
 	/*
 	Description: Remove last item, effectively reducing size of vector by 1
@@ -122,6 +130,55 @@ inline void Vector<T>::reserve(size_type new_capacity)
 	this->capacity = new_capacity;
 	delete[] this->internal_array;
 	this->internal_array = temp;
+}
+
+template<class T>
+inline void Vector<T>::swap(int* a, int* b)
+{
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+
+template<class T>
+inline int Vector<T>::partition(int left, int right)
+{
+	int mid = (left + right) / 2;
+	int pivot = this->internal_array[mid];
+	int i = left;
+	int j = right;
+
+	while (i < j)
+	{
+		while (this->internal_array[i] < pivot)
+			i++;
+		while (this->internal_array[j] > pivot)
+			j--;
+		if (this->internal_array[i] == pivot && this->internal_array[j] == pivot)
+		{
+			if (i == mid)
+				j--;
+			else if (j == mid)
+				i++;
+
+		}
+		if (i < j)
+		{
+			swap(&this->internal_array[i], &this->internal_array[j]);
+		}
+	}
+	return i;
+}
+
+template<class T>
+inline void Vector<T>::quicksort(int left, int right)
+{
+	if (left < right)
+	{
+		int pivotIdx = partition(left, right);
+		quicksort(left, pivotIdx - 1);
+		quicksort(pivotIdx + 1, right);
+	}
 }
 
 ////////////////////////////////////////////////////////////
@@ -236,6 +293,16 @@ inline bool Vector<T>::empty()
 }
 
 template<class T>
+inline void Vector<T>::sort()
+{
+	if (typeid(this->internal_array[0]) == typeid(int))
+	{
+		quicksort(0, this->size - 1);
+	}
+}
+
+
+template<class T>
 inline T Vector<T>::operator[](size_type index)
 {
 	if (index > this->size)
@@ -267,6 +334,22 @@ inline void Vector<T>::push_back(T& item)
 	if (this->size >= this->capacity)
 		reserve(this->capacity + interval_rate);
 	this->internal_array[this->size++] = item;
+}
+
+template<class T>
+inline void Vector<T>::trim(size_type start, size_type end)
+{
+	if (start < 0)
+		start = 0;
+	if (end > this->size)
+		end = this->size;
+	T* temp = new T[end - start];
+	for (unsigned i = start; i < end; i++)
+	{
+		temp[i - start] = this->internal_array[i];
+	}
+	this->internal_array = temp;
+	this->size = end - start;
 }
 
 template<class T>

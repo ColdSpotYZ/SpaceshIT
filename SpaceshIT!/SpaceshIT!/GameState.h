@@ -35,6 +35,8 @@ private:
     float spawnTimerHealthPackMax = 100.f;
     Vector<HealthPack*> HealthPacks;
 
+    // Points
+    Vector<int> playerPoints;
 
     // Background
     sf::Texture backgroundTexture;

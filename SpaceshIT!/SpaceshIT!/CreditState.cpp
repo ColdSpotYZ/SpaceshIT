@@ -13,7 +13,8 @@ void CreditState::initKeybinds()
 	this->keybinds.insert(&temp);
 }
 
-CreditState::CreditState(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<State*>* states) : State(window, supportedKeys, states)
+CreditState::CreditState(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<State*>* states) 
+	: State(window, supportedKeys, states)
 {
 	this->initFont();
 	this->initKeybinds();
@@ -40,6 +41,12 @@ void CreditState::initBackground()
 
 void CreditState::initGUI()
 {
+	this->buttons[(char*)"LEADERBOARD"] = new gui::Button(sf::Vector2f(300, 700), sf::Vector2f(150, 50),
+		&this->font, (char*)"LEADERBOARD",
+		sf::Color(70, 70, 70, 200),
+		sf::Color(150, 150, 150, 255),
+		sf::Color(20, 20, 20, 200));
+
 	this->buttons[(char*)"EXIT_STATE"] = new gui::Button(sf::Vector2f(100, 700), sf::Vector2f(150, 50),
 		&this->font, (char*)"BACK",
 		sf::Color(70, 70, 70, 200),
@@ -57,8 +64,8 @@ void CreditState::endState()
 
 void CreditState::updateInput(const float& dt)
 {
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-		this->endState();*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))) && this->getKeyTime())
+		this->endState();
 }
 
 void CreditState::updateGUI(const float& dt)
@@ -68,6 +75,9 @@ void CreditState::updateGUI(const float& dt)
 	{
 		i.second->update(this->mousePosView);
 	}
+
+	if (this->buttons[(char*)"LEADERBOARD"]->isPressed() && this->getKeyTime())
+		this->states->push(new LeaderboardState(this->window, this->supportedKeys, this->states));
 
 	if (this->buttons[(char*)"EXIT_STATE"]->isPressed() && this->getKeyTime())
 		this->endState();

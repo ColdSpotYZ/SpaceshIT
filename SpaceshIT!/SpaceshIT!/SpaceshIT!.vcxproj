@@ -143,6 +143,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HealthPack.cpp" />
+    <ClCompile Include="LeaderboardState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Menu[OLD].cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HealthPack.h" />
+    <ClInclude Include="LeaderboardState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu[OLD].h" />

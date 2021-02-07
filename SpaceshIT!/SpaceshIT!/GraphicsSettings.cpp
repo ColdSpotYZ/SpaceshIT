@@ -15,7 +15,7 @@ GraphicsSettings::GraphicsSettings()
 
 void GraphicsSettings::saveToFile(const std::string path)
 {
-	// Read config(.ini) file
+	// Open config(.ini) file
 	std::ofstream ofs(path);
 
 	if (ofs.is_open())
