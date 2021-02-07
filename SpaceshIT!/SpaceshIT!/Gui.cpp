@@ -8,6 +8,7 @@ gui::Button::Button(sf::Vector2f pos, sf::Vector2f size, sf::Font* font, char* t
 )
 {
 	this->buttonState = BTN_IDLE;
+	this->id = id;
 	// Rectangle
 	this->shape.setPosition(pos);
 	this->shape.setSize(size);
@@ -113,7 +114,7 @@ gui::DropDownList::DropDownList(float x, float y, float width, float height, sf:
 		sf::Vector2f(x, y), sf::Vector2f(width, height),
 		&this->font, (char*)options[default_index].c_str(),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200),
-		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 200)
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 200), default_index
 	);
 	for (unsigned i = 0; i < noOfElements; i++)
 	{
