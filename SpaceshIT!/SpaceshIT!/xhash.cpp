@@ -151,7 +151,7 @@ std::string XHASH::getHash()
 
 string XHASH::GetHexFromBin(string sBinary)
 {
-    string rest(""), tmp, chr = "0000";
+    string rest= "", tmp, chr = "0000";
     int len = sBinary.length() / 4;
     chr = chr.substr(0, len);
     sBinary = chr + sBinary;
