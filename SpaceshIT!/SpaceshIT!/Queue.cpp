@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "Queue.h"
 #include <string>
@@ -11,62 +12,132 @@ Queue::~Queue()
 {
 	while (!isEmpty())
 	{
-		dequeue();
+		dequeue_back();
 	}
 	current = NULL;
 	size = NULL;
 }
 
-bool Queue::enqueue(ItemType item)
+bool Queue::enqueue_back(ItemType item)
 {
-
-	if (size == 5)
+	if (size >= 4)
 	{
-		dequeue();
+		dequeue_front();
 	}
-	string hashoflocation = sha256(item);
+	string hashoflocation = "";//sha256((std::to_string(item.x) + std::to_string(item.y)));
 	locations[current] = item;
 	hashes[current] = hashoflocation;
 	size++;
-	current = (current++) % 4;
+	current++;
+	current = current % 5;
 	return true;
 }
 
-bool Queue::dequeue()
+bool Queue::enqueue_front(ItemType item)
+{
+	if (size >= 4)
+	{
+		dequeue_back();
+	}
+	string hashoflocation = "";//sha256((std::to_string(item.x) + std::to_string(item.y)));
+	locations[current] = item;
+	hashes[current] = hashoflocation;
+	size++;
+	current--;
+	current = current % 5;
+	return true;
+}
+
+bool Queue::dequeue_back()
 {
 	bool success = !isEmpty();
 	if (success)
 	{
-		locations[current].clear();
-		hashes[current].clear();
+		current++;
+		current = current % 5;
+		locations[current].x = NULL;
+		locations[current].y = NULL;
+		hashes[current] = "";
+		size--;
 	}
 	return success;
 }
 
-bool Queue::dequeue(ItemType& location, ItemType hash)
+bool Queue::dequeue_back(ItemType& location, std::string& hash)
 {
-
 	bool success = !isEmpty();
 	if (success)
 	{
-		if (size == 0)
-			current = 4;
-		else if (size != 5)
+		current++;
+		current = current % 5;
+		location = locations[current];
+		hash = hashes[current];
+		locations[current].x = NULL;
+		locations[current].y = NULL;
+		hashes[current] = "";
+		size--;
+	}
+	return success;
+}
+
+bool Queue::dequeue_front()
+{
+	bool success = !isEmpty();
+	if (success)
+	{
+		current--;
+		current = current % 5;
+		locations[current].x = NULL;
+		locations[current].y = NULL;
+		hashes[current] = "";
+		size--;
+	}
+	return success;
+}
+
+bool Queue::dequeue_front(ItemType& location, std::string& hash)
+{
+	bool success = !isEmpty();
+	if (success)
+	{
+		current--;
+		current = current % 5;
+		location = locations[current];
+		hash = hashes[current];
+		locations[current].x = NULL;
+		locations[current].y = NULL;
+		hashes[current] = "";
+		size--;
+	}
+	return success;
+}
+
+void Queue::getFront(ItemType& location, std::string& hash)
+{
+	if (!isEmpty())
+	{
+		if (size == 5) // When the array is full the front of the queue would be the next of the current
 		{
-			current = (current--) % 4;
+			location = locations[current + 1];
+			hash = hashes[current + 1];
 		}
-		location = location[current];
-		hash = hash[current];
-		locations[current].clear();
-		hashes[current].clear();
+		else
+		{
+			location = locations[current - size];
+			hash = hashes[current - size];
+		}
 	}
-	return success;
 }
 
-void Queue::getFront(ItemType& location, ItemType hash)
+void Queue::getBack(ItemType& location, std::string& hash)
 {
-	location = location[current];
-	hash = hash[current];
+	if (!isEmpty())
+	{
+		int temp = current - 1;
+		temp = temp % 5;
+		location = locations[temp];
+		hash = hashes[temp];
+	}
 }
 
 bool Queue::isEmpty()

@@ -39,6 +39,9 @@ public:
 	//retrieve item from top of stack
 	void getTop(T& item);
 
+	// Get the size of the stack
+	int getSize();
+
 	//display items in stack in order
 	void displayInOrder();
 
@@ -129,6 +132,12 @@ void Stack<T>::getTop(T& item)
 	{
 		item = state[size-1];
 	}
+}
+
+template<class T>
+inline int Stack<T>::getSize()
+{
+	return size;
 }
 
 template<class T>

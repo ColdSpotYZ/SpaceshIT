@@ -94,8 +94,8 @@ void MainMenuState::updateButtons()
 	if (this->buttons[(char*)"GAME_STATE"]->isPressed() && this->getKeyTime())
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 
-	//if (this->buttons[(char*)"CREDITS"]->isPressed())
-	//	this->states->push(new CreditState(this->window, this->supportedKeys, this->states))
+	if (this->buttons[(char*)"CREDITS"]->isPressed())
+		this->states->push(new CreditState(this->window, this->supportedKeys, this->states));
 		
 	if (this->buttons[(char*)"SETTINGS"]->isPressed() && this->getKeyTime())
 		this->states->push(new SettingState(this->window, this->gfxSettings, this->supportedKeys, this->states));

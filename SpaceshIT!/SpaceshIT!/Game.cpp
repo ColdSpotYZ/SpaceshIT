@@ -74,7 +74,6 @@ Game::Game()
 	this->initStates();
 	this->initWorld();
 	this->initFonts();
-
 }
 
 Game::~Game()

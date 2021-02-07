@@ -3,6 +3,8 @@
 #include "Bullet.h"
 #include "Asteroids.h"
 #include "Map.h"
+#include "Queue.h"
+#include "sha256.h"
 
 class Player :
     public Actor
@@ -23,6 +25,9 @@ private:
     float rotateAmount2 = 0;
     sf::Vector2f p1Velocity{ 0.f, 0.f };
     sf::Vector2f p2Velocity{ 0.f, 0.f };
+
+    // UpdateLocation
+    Queue PlayerLocations;
 
     // Bullets
     Vector<Bullet*> bullets;
@@ -55,7 +60,7 @@ public:
     void heal();
     void restockammo();
 
-
+    void queuePlayerLocation();
     void update(const float dt) override;
     void update(const float dt, Map<std::string, int> keybinds);
     void render(sf::RenderTarget* target);

@@ -68,7 +68,7 @@ Map<K, T>::Map()
 {
 	size = 0;
 	salt = rand() % maximum_size;
-	for (int i = 0; i < 201; i++)
+	for (int i = 0; i < maximum_size; i++)
 	{
 		items[i] = nullptr;
 	}
@@ -78,7 +78,11 @@ Map<K, T>::Map()
 template<class K, class T>
 Map<K, T>::~Map()
 {
-
+	size = 0;
+	for (int i = 0; i < maximum_size; i++)
+	{
+		items[i] = nullptr;
+	}
 }
 
 // Insertion of the key and the value
@@ -91,7 +95,6 @@ bool Map<K, T>::insert(pair<K, T> pairarray[])
 	Node* temp = new Node;
 	temp->item = (T)pairarray->second;
 	temp->key = (K)pairarray->first;
-	cout << (K)pairarray->first << " " << (T)pairarray->second  << endl;
 	if (items[hashkey] != nullptr)
 	{
 		return false;

@@ -15,6 +15,7 @@ State::State(sf::RenderWindow* window, Map<string, int>* supportedKeys, Stack<St
 
 State::~State()
 {
+
 }
 
 const bool& State::getQuit() const

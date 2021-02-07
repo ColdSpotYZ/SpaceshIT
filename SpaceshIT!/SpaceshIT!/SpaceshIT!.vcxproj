@@ -137,6 +137,7 @@
     <ClCompile Include="Asteroids.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletPack.cpp" />
+    <ClCompile Include="CreditState.cpp" />
     <ClCompile Include="GraphicsSettings.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Asteroids.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletPack.h" />
+    <ClInclude Include="CreditState.h" />
     <ClInclude Include="GraphicsSettings.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Game.h" />

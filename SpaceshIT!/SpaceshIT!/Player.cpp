@@ -235,7 +235,6 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 			this->bullets.push_back(tempBullet);
 			this->shoot();
 		}
-		
 		if (!isPress)
 			this->rotation2 = 0;
 		if (this->rotation2 < 0 && this->rotateAmount2 > 0)
@@ -250,6 +249,29 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 		this->rotateAmount2 = 0;
 	}
 	this->updateAttack();
+	this->queuePlayerLocation();
+}
+
+void Player::queuePlayerLocation()
+{
+	sf::Vector2f CurrentLocation = this->sprite->getPosition();
+	sf::Vector2f location;
+	std::string hash;
+	if (!this->PlayerLocations.isEmpty())
+		this->PlayerLocations.getBack(location, hash);
+	this->PlayerLocations.enqueue_back(CurrentLocation);
+	if (!this->PlayerLocations.isEmpty())
+	{
+		if ("" == hash)
+		{
+			if (!((CurrentLocation.x - location.x) < 5) && ((CurrentLocation.x - location.x) > -5) && ((CurrentLocation.y - location.y) < 5) && ((CurrentLocation.y - location.y) > -5))
+			{
+				std::cout << "invalid movement" << endl;
+			}
+		}
+	}
+
+	
 }
 
 void Player::render(sf::RenderTarget* target)

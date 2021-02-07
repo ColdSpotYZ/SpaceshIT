@@ -3,8 +3,8 @@
 #include "GameState.h"
 #include "GraphicsSettings.h"
 #include "SettingState.h"
+#include "CreditState.h"
 #include "Gui.h"
-
 
 class MainMenuState :
     public State
