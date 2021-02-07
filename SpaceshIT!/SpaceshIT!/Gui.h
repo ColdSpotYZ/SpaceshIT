@@ -1,3 +1,8 @@
+/*
+Team member: Jason Chua
+Group: CookieZ
+studentID: S10195450H
+*/
 #pragma once
 
 enum buttonStates {BTN_IDLE = 0, BTN_HOVER = 1, BTN_ACTIVE = 2};

@@ -1,3 +1,8 @@
+/*
+Team member: Jason Chua & Lim Kai Xian
+Group: CookieZ
+studentID: S10195450H & S10195144H
+*/
 #pragma once
 #include "Actor.h"
 #include "Bullet.h"
