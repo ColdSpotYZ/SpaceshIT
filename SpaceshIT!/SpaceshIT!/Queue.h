@@ -15,6 +15,7 @@ private:
 	string hashes[max_size];
 	int size;
 	int current;
+	int salt;
 
 public:
 	// constructor

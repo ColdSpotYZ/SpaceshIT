@@ -153,6 +153,7 @@ void Player::update(const float dt)
 
 void Player::update(const float dt, Map<std::string, int> keybinds)
 {
+	this->queuePlayerLocation();
 	bool isPress = false;
 	if (this->playerNum == 1)
 	{
@@ -249,7 +250,6 @@ void Player::update(const float dt, Map<std::string, int> keybinds)
 		this->rotateAmount2 = 0;
 	}
 	this->updateAttack();
-	this->queuePlayerLocation();
 }
 
 void Player::queuePlayerLocation()
@@ -260,11 +260,12 @@ void Player::queuePlayerLocation()
 	if (!this->PlayerLocations.isEmpty())
 		this->PlayerLocations.getBack(location, hash);
 	this->PlayerLocations.enqueue_back(CurrentLocation);
+	xhash("test");
 	if (!this->PlayerLocations.isEmpty())
 	{
 		if ("" == hash)
 		{
-			if (!((CurrentLocation.x - location.x) < 5) && ((CurrentLocation.x - location.x) > -5) && ((CurrentLocation.y - location.y) < 5) && ((CurrentLocation.y - location.y) > -5))
+			if (!((CurrentLocation.x - location.x) < 8) && ((CurrentLocation.x - location.x) > -8) && ((CurrentLocation.y - location.y) < 8) && ((CurrentLocation.y - location.y) > -8))
 			{
 				std::cout << "invalid movement" << endl;
 			}

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Queue::Queue() { size = 0; current = 0; }
+Queue::Queue() { size = 0; current = 0; salt = rand() % 512; }
 
 Queue::~Queue()
 {
