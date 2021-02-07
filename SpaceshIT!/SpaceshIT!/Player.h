@@ -4,7 +4,6 @@
 #include "Asteroids.h"
 #include "Map.h"
 #include "Queue.h"
-#include "sha256.h"
 #include "xhash.h"
 
 class Player :

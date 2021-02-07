@@ -35,10 +35,6 @@ public:
 	// Hashing the key to get an integer for the comparison in key (AVL Tree)
 	int hash(std::string Key);
 
-	// Erasing based of the position of the iteration
-	bool erase(int iteratorpos);
-	bool erase(Node*& root, int iteratorpos);
-
 	// Erasing based of the key of the mapped value
 	bool erase(K key);
 
@@ -54,9 +50,6 @@ public:
 
 	// Counting the number of mapped values are in the map
 	int getAmount();
-
-	// Prints out all the mapping of the key to the value
-	void printMap();
 };
 
 ///////////////////////////////
@@ -105,7 +98,6 @@ bool Map<K, T>::insert(pair<K, T> pairarray[])
 		items[hashkey] = temp;
 	}
 	size++;
-	printMap();
 	return true;
 }
 
@@ -153,12 +145,13 @@ inline T Map<K, T>::at(K Key)
 }
 
 template<class K, class T>
-inline bool Map<K, T>::Change(pair<K, T> pairarray[])
+bool Map<K, T>::Change(pair<K, T> pairarray[])
 {
 	int hashKey = this->hash((K)pairarray->first);
 	if (items[hashKey] != nullptr)
 	{
 		items[hashKey]->item = (T)pairarray->second;
+		return true;
 	}
 	else
 		return false;
@@ -186,17 +179,5 @@ template<class T, class V>
 int Map<T, V>::getAmount()
 {
 	return size;
-}
-
-template<class K, class T>
-inline void Map<K, T>::printMap()
-{
-	for (int i = 0; i < maximum_size; i++)
-	{
-		if (items[i] != nullptr)
-		{
-			// cout << "valid" << endl;
-		}
-	}
 }
 

@@ -21,13 +21,13 @@ class XHASH
 		void init();
 		void update(const unsigned char* message, unsigned int len);
 		void final();
-		std::string XOR(string first, string second, int len);
+		std::string XOR(std::string first, string second, int len);
 		int intToBinary(int n);
-		int binarytoInt(string binary, int i);
+		int binarytoInt(std::string binary, int i);
 		std::string bitshift(std::string val, int num);
 		std::string paddingBinary(int num, int paddedLength);
 		std::string paddingBinary_back(std::string num, int paddedLength);
-		string GetHexFromBin(string sBinary);
+		string GetHexFromBin(std::string sBinary);
 		std::string getHash();
 
 	protected:

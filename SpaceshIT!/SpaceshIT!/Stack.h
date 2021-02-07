@@ -56,7 +56,7 @@ Stack<T>::Stack()
 { 
 	for (int i = 0; i < MAX_SIZE; i++)
 	{
-		state[i] = nullptr;
+		state[i] = T();
 	}
 	size = 0;
 }
