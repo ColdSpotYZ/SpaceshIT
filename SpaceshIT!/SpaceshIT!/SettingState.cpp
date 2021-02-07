@@ -42,12 +42,17 @@ void SettingState::initGUI()
 		sf::Color(20, 20, 20, 200));
 
 	Vector<std::string> modes_str;
+	int count = 0;
+	int def;
 	for (auto& i : this->modes)
 	{
+		if (i.width == this->window->getSize().x && i.height == this->window->getSize().y)
+			def = count;
 		std::string temp = std::to_string(i.width) + "x" + std::to_string(i.height);
 		modes_str.push_back(temp);
+		count++;
 	}
-	this->dropDownLists[(char*)"RESOLUTIONS"] = new gui::DropDownList(100, 100, 150, 50, font, modes_str, modes_str.getsize(), 4);
+	this->dropDownLists[(char*)"RESOLUTIONS"] = new gui::DropDownList(100, 100, 150, 50, font, modes_str, modes_str.getsize(), def);
 
 	Vector<std::string> yes_no;
 	string yes = "Yes";
@@ -160,6 +165,7 @@ void SettingState::updateGUI(const float& dt)
 
 void SettingState::update(const float& dt)
 {
+	this->background.setSize(sf::Vector2f((float)this->window->getSize().x, (float)this->window->getSize().y));
 	// MainMenuState updates
 	this->updateKeyTime(dt);
 	this->updateMousePosition();

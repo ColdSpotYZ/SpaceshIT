@@ -109,6 +109,7 @@ void MainMenuState::updateButtons()
 
 void MainMenuState::update(const float& dt)
 {
+	this->background.setSize(sf::Vector2f((float)this->window->getSize().x, (float)this->window->getSize().y));
 	// MainMenuState updates
 	this->updateKeyTime(dt);
 	this->updateMousePosition();
