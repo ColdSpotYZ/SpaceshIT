@@ -52,9 +52,9 @@ void LeaderboardState::initGUI()
 	player2_db.close();
 
 	player1Scores.sort();
-	player1Scores.trim(player1Scores.getsize() - 50, player1Scores.getsize());
+	player1Scores.trim(player1Scores.getsize() - 10, player1Scores.getsize());
 	player2Scores.sort();
-	player2Scores.trim(player2Scores.getsize() - 50, player2Scores.getsize());
+	player2Scores.trim(player2Scores.getsize() - 10, player2Scores.getsize());
 
 	this->Lists[(char*)"PLAYER 1"] = new gui::List(100, 100, 150, 50, font, player1Scores, player1Scores.getsize(), (char*)"Player 1");
 	this->Lists[(char*)"PLAYER 2"] = new gui::List(100, 300, 150, 50, font, player2Scores, player2Scores.getsize(), (char*)"Player 2");
@@ -142,9 +142,9 @@ void LeaderboardState::renderGUI(sf::RenderTarget* target)
 	}
 
 	// Render all list
-	for (auto& i : this->Lists)
+	for (auto iter = this->Lists.rbegin(); iter != this->Lists.rend(); ++iter)
 	{
-		i.second->render(target);
+		iter->second->render(target);
 	}
 }
 

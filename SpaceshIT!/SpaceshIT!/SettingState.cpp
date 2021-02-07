@@ -47,7 +47,34 @@ void SettingState::initGUI()
 		std::string temp = std::to_string(i.width) + "x" + std::to_string(i.height);
 		modes_str.push_back(temp);
 	}
-	this->dropDownLists[(char*)"RESOLUTIONS"] = new gui::DropDownList(100, 100, 150, 50, font, modes_str, modes_str.getsize());
+	this->dropDownLists[(char*)"RESOLUTIONS"] = new gui::DropDownList(100, 100, 150, 50, font, modes_str, modes_str.getsize(), 4);
+
+	Vector<std::string> yes_no;
+	string yes = "Yes";
+	string no = "No";
+	yes_no.push_back(no);
+	yes_no.push_back(yes);
+
+	Vector<std::string> antialias_levels;
+	string antialias_levels_1 = "1";
+	string antialias_levels_2 = "2";
+	string antialias_levels_4 = "4";
+	string antialias_levels_8 = "8";
+	string antialias_levels_16 = "16";
+	antialias_levels.push_back(antialias_levels_1);
+	antialias_levels.push_back(antialias_levels_2);
+	antialias_levels.push_back(antialias_levels_4);
+	antialias_levels.push_back(antialias_levels_8);
+	antialias_levels.push_back(antialias_levels_16);
+
+
+
+	this->dropDownLists[(char*)"FULLSCREEN"] = new gui::DropDownList(100, 250, 150, 50, font, yes_no, yes_no.getsize());
+
+	this->dropDownLists[(char*)"VSYNC"] = new gui::DropDownList(100, 400, 150, 50, font, yes_no, yes_no.getsize());
+
+	this->dropDownLists[(char*)"ANTIALIAS"] = new gui::DropDownList(100, 550, 150, 50, font, antialias_levels, antialias_levels.getsize());
+
 }
 
 void SettingState::initText()
@@ -56,7 +83,7 @@ void SettingState::initText()
 	this->optionsText.setPosition(sf::Vector2f(300, 125));
 	this->optionsText.setCharacterSize(24);
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
-	this->optionsText.setString("Resolution \n\n\n\n\n\nFullscreen \n\n\n\n\n\nVsync \n\n\n\n\n\nAntialiasing \n\n\n\n\n\n");
+	this->optionsText.setString("Resolution \n\n\n\n\n\nFullscreen \n\n\n\n\n\nVsync \n\n\n\n\n\nAntialiasing (NOT WORKING) \n\n\n\n\n\n");
 }
 
 SettingState::SettingState(sf::RenderWindow* window, GraphicsSettings& gfxSettings, Map<string, int>* supportedKeys, Stack<State*>* states)
@@ -119,9 +146,14 @@ void SettingState::updateGUI(const float& dt)
 
 	if (this->buttons[(char*)"APPLY"]->isPressed() && this->getKeyTime())
 	{
-		// TO REMOVE
 		this->gfxSettings.resolution = this->modes[this->dropDownLists[(char*)"RESOLUTIONS"]->getActiveElementId()];
-		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Titlebar | sf::Style::Close, this->gfxSettings.contextSettings);
+		this->gfxSettings.fullscreen = this->dropDownLists[(char*)"FULLSCREEN"]->getActiveElementId();
+		this->gfxSettings.verticalSync = this->dropDownLists[(char*)"VSYNC"]->getActiveElementId();
+		this->gfxSettings.contextSettings.antialiasingLevel = pow(2, this->dropDownLists[(char*)"ANTIALIAS"]->getActiveElementId());
+		if (this->gfxSettings.fullscreen)
+			this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Titlebar | sf::Style::Close | sf::Style::Fullscreen, this->gfxSettings.contextSettings);
+		else
+			this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Titlebar | sf::Style::Close, this->gfxSettings.contextSettings);
 	}
 
 }
@@ -144,15 +176,16 @@ void SettingState::renderGUI(sf::RenderTarget* target)
 	}
 
 	// Render all dropdownlist
-	for (auto& i : this->dropDownLists)
+	for (auto iter = this->dropDownLists.rbegin(); iter != this->dropDownLists.rend(); ++iter)
 	{
-		i.second->render(target);
+		iter->second->render(target);
 	}
 }
 
 void SettingState::render(sf::RenderTarget* target)
 {
 	target->draw(this->background);
-	this->renderGUI(target);
 	target->draw(this->optionsText);
+	this->renderGUI(target);
+	
 }

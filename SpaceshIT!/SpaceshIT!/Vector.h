@@ -152,8 +152,9 @@ inline int Vector<T>::partition(int left, int right)
 	{
 		while (this->internal_array[i] < pivot)
 			i++;
-		while (this->internal_array[j] > pivot)
+		while (this->internal_array[j] >= pivot)
 			j--;
+		
 		if (this->internal_array[i] == pivot && this->internal_array[j] == pivot)
 		{
 			if (i == mid)
