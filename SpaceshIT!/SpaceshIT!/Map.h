@@ -14,6 +14,7 @@ private:
 	{
 		K  key;   // search key
 		T item;	// data item
+		Node* next;
 	};
 
 	Node* items[maximum_size];
@@ -168,7 +169,7 @@ int Map<K, T>::hash(std::string Key)
 {
 	unsigned hk = salt;
 	for (int i = 0; i < Key.size(); i++)
-		hk = (hk * 21 + (unsigned)Key[i]) % maximum_size;
+		hk = (hk * 101 + (unsigned)Key[i]) % maximum_size;
 	return hk;
 }
 
