@@ -264,12 +264,12 @@ void Player::queuePlayerLocation()
 {
 	bool validmovement = true;
 	sf::Vector2f CurrentLocation = this->sprite->getPosition();
-	sf::Vector2f location;
+	sf::Vector2f location = CurrentLocation;
 	std::string hash;
 	if (!this->PlayerLocations.isEmpty())
 		this->PlayerLocations.getBack(location, hash);
 	this->PlayerLocations.enqueue_back(CurrentLocation);
-	if (!this->PlayerLocations.isEmpty())
+	if (this->PlayerLocations.getNoOfElements() > 1)
 	{
 		if (xhash((std::to_string(location.x) + std::to_string(location.y))) == hash)
 		{

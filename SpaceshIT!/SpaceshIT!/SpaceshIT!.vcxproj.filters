@@ -39,9 +39,6 @@
     <ClCompile Include="Gui.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="sha256.cpp">
-      <Filter>ALG</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Headers</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="Gui.h">
       <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="sha256.h">
-      <Filter>ALG</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>State</Filter>

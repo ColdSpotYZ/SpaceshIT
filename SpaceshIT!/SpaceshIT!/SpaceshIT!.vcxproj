@@ -152,7 +152,6 @@
     <ClCompile Include="PlayerGUI.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="SettingState.cpp" />
-    <ClCompile Include="sha256.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -180,7 +179,6 @@
     <ClInclude Include="PlayerGUI.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="SettingState.h" />
-    <ClInclude Include="sha256.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="stdafx.h" />
