@@ -1,3 +1,9 @@
+/* 
+Team member: Jason Chua
+Group: CookieZ
+studentID: S10195450H
+*/
+
 #pragma once
 #include <iostream>
 
